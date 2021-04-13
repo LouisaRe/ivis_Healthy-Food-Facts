@@ -1,4 +1,74 @@
+/*****************************************************
+/*General*/
+
+* {
+  font-family: sans-serif, Lato;
+}
 
 body{
   text-align:  center;
 }
+
+h1{
+  font-size: 38px;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+
+/*****************************************************
+/*Parallax-Effect*/
+
+#parallax-img-1, #parallax-img-2{
+
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+  position: relative;
+  padding: 20%;
+
+  background-attachment: fixed;
+}
+
+#parallax-img-1{
+  height: 500px;
+  background-image: url("humans_earth.jpg");
+}
+
+#parallax-img-2{
+  height: 0;
+  background-image: url("vegetables.jpg");
+}
+
+.parallax-text {
+  opacity: 1;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+
+  position: absolute;
+  left: 0;
+  top: 40%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+
+span {
+  color: white;
+  background-color: #111;
+  display: inline-block;
+  padding: 28px 20px 20px;
+}
+
+/*****************************************************
+/**/
+
+
+
+
+
