@@ -55,15 +55,15 @@ li {
 }
 #parallax-img-1{
   height: 500px;
-  background-image: url("humans_earth.jpg");
+  background-image: url("../img/humans_earth.jpg");
 }
 #parallax-img-2{
   height: 0;
-  background-image: url("healthy-food-medical-equipment.jpg");
+  background-image: url("../img/healthy-food-medical-equipment.jpg");
 }
 #parallax-img-3{
   height: 0;
-  background-image: url("book-library-with-open-textbook.jpg");
+  background-image: url("../img/book-library-with-open-textbook.jpg");
 }
 
 
