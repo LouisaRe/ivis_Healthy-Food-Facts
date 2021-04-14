@@ -28,8 +28,21 @@ h2 {
   letter-spacing: 10px;
   text-transform: uppercase;
 }
-h3 {
+h3, #chart-title {
   font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
+
+text {
+  font-size: 10px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.label-text{
+  font-size: 16px;
   line-height: 1.2;
   letter-spacing: 10px;
   text-transform: uppercase;

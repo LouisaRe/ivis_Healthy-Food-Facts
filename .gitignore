@@ -4,3 +4,4 @@
 
 # custom ignored files
 .idea/**
+/.idea/
