@@ -90,7 +90,6 @@ d3.csv("./data/lebenserwartung_ernaehrung.csv").then(function (data){
 
   //****************************
   //attach Data
-  console.log("height: " + height)
   console.log("yScale(d.LifeExpactency): " + data[0].LifeExpectancy)
   g.selectAll("rect")
     .data(data)
@@ -102,6 +101,35 @@ d3.csv("./data/lebenserwartung_ernaehrung.csv").then(function (data){
     .attr("width", xScale.bandwidth())
     .attr("height", d => height-(yScale(d.LifeExpectancy)));
 
-})
+  //****************************
+  //attach tooltip
+  var tooltipWindow = d3.select("#histogram_lebenserwartung_ernaehrung").append("div").classed("tooltipWindow", true);
+  g.selectAll("rect")
+    .on("mousemove", (event, d) => {
+    var position = d3.pointer(event, d);
+    var roundedLE = roundtoDecimalPlaces(d.LifeExpectancy, 2);
+    tooltipWindow
+      .style("left", margin.left + position[0] + "px")
+      .style("top", position[1] - 28 + "px")
+      .style("visibility", "visible")
+      .html(`<h4>${d.Entity} </h4>` +
+        `Life Expectancy: <b>${roundedLE}</b>`);
+    })
+    .on("mouseout", (event, d) => {
+      tooltipWindow.style("visibility", "hidden");
+    });
+});
 
+//****************************
+//helper functions
 
+let roundtoDecimalPlaces = (number, decPLaces) => {
+  var decimalPlaceShifter = Math.pow(10, decPLaces)  // * (10^2)
+  var interimNum = number * decimalPlaceShifter
+
+  if(interimNum % Math.round(interimNum) < 0.5){
+    return (Math.round(interimNum) / decimalPlaceShifter);       // round off
+  }else{
+    return ((Math.round(interimNum) + 1) / decimalPlaceShifter); // round up
+  }
+}

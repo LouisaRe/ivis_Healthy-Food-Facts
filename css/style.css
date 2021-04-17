@@ -34,6 +34,11 @@ h3, #chart-title {
   letter-spacing: 10px;
   text-transform: uppercase;
 }
+h4 {
+  font-size: 16px;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
 
 text {
   font-size: 10px;
@@ -125,5 +130,24 @@ span {
   padding: 0 100px 0 80px;
 }
 
+/*****************************************************
+/*diagrams*/
+
+.tooltipWindow {
+  padding: 8px;
+  position: absolute;
+  max-width: 300px;
+  display: inline-block;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.2;
+  background: var(--grey);
+  border: 1px;
+  border-color: white;
+  border-radius: 8px;
+  pointer-events: none;
+  visibility: hidden;
+  color: white;
+}
 
 
