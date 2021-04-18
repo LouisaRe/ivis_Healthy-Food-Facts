@@ -53,14 +53,24 @@ g.append("text")
 //**************************************************************************
 //Scales
 
+const colorScale = ["#61AA48", "#A8AA48", "#AA8F48" , "#AA6548" , "#AA4848"]
+
 //load data from cleaned csv file asynchronous
-d3.csv("./data/lebenserwartung_ernaehrung.csv").then(function (data){
+d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
+  console.log(data)
+
   //****************************
   //define Scales
+  var currentYear = 2016
+  var currentCountries = ["World", "Germany", "Switzerland", "Madagascar"]
 
-  data = data.filter(d => String(d.Code) === "").filter(d => Number(d.Year) === 2019)
-  const countriesDomain = [... new Set(data.map(d => String(d.Entity)))]
-  const lifeExpactencyDomain = d3.extent(data, d => Number(d.LifeExpectancy))
+  const malnutritionTotalDomain = d3.extent(data, d => Number(d.DeathsFromMalnutrition))
+  data = data.filter(d => Number(d.Year) === currentYear).filter(d => currentCountries.includes(String(d.Entity)));
+  console.log(data)
+  console.log("data.DeathsFromMalnutrition: " + data[0])
+  const countriesDomain = [... new Set(data.map(d=> String(d.Entity)))]
+  const lifeExpactencyDomain = d3.extent(data, d=> Number(d.LifeExpectancy))
+
 
   //xScale
   const xScale = d3.scaleBand().rangeRound([0,width]).padding(0.2)
@@ -69,9 +79,6 @@ d3.csv("./data/lebenserwartung_ernaehrung.csv").then(function (data){
   //yScale
   const yScale = d3.scaleLinear().rangeRound([height,0])
     .domain([d3.min(lifeExpactencyDomain)-5,d3.max(lifeExpactencyDomain)+2]);
-
-  //colorScale
-  const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
   //****************************
   //attach Scales
@@ -89,31 +96,35 @@ d3.csv("./data/lebenserwartung_ernaehrung.csv").then(function (data){
     .call(yAxis);
 
   //****************************
-  //attach Data
+  //attach data
   console.log("yScale(d.LifeExpactency): " + data[0].LifeExpectancy)
   g.selectAll("rect")
     .data(data)
     .enter().append("rect")
-    .attr("id", d => "bar_" + d.Entity.toLowerCase())
+    .attr("id", d=> "bar_" + d.Entity.toLowerCase())
     .attr("class", "bar")
-    .attr("x", d => xScale(d.Entity))
-    .attr("y", d => (yScale(d.LifeExpectancy)))
+    .attr("x", d=> xScale(d.Entity))
+    .attr("y", d=> (yScale(d.LifeExpectancy)))
     .attr("width", xScale.bandwidth())
-    .attr("height", d => height-(yScale(d.LifeExpectancy)));
+    .attr("height", d=> height-(yScale(d.LifeExpectancy)))
+    .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition));
 
   //****************************
   //attach tooltip
   var tooltipWindow = d3.select("#histogram_lebenserwartung_ernaehrung").append("div").classed("tooltipWindow", true);
+
   g.selectAll("rect")
     .on("mousemove", (event, d) => {
-    var position = d3.pointer(event, d);
-    var roundedLE = roundtoDecimalPlaces(d.LifeExpectancy, 2);
-    tooltipWindow
-      .style("left", margin.left + position[0] + "px")
-      .style("top", position[1] - 28 + "px")
-      .style("visibility", "visible")
-      .html(`<h4>${d.Entity} </h4>` +
-        `Life Expectancy: <b>${roundedLE}</b>`);
+        var position = d3.pointer(event, d);
+        var roundedLE = roundtoDecimalPlaces(d.LifeExpectancy, 2);
+
+        tooltipWindow
+          .style("left", margin.left + position[0] + "px")
+          .style("top", position[1] - 28 + "px")
+          .style("visibility", "visible")
+          .html(`<h4>${d.Entity} </h4>` +
+            `Life Expectancy: <b>${roundedLE}</b><br/>
+            Deaths from mal-nutrition: <b>${roundtoDecimalPlaces(d.DeathsFromMalnutrition, 2)}</b>`);
     })
     .on("mouseout", (event, d) => {
       tooltipWindow.style("visibility", "hidden");
@@ -131,5 +142,19 @@ let roundtoDecimalPlaces = (number, decPLaces) => {
     return (Math.round(interimNum) / decimalPlaceShifter);       // round off
   }else{
     return ((Math.round(interimNum) + 1) / decimalPlaceShifter); // round up
+  }
+}
+
+let malnutritionColor = (number) => {
+  if(number < 1){
+    return colorScale[0]
+  }else if(number < 10){
+    return colorScale[1]
+  }else if(number < 50){
+    return colorScale[2]
+  }else if(number < 100){
+    return colorScale[3]
+  }else{
+    return colorScale[4]
   }
 }
