@@ -41,9 +41,13 @@ h4 {
 }
 
 text {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.2;
   text-transform: uppercase;
+}
+
+.legend-text-wrapper {
+  text-align: left;
 }
 
 .label-text{
@@ -51,6 +55,14 @@ text {
   line-height: 1.2;
   letter-spacing: 10px;
   text-transform: uppercase;
+}
+
+.legend-text{
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: normal;
+  text-transform: none;
+  font-weight: lighter;
 }
 
 li {

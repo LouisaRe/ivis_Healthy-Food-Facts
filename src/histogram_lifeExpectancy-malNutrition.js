@@ -3,7 +3,7 @@ const title = "Life expectancy vs. Nutrition"
 //size and margin of svg
 const canvHeight = 800;
 const canvWidth = 1200;
-const margin = {top: 50, right: 20, bottom: 60, left: 60};
+const margin = {top: 50, right: 160, bottom: 60, left: 60};
 
 //size of chart area.
 const width = canvWidth - margin.left - margin.right;
@@ -53,7 +53,8 @@ g.append("text")
 //**************************************************************************
 //Scales
 
-const colorScale = ["#61AA48", "#A8AA48", "#AA8F48" , "#AA6548" , "#AA4848"]
+const colorDomain = [1, 10, 50, 100, 1000]
+const colorScale = ["#48AF2F", "#CEDD24", "#DDA924" , "#DD6724" , "#DD2424"]
 
 //load data from cleaned csv file asynchronous
 d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
@@ -64,7 +65,6 @@ d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
   var currentYear = 2016
   var currentCountries = ["World", "Germany", "Switzerland", "Madagascar"]
 
-  const malnutritionTotalDomain = d3.extent(data, d => Number(d.DeathsFromMalnutrition))
   data = data.filter(d => Number(d.Year) === currentYear).filter(d => currentCountries.includes(String(d.Entity)));
   console.log(data)
   console.log("data.DeathsFromMalnutrition: " + data[0])
@@ -110,6 +110,10 @@ d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
     .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition));
 
   //****************************
+  //attach legend
+  createLegend(colorDomain);
+
+  //****************************
   //attach tooltip
   var tooltipWindow = d3.select("#histogram_lebenserwartung_ernaehrung").append("div").classed("tooltipWindow", true);
 
@@ -146,15 +150,46 @@ let roundtoDecimalPlaces = (number, decPLaces) => {
 }
 
 let malnutritionColor = (number) => {
-  if(number < 1){
+  if(number < colorDomain[0]){
     return colorScale[0]
-  }else if(number < 10){
+  }else if(number < colorDomain[1]){
     return colorScale[1]
-  }else if(number < 50){
+  }else if(number < colorDomain[2]){
     return colorScale[2]
-  }else if(number < 100){
+  }else if(number < colorDomain[3]){
     return colorScale[3]
   }else{
     return colorScale[4]
   }
+}
+
+let createLegend = (colorDomain) => {
+  const legend = svg.append("g")
+    .attr("id", "legend")
+    .attr("transform", "translate(" + (canvWidth - margin.right + 10) + "," + margin.top + ")")
+
+  const legend_entry = legend.selectAll("rect")
+    .data(colorDomain)
+    .enter();
+
+  legend_entry.append("rect")
+    .attr("x", 10)
+    .attr("y", (d,i) => 30 * i +10)
+    .attr("width", 20)
+    .attr("height", 20)
+    .style("fill", d => malnutritionColor(d-1))
+
+  legend_entry.append("text")
+    .attr("class", "text")
+    .attr("x", 40)
+    .attr("y", (d,i) => 30 * i +25)
+    .text(d => "< " + d);
+
+  legend_entry.append("foreignObject")
+    .attr("class", "legend-text-wrapper")
+    .attr("x", 10)
+    .attr("y", 30 * colorDomain.length + 10)
+    .attr("width", 140)
+    .attr("height", 100)
+    .html("<text class=legend-text>Deaths from protein-energy malnutrition per 100'000 people.</text>")
 }
