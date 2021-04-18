@@ -162,4 +162,39 @@ span {
   color: white;
 }
 
+/*****************************************************
+/*dropdown*/
 
+
+ul{
+  display: flex;
+  flex-wrap: wrap;
+  overflow-wrap: break-word
+}
+
+li{
+  list-style-type: none;
+  flex: 1 2 18em;
+  margin-bottom: .3em;
+}
+
+label{
+
+}
+
+.selectionDiv {
+  background-color: #F8F8F8 ;
+  text-align: left;
+  width: 1200px;
+  margin: auto;
+  border-style: solid;
+  border-color: #414141;
+  border-width: 1px;
+  height: 200px;
+  margin-bottom: 60px;
+  overflow: scroll;
+}
+
+input {
+  margin-left: 0px;
+}

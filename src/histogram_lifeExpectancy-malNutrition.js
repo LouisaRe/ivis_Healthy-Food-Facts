@@ -1,7 +1,7 @@
 const title = "Life expectancy vs. Nutrition"
 
 //size and margin of svg
-const canvHeight = 800;
+const canvHeight = 600;
 const canvWidth = 1200;
 const margin = {top: 50, right: 160, bottom: 60, left: 60};
 
@@ -10,12 +10,12 @@ const width = canvWidth - margin.left - margin.right;
 const height = canvHeight - margin.top - margin.bottom;
 
 //attach svg
-const svg = d3.select("body").append("svg")
+const svg1 = d3.select("body").append("svg")
   .attr("width", canvWidth)
   .attr("height", canvHeight);
 
 //attach #chart-area
-const g = svg.append("g")
+const g1 = svg1.append("g")
   .attr("id", "chart-area")
   .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -23,7 +23,7 @@ const g = svg.append("g")
 //Title and Labels
 
 //attach #chart-title
-svg.append("text")
+svg1.append("text")
   .attr("id", "chart-title")
   .attr("x", margin.left)
   .attr("y", 0)
@@ -31,7 +31,7 @@ svg.append("text")
   .text(title);
 
 //x axis - text label
-g.append("text")
+g1.append("text")
   .attr("class", "label-text")
   .attr("y", height + margin.bottom / 2)
   .attr("x", width / 2)
@@ -41,7 +41,7 @@ g.append("text")
   .text("Area");
 
 //y axis - text label
-g.append("text")
+g1.append("text")
   .attr("class", "label-text")
   .attr("transform", "rotate(-90)")
   .attr("y", 0 - margin.left)
@@ -83,22 +83,22 @@ d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
   //****************************
   //attach Scales
 
-  console.log("g", g)
+  console.log("g", g1)
   const xAxis = d3.axisBottom(xScale);
-  g.append("g")
+  g1.append("g")
     .attr("id", "x-axis")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis);
 
   const yAxis = d3.axisLeft(yScale);
-  g.append("g")  // create a group and add axis
+  g1.append("g")  // create a group and add axis
     .attr("id", "y-axis")
     .call(yAxis);
 
   //****************************
   //attach data
   console.log("yScale(d.LifeExpactency): " + data[0].LifeExpectancy)
-  g.selectAll("rect")
+  g1.selectAll("rect")
     .data(data)
     .enter().append("rect")
     .attr("id", d=> "bar_" + d.Entity.toLowerCase())
@@ -117,7 +117,7 @@ d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
   //attach tooltip
   var tooltipWindow = d3.select("#histogram_lebenserwartung_ernaehrung").append("div").classed("tooltipWindow", true);
 
-  g.selectAll("rect")
+  g1.selectAll("rect")
     .on("mousemove", (event, d) => {
         var position = d3.pointer(event, d);
         var roundedLE = roundtoDecimalPlaces(d.LifeExpectancy, 2);
@@ -164,7 +164,7 @@ let malnutritionColor = (number) => {
 }
 
 let createLegend = (colorDomain) => {
-  const legend = svg.append("g")
+  const legend = svg1.append("g")
     .attr("id", "legend")
     .attr("transform", "translate(" + (canvWidth - margin.right + 10) + "," + margin.top + ")")
 
