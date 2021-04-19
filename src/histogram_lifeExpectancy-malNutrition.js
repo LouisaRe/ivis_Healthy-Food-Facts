@@ -56,15 +56,15 @@ g1.append("text")
 const colorDomain = [1, 10, 50, 100, 1000]
 const colorScale = ["#48AF2F", "#CEDD24", "#DDA924" , "#DD6724" , "#DD2424"]
 
-//load data from cleaned csv file asynchronous
-d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
+var currentYear = 2016
+var currentCountries = ["World", "Germany", "Switzerland", "Madagascar"]
+
+let updateDiagram = () => d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){ //load data from cleaned csv file asynchronous
   console.log(data)
+  const gDiagram = g1.append("g").attr("id", "gDiagram")
 
   //****************************
   //define Scales
-  var currentYear = 2016
-  var currentCountries = ["World", "Germany", "Switzerland", "Madagascar"]
-
   data = data.filter(d => Number(d.Year) === currentYear).filter(d => currentCountries.includes(String(d.Entity)));
   console.log(data)
   console.log("data.DeathsFromMalnutrition: " + data[0])
@@ -83,31 +83,33 @@ d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
   //****************************
   //attach Scales
 
-  console.log("g", g1)
+  console.log("g", gDiagram)
   const xAxis = d3.axisBottom(xScale);
-  g1.append("g")
+  gDiagram.append("g")
     .attr("id", "x-axis")
     .attr("transform", "translate(0," + height + ")")
     .call(xAxis);
 
   const yAxis = d3.axisLeft(yScale);
-  g1.append("g")  // create a group and add axis
+  gDiagram.append("g")  // create a group and add axis
     .attr("id", "y-axis")
     .call(yAxis);
 
   //****************************
   //attach data
   console.log("yScale(d.LifeExpactency): " + data[0].LifeExpectancy)
-  g1.selectAll("rect")
+  gDiagram.selectAll("rect")
     .data(data)
     .enter().append("rect")
     .attr("id", d=> "bar_" + d.Entity.toLowerCase())
     .attr("class", "bar")
     .attr("x", d=> xScale(d.Entity))
     .attr("y", d=> (yScale(d.LifeExpectancy)))
-    .attr("width", xScale.bandwidth())
     .attr("height", d=> height-(yScale(d.LifeExpectancy)))
-    .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition));
+    .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition))
+    .transition()
+    .duration(200)
+    .attr("width", xScale.bandwidth());
 
   //****************************
   //attach legend
@@ -117,17 +119,17 @@ d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
   //attach tooltip
   var tooltipWindow = d3.select("#histogram_lebenserwartung_ernaehrung").append("div").classed("tooltipWindow", true);
 
-  g1.selectAll("rect")
+  gDiagram.selectAll("rect")
     .on("mousemove", (event, d) => {
-        var position = d3.pointer(event, d);
-        var roundedLE = roundtoDecimalPlaces(d.LifeExpectancy, 2);
+      var position = d3.pointer(event, d);
+      var roundedLE = roundtoDecimalPlaces(d.LifeExpectancy, 2);
 
-        tooltipWindow
-          .style("left", margin.left + position[0] + "px")
-          .style("top", position[1] - 28 + "px")
-          .style("visibility", "visible")
-          .html(`<h4>${d.Entity} </h4>` +
-            `Life Expectancy: <b>${roundedLE}</b><br/>
+      tooltipWindow
+        .style("left", margin.left + position[0] + "px")
+        .style("top", position[1] - 28 + "px")
+        .style("visibility", "visible")
+        .html(`<h4>${d.Entity} </h4>` +
+          `Life Expectancy: <b>${roundedLE}</b><br/>
             Deaths from mal-nutrition: <b>${roundtoDecimalPlaces(d.DeathsFromMalnutrition, 2)}</b>`);
     })
     .on("mouseout", (event, d) => {
@@ -135,7 +137,11 @@ d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
     });
 });
 
-//****************************
+
+//init
+updateDiagram()
+
+//**************************************************************************
 //helper functions
 
 let roundtoDecimalPlaces = (number, decPLaces) => {
@@ -193,3 +199,64 @@ let createLegend = (colorDomain) => {
     .attr("height", 100)
     .html("<text class=legend-text>Deaths from protein-energy malnutrition per 100'000 people.</text>")
 }
+
+
+
+
+
+
+
+
+//**************************************************************************
+//Entity-Chooser
+
+//attach #entity-chooser
+const g2 = d3.select("body").append("g")
+  .attr("id", "entity-chooser");
+
+d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){
+  const countriesDomain = [... new Set(data.map(d=> String(d.Entity)))]
+  console.log(countriesDomain)
+
+  //****************************
+  //define checkboxes & labels
+  g2.append("div")
+    .attr("class", "selectionDiv").append("ul").selectAll("li")
+    .data(countriesDomain)
+    .enter()
+    .append("li")
+    .append("label")
+    .text(d => d + " ")
+    .append("input")
+    .attr("type", "checkbox")
+    .attr("id", d => "checkbox_" + d)
+    .property("checked", d => currentCountries.includes(d) )
+    .on("click", (event,d) => funct(d));
+});
+
+//**************************************************************************
+//helper functions
+
+let funct = (entityString) => {
+  if(!currentCountries.includes(entityString)){
+    currentCountries.push(entityString)
+  }else{
+    currentCountries = currentCountries.filter(d => d !== entityString);
+  }
+  console.log("Test " + currentCountries)
+  d3.select("#gDiagram").remove()
+  updateDiagram()
+}
+
+
+
+
+
+
+
+
+
+//**************************************************************************
+//Year-Slider
+
+var currentYear = 2016
