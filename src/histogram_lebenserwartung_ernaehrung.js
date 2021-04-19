@@ -58,9 +58,9 @@ d3.csv("./data/lebenserwartung_ernaehrung.csv").then(function (data){
   //****************************
   //define Scales
 
-  data = data.filter(d => String(d.Code) === "").filter(d => Number(d.Year) === 2019)
-  const countriesDomain = [... new Set(data.map(d => String(d.Entity)))]
-  const lifeExpactencyDomain = d3.extent(data, d => Number(d.LifeExpectancy))
+> String(d.Entity)))]
+  const lifeExpactencyD  data = data.filter(d => String(d.Code) === "").filter(d => Number(d.Year) === 2019)
+                         const countriesDomain = [... new Set(data.map(d =omain = d3.extent(data, d => Number(d.LifeExpectancy))
 
   //xScale
   const xScale = d3.scaleBand().rangeRound([0,width]).padding(0.2)
