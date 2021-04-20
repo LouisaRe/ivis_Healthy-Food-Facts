@@ -77,7 +77,7 @@ p{
 /*Parallax-Effect*/
 
 /*parallax background image*/
-#parallax-img-1, #parallax-img-2, #parallax-img-3, #parallax-img-4, #parallax-img-5{
+#parallax-img-1, #parallax-img-2, #parallax-img-3, #parallax-img-4, #parallax-img-5, #parallax-img-6{
   background-position: bottom;
   background-size: cover;
   background-repeat: no-repeat;
@@ -100,16 +100,20 @@ p{
 }
 #parallax-img-4{
   height: 0;
-  background-image: url("../img/healthy-food-medical-equipment.jpg");
+  background-image: url("../img/diabetes.jpg");
 }
 #parallax-img-5{
+  height: 0;
+  background-image: url("../img/healthy-food-medical-equipment.jpg");
+}
+#parallax-img-6{
   height: 0;
   background-image: url("../img/book-library-with-open-textbook.jpg");
 }
 
 
 /*Shade parallax background image*/
-#parallax-img-1::before, #parallax-img-2::before, #parallax-img-3::before, #parallax-img-4::before  {
+#parallax-img-1::before, #parallax-img-2::before, #parallax-img-3::before, #parallax-img-4::before, #parallax-img-5::before, #parallax-img-6::before  {
   content: "";
   position: absolute;
   top: 0px;
@@ -130,6 +134,9 @@ p{
   background-color: rgba(0, 0, 0, 0.25);
 }
 #parallax-img-5::before {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+#parallax-img-6::before {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
