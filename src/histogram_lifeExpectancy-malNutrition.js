@@ -3,7 +3,7 @@ const title = "Life expectancy vs. Nutrition"
 //size and margin of svg
 const canvHeight = 600;
 const canvWidth = 1200;
-const margin = {top: 50, right: 160, bottom: 60, left: 60};
+const margin = {top: 50, right: 260, bottom: 60, left: 60};
 
 //size of chart area.
 const width = canvWidth - margin.left - margin.right;
@@ -57,20 +57,21 @@ const colorDomain = [1, 10, 50, 100, 1000]
 const colorScale = ["#48AF2F", "#CEDD24", "#DDA924" , "#DD6724" , "#DD2424"]
 
 var currentYear = 2016
-var currentCountries = ["World", "Germany", "Switzerland", "Madagascar"]
+var currentCountries = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
 
 let updateDiagram = () => d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data){ //load data from cleaned csv file asynchronous
-  console.log(data)
-  const gDiagram = g1.append("g").attr("id", "gDiagram")
+
+  d3.select("#gDiagram").remove() //if allready a diagram group exists, it will be deleted...
+  const gDiagram = g1.append("g").attr("id", "gDiagram") //and then new one cerated
 
   //****************************
   //define Scales
-  data = data.filter(d => Number(d.Year) === currentYear).filter(d => currentCountries.includes(String(d.Entity)));
-  console.log(data)
-  console.log("data.DeathsFromMalnutrition: " + data[0])
+  data = data.filter(d => currentCountries.includes(String(d.Entity)));
+  const lifeExpactencyDomainForAllYears = d3.extent(data, d=> Number(d.LifeExpectancy))
+
+  data = data.filter(d => Number(d.Year) === currentYear);
   const countriesDomain = [... new Set(data.map(d=> String(d.Entity)))]
   const lifeExpactencyDomain = d3.extent(data, d=> Number(d.LifeExpectancy))
-
 
   //xScale
   const xScale = d3.scaleBand().rangeRound([0,width]).padding(0.2)
@@ -78,7 +79,7 @@ let updateDiagram = () => d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(
 
   //yScale
   const yScale = d3.scaleLinear().rangeRound([height,0])
-    .domain([d3.min(lifeExpactencyDomain)-5,d3.max(lifeExpactencyDomain)+2]);
+    .domain([d3.min(lifeExpactencyDomainForAllYears)-5,d3.max(lifeExpactencyDomainForAllYears)+2]);
 
   //****************************
   //attach Scales
@@ -97,23 +98,7 @@ let updateDiagram = () => d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(
 
   //****************************
   //attach data
-  console.log("yScale(d.LifeExpactency): " + data[0].LifeExpectancy)
-  gDiagram.selectAll("rect")
-    .data(data)
-    .enter().append("rect")
-    .attr("id", d=> "bar_" + d.Entity.toLowerCase())
-    .attr("class", "bar")
-    .attr("x", d=> xScale(d.Entity))
-    .attr("y", d=> (yScale(d.LifeExpectancy)))
-    .attr("height", d=> height-(yScale(d.LifeExpectancy)))
-    .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition))
-    .transition()
-    .duration(200)
-    .attr("width", xScale.bandwidth());
-
-  //****************************
-  //attach legend
-  createLegend(colorDomain);
+  attachData(data, gDiagram, xScale, yScale)
 
   //****************************
   //attach tooltip
@@ -137,6 +122,38 @@ let updateDiagram = () => d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(
     });
 });
 
+var numberOfCountries = currentCountries.length
+
+let attachData = (data, gDiagram, xScale, yScale) => {
+  if(numberOfCountries !== currentCountries.length){ // countries changed
+
+    numberOfCountries = currentCountries.length
+
+    return gDiagram.selectAll("rect") //show data with transition
+      .data(data)
+      .enter().append("rect")
+      .attr("id", d=> "bar_" + d.Entity.toLowerCase())
+      .attr("class", "bar")
+      .attr("x", d=> xScale(d.Entity))
+      .attr("y", d=> (yScale(d.LifeExpectancy)))
+      .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition))
+      .attr("height", d=> height-(yScale(d.LifeExpectancy)))
+      .transition()
+      .duration(200)
+      .attr("width", xScale.bandwidth());
+  }else{ // year changed
+    return gDiagram.selectAll("rect") //show data without transition
+      .data(data)
+      .enter().append("rect")
+      .attr("id", d=> "bar_" + d.Entity.toLowerCase())
+      .attr("class", "bar")
+      .attr("x", d=> xScale(d.Entity))
+      .attr("y", d=> (yScale(d.LifeExpectancy)))
+      .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition))
+      .attr("height", d=> height-(yScale(d.LifeExpectancy)))
+      .attr("width", xScale.bandwidth());
+  }
+}
 
 //init
 updateDiagram()
@@ -169,6 +186,9 @@ let malnutritionColor = (number) => {
   }
 }
 
+//**************************************************************************
+//legend
+
 let createLegend = (colorDomain) => {
   const legend = svg1.append("g")
     .attr("id", "legend")
@@ -191,7 +211,7 @@ let createLegend = (colorDomain) => {
     .attr("y", (d,i) => 30 * i +25)
     .text(d => "< " + d);
 
-  legend_entry.append("foreignObject")
+  legend.append("foreignObject")
     .attr("class", "legend-text-wrapper")
     .attr("x", 10)
     .attr("y", 30 * colorDomain.length + 10)
@@ -199,6 +219,64 @@ let createLegend = (colorDomain) => {
     .attr("height", 100)
     .html("<text class=legend-text>Deaths from protein-energy malnutrition per 100'000 people.</text>")
 }
+
+//****************************
+//init legend
+createLegend(colorDomain);
+
+
+
+
+
+
+//**************************************************************************
+//Year-Slider
+
+const minYear = 1990
+const maxYear = 2017
+
+//attach #year-slider
+const g3 = d3.select("body").append("g")
+  .attr("id", "year-slider");
+
+//****************************
+//functions
+
+let updateCurrentYear = () => {
+  g3.append("text")
+    .attr("id", "year")
+    .text(currentYear)
+}
+
+let updateYearAndDiagram = () => {
+  d3.select("#year").remove()
+  updateCurrentYear()
+  updateDiagram()
+}
+
+//Show currentYear
+let setCurrentYearToNewValue = () => {
+  var val = document.getElementById("slider1").value;
+  document.getElementById("year").innerHTML = val;
+  currentYear = Number(val)
+  updateYearAndDiagram()
+  console.log(currentYear)
+}
+
+//****************************
+//functions
+
+//init
+updateCurrentYear()
+
+g3.append("input")
+  .attr("id", "slider1")
+  .attr("type", "range")
+  .attr("min", minYear)
+  .attr("max", maxYear)
+  .attr("step", 1)
+  .attr("value", currentYear)
+  .on("input", d => setCurrentYearToNewValue());
 
 
 
@@ -249,14 +327,3 @@ let funct = (entityString) => {
 }
 
 
-
-
-
-
-
-
-
-//**************************************************************************
-//Year-Slider
-
-var currentYear = 2016
