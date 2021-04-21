@@ -5,7 +5,6 @@ var svg = d3.select("#stacked"),
 
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
 var x = d3.scaleBand()
     .rangeRound([0, width])
     .padding(0.3)
@@ -14,28 +13,16 @@ var x = d3.scaleBand()
 var y = d3.scaleLinear()
     .range([height, 0]);
 
-
 var z = d3.scaleOrdinal(d3.schemeCategory20);
     // .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
 var stack = d3.stack();
 
-var currentYear = 2013
-var currentCountries = ["Germany", "Switzerland", "Madagascar"]
-
 // Data
-let updateDiagram = () => d3.csv("./data/lebensmittelkategorien.csv").then(function(data) {
-//  if (error) throw error;
+d3.csv("./data/lebensmittelkategorien.csv", type, function(error, data) {
+  if (error) throw error;
   console.log(data)
 
-
-//  data = data.filter(d => Number(d.Year) === currentYear)
-//        .filter(d => currentCountries.includes(String(d.Entity)));
-
-
-
-//  data.filter(function(d){ return d.Entity == "Switzerland" })
-//  data = data.filter(d => currentCountries.includes(String(d.Entity)) === "Switzerland");
   data.sort(function(a, b) {return b.total - a.total; });
 
   x.domain(data.map(function(d) { return d.Entity; }));
@@ -56,25 +43,22 @@ let updateDiagram = () => d3.csv("./data/lebensmittelkategorien.csv").then(funct
       .attr("height", function(d) {return y(d[0]) - y(d[1]); })
       .attr("width", x.bandwidth());
 
-  // this places the x axis on the bottom and moves it so it's in the right place
+  // x axis
   g.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
 
-  // this places the y axis on the left and moves it so it's in the right place
+  // y axis
   g.append("g")
       .attr("class", "axis axis--y")
-      // this says to have 10 ticks on the y axis and give them the "k" thousands notation
       .call(d3.axisLeft(y).ticks(10, "s"))
-      // this part formats the title of the y axis ("Title")
-      .append("text")
+    .append("text")
       
-      .attr("x", 2)// place it 2 pixels to the right of the y-axis
-      .attr("y", y(y.ticks(10).pop()))// make it level with the top number, this line appears to not be necessary
+      .attr("x", 2)
+      .attr("y", y(y.ticks(10).pop()))
       .attr("dy", "0.35")
-      .attr("text-anchor", "start")//sets where in relation to the y-axis the word starts. could be
-                                    // "middle" or "end" both of which would move it left
+      .attr("text-anchor", "start")
       .attr("fill", "#000")
       .text("Average number of kilocalories per person per day");
 
@@ -88,7 +72,7 @@ let updateDiagram = () => d3.csv("./data/lebensmittelkategorien.csv").then(funct
 
   // rectangles for the legend
   legend.append("rect")
-      .attr("x", width + 18) //placed 18 pixes from the right edge of the svg
+      .attr("x", width + 18)
       .attr("width", 18)
       .attr("height", 18)
       .attr("fill", z);
@@ -98,16 +82,13 @@ let updateDiagram = () => d3.csv("./data/lebensmittelkategorien.csv").then(funct
       .attr("y", 9)
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
-      .text(function(d) { return d; }); //d is just each column name
+      .text(function(d) { return d; });
 });
 
 
 function type(d, i, columns) {
   for (i = 1, t = 0; i < columns.length; ++i)
-  // for each row, which is a d, cycle through the columns and add up all the elements
-  // in d, then assign that to t, which is a number from the +d[columns[i]]
   t += d[columns[i]] = +d[columns[i]];
-  // creates a new column in the data titled "total"
   d.total = t;
   return d;
 }
