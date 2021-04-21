@@ -72,13 +72,13 @@ d3.csv("./data/lebensmittelkategorien.csv", type, function(error, data) {
 
   // rectangles for the legend
   legend_food_categories.append("rect")
-      .attr("x", width_food_cat + 18)
+      .attr("x", width_food_cat - 15)
       .attr("width", 18)
       .attr("height", 18)
       .attr("fill", z);
 
   legend_food_categories.append("text")
-      .attr("x", width_food_cat + 44)
+      .attr("x", width_food_cat + 20)
       .attr("y", 9)
       .attr("dy", ".35em")
       .attr("text-anchor", "start")
