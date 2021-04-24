@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>World Population - Health Facts</title>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
+    <script src='src/histogram_lifeExpectancy-malNutrition.js'></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src='src/stacked_bar_chart_food_categories.js'></script>
 </head>
 <body>
   <script src='lib/d3/d3.js'></script>
@@ -28,7 +31,7 @@
 
   <p>Text about the importance of nutrition for life expectancy</p>
   <div id="histogram_lifeExpectancy-malNutrition">
-    <script src='src/histogram_lifeExpectancy-malNutrition.js'></script>
+    <script>lifeExpectancyMalNutrition()</script>
   </div>
 
   <div>
@@ -69,12 +72,7 @@
   </p>
   <p>Consumption of Major Food Categories per Person</p>
   <div id="stacked_bar_chart_food_categories">
-    <svg id="stacked" width="1200" height="600"></svg></div>
-<!--  <script src="https://d3js.org/d3.v4.min.js"></script>-->
-  <script src='src/stacked_bar_chart_food_categories.js'></script>
-  </div>
-  <div id="histogram_foodCategories">
-    <script src=''></script>
+    <script>stackedBarChartFoodCategories()</script>
   </div>
 
 
