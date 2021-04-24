@@ -73,6 +73,11 @@ p{
   padding-top: 40px;
 }
 
+.info-text{
+  line-height: 1.2;
+  padding: 20px 200px;
+}
+
 /*****************************************************
 /*Parallax-Effect*/
 
