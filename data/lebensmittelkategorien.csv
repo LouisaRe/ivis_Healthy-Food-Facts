@@ -1,4 +1,4 @@
-Entity,Code,Year,Other (FAO (2017)) (kilocalories per person per day),Sugar (FAO (2017)) (kilocalories per person per day),Oils & Fats (FAO (2017)) (kilocalories per person per day),Meat (FAO (2017)) (kilocalories per person per day),Dairy & Eggs (FAO (2017)) (kilocalories per person per day),Fruit and Vegetables (FAO (2017)) (kilocalories per person per day),Starchy Roots (FAO (2017)) (kilocalories per person per day),Pulses (FAO (2017)) (kilocalories per person per day),Cereals and Grains (FAO (2017)) (kilocalories per person per day),Alcoholic Beverages (FAO (2017)) (kilocalories per person per day)
+Entity,Code,Year,Other,Sugar,Oils & Fats,Meat,Dairy & Eggs,Fruit and Vegetables,Starchy Roots,Pulses,Cereals and Grains,Alcoholic Beverages
 Afghanistan,AFG,1961,13,51,92,88,102,82,25,16,2530,0
 Afghanistan,AFG,1962,12,45,98,88,101,76,22,17,2458,0
 Afghanistan,AFG,1963,13,47,106,91,110,79,23,17,2212,0

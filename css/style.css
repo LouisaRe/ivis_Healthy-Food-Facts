@@ -145,7 +145,18 @@ p{
   background-color: rgba(0, 0, 0, 0.25);
 }
 
+/*****************************************************
+/*image*/
+#img-1 {
+height: 500px;
+}
+
 /*text*/
+p {
+padding-left: 150px;
+padding-right: 150px;
+}
+
 .parallax-text {
   position: absolute;
   left: 0;

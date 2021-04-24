@@ -9,99 +9,125 @@
     <script src='src/stacked_bar_chart_food_categories.js'></script>
 </head>
 <body>
-  <script src='lib/d3/d3.js'></script>
-  <script src='lib/lodash.js'></script>
+<script src='lib/d3/d3.js'></script>
+<script src='lib/lodash.js'></script>
 
 <!-- Start -->
-  <div id="parallax-img-1">
-    <div class="parallax-text" >
-      <h1><span>World Population - Health Facts</span></h1>
+<div id="parallax-img-1">
+    <div class="parallax-text">
+        <h1><span>World Population - Health Facts</span></h1>
     </div>
-  </div>
-  <p>Intro-Text</p>
+</div>
+<p>This page will guide you through information about health facts around the world.
+    A healthy diet helps to protect against malnutrition and prolongs life expectancy.
+    The more healthy foods people add to their diet, the lower their risk of premature death.
+    Compare yourself with the countries you have selected. Perhaps this will convince you to eat healthy in the future.
+</p>
+<p>
+    The healthy food journey starts here...
+</p>
 
-  <p>A further Paragraph</p>
-
-  <!-- 1 -->
-  <div id="parallax-img-2">
-    <div class="parallax-text" >
-      <h2> <span>Mal nutrition shortens life</span> </h2>
+<!-- 1 -->
+<div id="parallax-img-2">
+    <div class="parallax-text">
+        <h2><span>Malnutrition shortens life</span></h2>
     </div>
-  </div>
-
-  <p>Text about the importance of nutrition for life expectancy</p>
-  <div id="histogram_lifeExpectancy-malNutrition">
+</div>
+<p>Text about the importance of nutrition for life expectancy</p>
+<div id="histogram_lifeExpectancy-malNutrition">
     <script>lifeExpectancyMalNutrition()</script>
-  </div>
-
-  <div>
+</div>
+<div>
     <h3>Andere Variante: </h3>
     <img src="img/screenshots/LebenserwartungUnterernaehrung.png">
-  </div>
+</div>
 
-  <!-- 2 -->
-  <div id="parallax-img-3">
-    <div class="parallax-text" >
-      <h2> <span>A BMI between .. and .. is best for a long life </span> </h2>
+<!-- 2 -->
+<div id="parallax-img-3">
+    <div class="parallax-text">
+        <h2><span>A BMI between .. and .. is best for a long life </span></h2>
     </div>
-  </div>
-  <p>Text zum BMI </p>
-    <img src="img/screenshots/LebenserwartungBmi.png">
-  <div id="diagram_bmi">
+</div>
+<p>Text zum BMI </p>
+<img src="img/screenshots/LebenserwartungBmi.png">
+<div id="diagram_bmi">
     <script src=''></script>
-  </div>
-
-  <!-- 3 -->
-  <div id="parallax-img-4">
-    <div class="parallax-text" >
-      <h2> <span>Too much sugar can bring more consequences than just a high BMI</span> </h2>
+</div>
+</div>
+<p>Calculate your BMI... <br/>
+    BMI-Calculator <br/>
+    ...and see how you rank compared to the rest of the world <br/></p>
+<!-- 3 -->
+<div id="parallax-img-4">
+    <div class="parallax-text">
+        <h2><span>Too much sugar can bring more consequences than just a high BMI</span></h2>
     </div>
-  </div>
-  <p>Text über den Zusammenhang von Zuckerverzehr und Diabethes</p>
-  <img src="img/screenshots/DiabethesZuckerverbrauch.png">
+</div>
+<p>Diagram showing the relationship between too much sugar und diabetes</p>
+<img src="img/screenshots/DiabethesZuckerverbrauch.png">
 
-  <!-- 4 -->
-  <div id="parallax-img-5">
-    <div class="parallax-text" >
-      <h2> <span>Find a healthy mix</span> </h2>
+<!-- 4 -->
+<div id="parallax-img-5">
+    <div class="parallax-text">
+        <h2><span>Find a healthy mix</span></h2>
     </div>
-  </div>
-  <p>Healthy food prolongs your life....<br/>
-    Picture of Food pyramid <br/>
-    This is how people around the world subsist:
-  </p>
-  <p>Consumption of Major Food Categories per Person</p>
-  <div id="stacked_bar_chart_food_categories">
-    <script>stackedBarChartFoodCategories()</script>
-  </div>
-
+</div>
+<p>
+    It's not a myth! <br/><br/> Eating the right foods can lead to a longer, healthier life.
+    To increase your lifespan, check out the major food groups that help you live longer.</p>
+<img id="img-1" src="img/foodpyramid.png" alt="Food Pyramid">
+<p>
+    <b>Breads, cereals, pasta and other grain-based foods</b> provide carbohydrates,
+    which the body uses for energy. The best choices from this group are wholemeal and wholegrain breads, cereals and
+    savoury biscuits.
+    Other good choices include brown rice, couscous, wholegrain pasta and polenta.<br/><br/>
+    <b>Fruit and vegetables</b> provide vitamins, minerals and fibre, and should be included in meals and snacks each
+    day.
+    Choose a variety of fruits, vegetables and legumes (including different colours, textures and flavours) to provide a
+    wide range of vitamins and minerals.<br/><br/>
+    <b>Meat, fish, milk, eggs</b> and its alternatives (nuts, legumes, tofu etc.) are rich in protein, iron and zinc.
+    Milk, cheese and yoghurt are the most common dairy foods, and main dietary sources of calcium.
+    Having enough calcium is important for healthy bones and teeth.<br/><br/>
+    <b>Fat, oil, sugar, sweets</b> are high in fat, sugar and/or salt.
+    They typically have very little nutritional value and are often processed and packaged.
+</p>
+<div id="histogram_foodCategories">
+    <div id="stacked_bar_chart_food_categories">
+        <script>stackedBarChartFoodCategories()</script>
+        <p>(in Bearbeitung...)</p>
+    </div>
+    <script src=''></script>
+</div>
 
 <!-- Quellen -->
-  <div id="parallax-img-6">
-    <div class="parallax-text" >
-      <h2> <span>Sources</span> </h2>
+<div id="parallax-img-6">
+    <div class="parallax-text">
+        <h2><span>Sources</span></h2>
     </div>
-  </div>
+</div>
 
-  <h3>Data sources</h3>
-
-  <span>
+<h3>Data sources</h3>
+<span>
     <ul>
-      <li><p>Hier kommen die Datenquellen hin</p></li>
+      <li><a href='https://ourworldindata.org/diet-compositions'>Diet Compositions</a></li>
+      <li><a href='https://ourworldindata.org/grapher/malnutrition-death-rates'>Malnuitrition Death Rates</a></li>
+      <li><a href='https://ourworldindata.org/grapher/life-expectancy'>Life Expectancy</a></li>
     </ul>
   </span>
 
-  <h3>Image sources</h3>
-  <span>
+<h3>Image sources</h3>
+<span>
     <ul>
       <li><a href='https://pixabay.com/de/illustrations/menschen-menschengruppe-ansammlung-567563/'>World Population</a></li>
       <li><a href='https://de.freepik.com/fotos-kostenlos/draufsicht-der-mannhaende-die-eine-leere-rote-platte-auf-einem-holztisch-halten_12739544.htm#page=1&query=leere%20Sch%C3%BCssel&position=11'>Malutrition</a></li>
       <li><a href='https://www.freepik.com/free-photo/beautiful-stomach-with-metre-underwear_6255015.htm#page=1&query=fat%20thin&position=47'>BMI</a></li>
-      <li><a href='https://pixabay.com/de/photos/diabetes-zucker-spritzen-insulin-2583569/'>Diabethes</a></li>
+      <li><a href='https://pixabay.com/de/photos/diabetes-zucker-spritzen-insulin-2583569/'>Diabetes</a></li>
       <li><a href='https://www.freepik.com/free-photo/healthy-food-medical-equipment_4160904.htm#page=1&query=health%20nutrition&position=0'>Nutrition</a></li>
       <li><a href='https://www.freepik.com/free-photo/book-library-with-open-textbook_3737798.htm#page=1&query=literature&position=4'>Sources</a></li>
+      <li><a href='https://storyweaver.org.in/illustrations/42577-food-pyramid'>Food Pyramid</a></li>
     </ul>
   </span>
+
 </body>
 </html>
 
