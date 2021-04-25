@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <title>World Population - Health Facts</title>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
-    <script src='src/histogram_lifeExpectancy-malNutrition.js'></script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src='src/stacked_bar_chart_food_categories.js'></script>
 </head>
 <body>
@@ -35,7 +33,10 @@
 </div>
 <p>Text about the importance of nutrition for life expectancy</p>
 <div id="histogram_lifeExpectancy-malNutrition">
-    <script>lifeExpectancyMalNutrition()</script>
+    <script type="module">
+      import lifeExpectancyMalNutrition from "./src/histogram_lifeExpectancy-malNutrition.js";
+      lifeExpectancyMalNutrition();
+    </script>
 </div>
 <div>
     <h3>Andere Variante: </h3>
@@ -93,6 +94,7 @@
 </p>
 <div id="histogram_foodCategories">
     <div id="stacked_bar_chart_food_categories">
+        <script src="https://d3js.org/d3.v4.min.js"></script>
         <script>stackedBarChartFoodCategories()</script>
         <p>(in Bearbeitung... Filter mit Ländern folgt)</p>
     </div>

@@ -1,3 +1,5 @@
+import "../lib/d3/d3.js"
+
 const lifeExpectancyMalNutrition = () => {
   const title = "Life expectancy vs. Nutrition"
 
@@ -11,7 +13,7 @@ const lifeExpectancyMalNutrition = () => {
   const height = canvHeight - margin.top - margin.bottom;
 
 //attach svg
-  const svg1 = d3.select("body").append("svg")
+  const svg1 = d3.select("#histogram_lifeExpectancy-malNutrition").append("svg")
     .attr("width", canvWidth)
     .attr("height", canvHeight);
 
@@ -233,7 +235,7 @@ const lifeExpectancyMalNutrition = () => {
   const maxYear = 2017
 
 //attach #year-slider
-  const g3 = d3.select("body").append("g")
+  const g3 = d3.select("#histogram_lifeExpectancy-malNutrition").append("g")
     .attr("id", "year-slider");
 
 //****************************
@@ -280,7 +282,7 @@ const lifeExpectancyMalNutrition = () => {
 //Entity-Chooser
 
 //attach #entity-chooser
-  const g2 = d3.select("body").append("g")
+  const g2 = d3.select("#histogram_lifeExpectancy-malNutrition").append("g")
     .attr("id", "entity-chooser");
 
   d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data) {
@@ -316,6 +318,6 @@ const lifeExpectancyMalNutrition = () => {
     d3.select("#gDiagram").remove()
     updateDiagram()
   }
-
-
 }
+
+export default lifeExpectancyMalNutrition
