@@ -6,7 +6,7 @@ const lifeExpectancyMalNutrition = () => {
 //size and margin of svg
   const canvHeight = 600;
   const canvWidth = 1200;
-  const margin = {top: 50, right: 260, bottom: 60, left: 60};
+  const margin = {top: 80, right: 260, bottom: 60, left: 240};
 
 //size of chart area.
   const width = canvWidth - margin.left - margin.right;
@@ -41,17 +41,16 @@ const lifeExpectancyMalNutrition = () => {
     .attr("dy", "1em")
     .attr("font-family", "sans-serif")
     .style("text-anchor", "middle")
-    .text("Area");
+    .text("Age");
 
 //y axis - text label
   g1.append("text")
     .attr("class", "label-text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 0 - margin.left)
-    .attr("x", 0 - (height / 2))
+    .attr("x", -20)
+    .attr("y", -10)
     .attr("dy", "1em")
-    .style("text-anchor", "middle")
-    .text("Age");
+    .style("text-anchor", "end")
+    .text("Area");
 
 //**************************************************************************
 //Scales
@@ -77,12 +76,12 @@ const lifeExpectancyMalNutrition = () => {
     const lifeExpactencyDomain = d3.extent(data, d => Number(d.LifeExpectancy))
 
     //xScale
-    const xScale = d3.scaleBand().rangeRound([0, width]).padding(0.2)
-      .domain(countriesDomain);
+    const xScale = d3.scaleLinear().rangeRound([0, width])
+      .domain([d3.min(lifeExpactencyDomainForAllYears) - 5, d3.max(lifeExpactencyDomainForAllYears) + 2]);
 
     //yScale
-    const yScale = d3.scaleLinear().rangeRound([height, 0])
-      .domain([d3.min(lifeExpactencyDomainForAllYears) - 5, d3.max(lifeExpactencyDomainForAllYears) + 2]);
+    const yScale = d3.scaleBand().rangeRound([0, height]).padding(0.2)
+      .domain(countriesDomain);
 
     //****************************
     //attach Scales
@@ -137,24 +136,24 @@ const lifeExpectancyMalNutrition = () => {
         .enter().append("rect")
         .attr("id", d => "bar_" + d.Entity.toLowerCase())
         .attr("class", "bar")
-        .attr("x", d => xScale(d.Entity))
-        .attr("y", d => (yScale(d.LifeExpectancy)))
+        .attr("x", 1)
+        .attr("y", d => yScale(d.Entity))
         .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition))
-        .attr("height", d => height - (yScale(d.LifeExpectancy)))
+        .attr("height", yScale.bandwidth())
         .transition()
         .duration(200)
-        .attr("width", xScale.bandwidth());
+        .attr("width", d => xScale(d.LifeExpectancy)-1);
     } else { // year changed
       return gDiagram.selectAll("rect") //show data without transition
         .data(data)
         .enter().append("rect")
         .attr("id", d => "bar_" + d.Entity.toLowerCase())
         .attr("class", "bar")
-        .attr("x", d => xScale(d.Entity))
-        .attr("y", d => (yScale(d.LifeExpectancy)))
+        .attr("x", 1)
+        .attr("y", d => yScale(d.Entity))
         .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition))
-        .attr("height", d => height - (yScale(d.LifeExpectancy)))
-        .attr("width", xScale.bandwidth());
+        .attr("height", yScale.bandwidth())
+        .attr("width", d => xScale(d.LifeExpectancy)-1);
     }
   }
 
