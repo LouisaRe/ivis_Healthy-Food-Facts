@@ -247,11 +247,11 @@ input {
 input[type="range"] {
   position: absolute;
   transform: rotate(270deg);
-  width: 430px;
-  margin-left: -280px;
+  width: 460px; /*is height*/ /* (height of histogram) */
+  margin-left: -290px;
   margin-right: auto;
-  height: 20px;
-  margin-top: 260px;
+  height: 20px; /*is width*/
+  margin-top: 295px;  /* (top of histogram + this.width/2) */
 }
 
 #year{
@@ -261,7 +261,7 @@ input[type="range"] {
   font-size: 24px;
   line-height: 1.2;
   text-transform: uppercase;
-  margin-top: 510px;
+  margin-top: 565px;  /* (height + margin.bottom/2) */
   color: cornflowerblue;
   margin-left: -105px;
 }

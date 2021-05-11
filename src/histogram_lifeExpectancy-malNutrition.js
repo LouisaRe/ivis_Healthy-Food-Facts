@@ -6,7 +6,7 @@ const lifeExpectancyMalNutrition = () => {
 //size and margin of svg
   const canvHeight = 600;
   const canvWidth = 1200;
-  const margin = {top: 80, right: 260, bottom: 60, left: 240};
+  const margin = {top: 80, right: 240, bottom: 60, left: 240};
 
 //size of chart area.
   const width = canvWidth - margin.left - margin.right;
@@ -28,9 +28,10 @@ const lifeExpectancyMalNutrition = () => {
 //attach #chart-title
   svg1.append("text")
     .attr("id", "chart-title")
-    .attr("x", margin.left)
+    .attr("x", canvWidth/2)
     .attr("y", 0)
     .attr("dy", "1.5em")  // line height
+    .style("text-anchor", "middle")
     .text(title);
 
 //x axis - text label
