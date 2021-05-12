@@ -5,9 +5,12 @@
     <title>World Population - Health Facts</title>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
     <script src='src/stacked_bar_chart_food_categories.js'></script>
+    <script src='src/scatter_plot_sugar_diabetes.js'></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
 <body>
 <script src='lib/d3/d3.js'></script>
+<script src='lib/d3/d3.min.js'></script>
 <script src='lib/lodash.js'></script>
 
 <!-- Start -->
@@ -64,6 +67,14 @@
         <h2><span>Too much sugar can bring more consequences than just a high BMI</span></h2>
     </div>
 </div>
+<br/>
+<label for="selectButton">Wo lebst du?</label>
+<select id="selectButton"></select>
+    <div id="scatter_plot_sugar_diabetes">
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script>scatterPlotSugarDiabetes()</script>
+    </div>
+    <script src=''></script>
 <p>Diagram showing the relationship between too much sugar und diabetes</p>
 <img src="img/screenshots/DiabethesZuckerverbrauch.png"  alt="Diagram Diabethes-Zuckerverbrauch" style="width:auto;height:600px;">
 
@@ -92,14 +103,12 @@
     <b>Fat, oil, sugar, sweets</b> are high in fat, sugar and/or salt.
     They typically have very little nutritional value and are often processed and packaged.
 </p>
-<div id="histogram_foodCategories">
     <div id="stacked_bar_chart_food_categories">
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script>stackedBarChartFoodCategories()</script>
         <p>(in Bearbeitung... Filter mit Ländern folgt)</p>
     </div>
     <script src=''></script>
-</div>
 
 <!-- Quellen -->
 <div id="parallax-img-6">

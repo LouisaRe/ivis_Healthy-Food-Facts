@@ -265,3 +265,20 @@ input[type="range"] {
   color: cornflowerblue;
   margin-left: -105px;
 }
+
+*********************************************************
+/*
+tooltip
+*/
+
+div.tooltip {
+     position: absolute;
+     text-align: left;
+     padding: .4rem;
+     background: #69b3a2;
+     color: #f9f9f9;
+     border: 0px;
+     border-radius: 8px;
+     pointer-events: none;
+     font-size: .7rem;
+}
