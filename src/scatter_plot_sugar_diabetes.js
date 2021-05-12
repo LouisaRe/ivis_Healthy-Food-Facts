@@ -91,6 +91,77 @@ var tooltip = d3.select('#scatter_plot_sugar_diabetes')
      .attr("class", "tooltip")
      .style("opacity", 0);
 
+updateOldChart()
+
+// *****************************************************
+// update the chart
+function updateChart(dataFilter) {
+// update the oldchart
+updateOldChart()
+
+var selectedpath =  g_scatter_plot.append('g')
+    .selectAll("dot")
+    .data(dataFilter)
+    .enter()
+    .append("circle")
+      .attr("cx", d => x(d.Diabetes) )
+      .attr("cy", d => y(d.Sugar) )
+      .attr("r", 4)  // Size of dots
+      .attr("stroke", "#ff0000")
+      .attr("stroke-width", 1.5)
+      .attr("fill", "#ffffff")
+     //hovering effects
+      .on("mouseover", function (d, i) {
+           d3.select(this).transition()
+                .duration(100)
+                .attr("r", 4)
+                .attr("stroke", "#ff0000")
+                .attr("stroke-width", 1.5)
+                .attr("fill", "#ffffff")
+          tooltip.transition()
+                .duration(100)
+                .style("opacity", 1);
+      })
+      .on("mousemove", function (d, i) {
+           d3.select(this).transition()
+                .duration(100)
+                .attr("r", 6)
+                .attr("stroke", "#ff0000")
+                .attr("stroke-width", 1.5)
+                .attr("fill", "#ff0000")
+           tooltip.transition()
+                .duration(100)
+                .style("opacity", 1);
+           tooltip.html(d.Entity + "<br/> (" + d.Sugar + " kcal/day, " + d.Diabetes + "%)")
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+      })
+    .on("mouseout", function (d, i) {
+           d3.select(this).transition()
+                .duration(100)
+                .attr("r", 4)
+                .attr("stroke", "#ff0000")
+                .attr("stroke-width", 1.5)
+                .attr("fill", "#ffffff")
+         tooltip.transition()
+              .duration(200)
+              .style("opacity", 0);
+    });
+}
+
+d3.select("#selectButton").on("change", function(d) {
+    // recover the option that has been chosen
+    var selectedOption = d3.select(this).property("value")
+    console.log(selectedOption)
+
+    let dataFilter = data.filter(function (d) {
+        return d.Entity === selectedOption;
+    })
+    console.log(dataFilter)
+    updateChart(dataFilter);
+})
+
+function updateOldChart() {
 var path =  g_scatter_plot.append('g')
     .selectAll("dot")
     .data(data)
@@ -102,98 +173,44 @@ var path =  g_scatter_plot.append('g')
       .attr("stroke", "#69b3a2")
       .attr("stroke-width", 1.5)
       .attr("fill", "#ffffff")
-
       //hovering effects
       .on("mouseover", function (d, i) {
+           d3.select(this).transition()
+                .duration(100)
+                .attr("r", 4)
+                .attr("stroke", "#69b3a2")
+                .attr("stroke-width", 1.5)
+                .attr("fill", "#ffffff")
+          tooltip.transition()
+                .duration(100)
+                .style("opacity", 1);
+      })
+      .on("mousemove", function (d, i) {
            d3.select(this).transition()
                 .duration(100)
                 .attr("r", 6)
                 .attr("stroke", "#69b3a2")
                 .attr("stroke-width", 1.5)
                 .attr("fill", "#69b3a2")
-          tooltip.transition()
+           tooltip.transition()
                 .duration(100)
                 .style("opacity", 1);
+           tooltip.html(d.Entity + "<br/> (" + d.Sugar + " kcal/day, " + d.Diabetes + "%)")
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
       })
-      .on("mouseout", function (d, i) {
+    .on("mouseout", function (d, i) {
            d3.select(this).transition()
-                .duration(200)
+                .duration(100)
                 .attr("r", 4)
                 .attr("stroke", "#69b3a2")
                 .attr("stroke-width", 1.5)
                 .attr("fill", "#ffffff")
-           tooltip.transition()
-                .duration(200)
-                .style("opacity", 0);
-           tooltip.html(d.Entity + "<br/> (" + d.Sugar + " kcal/day, " + d.Diabetes + "%)")
-                .style("left", (d3.event.pageX + 10) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-      });
-
-// *****************************************************
-// update the chart
-function updateButton(value) {
-// var dataFilter = data.map(d => d.Entity == selectedGroup)
-
-//var inputValue = d3.select(“#selectButton”).property('value');
-//var hallo = data.filter(function(d) {
-//    var newValue = (d.Entity == inputValue)
-//    return newValue } ) // Switzerland Object
-
-//console.log(hallo);
-
-//var selectedCountry = data.filter(function (d) {
-////    return d.Entity === newValue;
-//    var newCountry = d.Entity === newValue
-//    console.log(newCountry);
-//})
-//
-//var selectedpath2 =  g_scatter_plot.append('g')
-//    .selectAll("dot")
-//    .data(selectedCountry)
-//    .enter()
-//    .append("circle")
-//    .attr("cx", d => x(d.Diabetes) )
-//    .attr("cy", d => y(d.Sugar) )
-//    .attr("r", 6)  // Size of dots
-//    .attr("stroke", "#ff0000")
-//    .attr("stroke-width", 1.5)
-//    .attr("fill", "#ffffff")
+         tooltip.transition()
+              .duration(200)
+              .style("opacity", 0);
+    });
 }
-
-
-  // A function that update the chart when slider is moved?
-function updateChart(dataFilter) {
-
-// update the chart
-var selectedpath =  g_scatter_plot.append('g')
-    .selectAll("dot")
-    .data(dataFilter)
-    .enter()
-    .append("circle")
-      .attr("cx", d => x(d.Diabetes) )
-      .attr("cy", d => y(d.Sugar) )
-      .attr("r", 6)  // Size of dots
-      .attr("stroke", "#ff0000")
-      .attr("stroke-width", 1.5)
-      .attr("fill", "#ffffff")
-
-}
-
-  // Listen to the slider?
-d3.select("#selectButton").on("change", function(d) {
-    // recover the option that has been chosen
-    var selectedOption = d3.select(this).property("value")
-    console.log(selectedOption)
-
-    let dataFilter = data.filter(function (d) {
-        return d.Entity === selectedOption;
-    })
-    console.log(dataFilter)
-
-    updateChart(dataFilter);
-
-})
 
 })
 
