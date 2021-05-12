@@ -1,5 +1,6 @@
-
 const scatterPlotSugarDiabetes = () => {
+
+const title_scatter_plot = "Is Sugar Consumption linked to Diabetes?"
 
 // set the dimensions and margins of the graph
 var margin_scatter_plot = {top: 80, right: 240, bottom: 60, left: 240},
@@ -20,40 +21,26 @@ var g_scatter_plot = d3.select("#scatter_plot_sugar_diabetes")
 d3.csv("./data/DiabetesZuckverbrauch2017.csv", function(data) {
 
 //data = data.filter(function(d,i) { return i<10 } )
-//data = data.filter(function(d) { return d.Entity == "Switzerland" } )
+//var hallo = data.filter(function(d) { return d.Entity == "Switzerland" } ) // Switzerland Object
+//
+//var hallo3 = data = data.filter(function(d) {
+//        return d['Entity'] == 'Switzerland' || d['Entity'] == 'China';
+//});  // Objekt von Schweiz und China
+//
+//var inputValue = d3.select(“#selectButton”).property("value");
+//var filteredCountry = data.filter(function(d) { return  d.Entity.includes("Switzerland")});
+
 var countriesDomain = data.map(d => String(d.Entity))
 
 //************************************************
 // Select Button
-d3.select()
-
-d3.select("#selectButton")
+var selectButtonValue = d3.select("#selectButton")
   .selectAll('myOptions')
    .data(countriesDomain)
   .enter()
    .append('option')
   .text(function (d) { return d; })
   .attr("value", function (d) { return d; }) // corresponding value returned by the button
-
-// *****************************************************
-// update the chart
-function update(selectedGroup) {
-// var dataFilter = data.map(d => d.Entity == selectedGroup)
-   var dataFilter =  data.filter(function(d) { return d.Entity == "Angola" } )
-
-    path
-       .data(dataFilter)
-       .attr("r", 6)
-       .attr("stroke", "#FF0000")
-  }
-
-    // When the button is changed, run the updateChart function
-    d3.select("#selectButton").on("change", function(d) {
-        // recover the option that has been chosen
-        var selectedOption = d3.select(this).property("value")
-        // run the updateChart function with this selected option
-        update(selectedOption)
-    })
 
 //**********************************************
   // Add X axis
@@ -66,10 +53,19 @@ function update(selectedGroup) {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 500])
+    .domain([0, 600])
     .range([height_scatter_plot, 0]);
   g_scatter_plot.append("g")
     .call(d3.axisLeft(y));
+
+// title of scatter plot
+var main_title = g_scatter_plot.append("text")
+    .attr("id", "chart-title")
+    .attr("x", height_scatter_plot + margin_scatter_plot.top / 2)
+    .attr("y", -20)
+    .attr("dy", "1.5em")  // line height
+    .style("text-anchor", "middle")
+    .text(title_scatter_plot);
 
 // text label for x and y axis
 var x_title = g_scatter_plot.append("text")
@@ -86,7 +82,7 @@ var y_title = g_scatter_plot.append("text")
     .attr("y", 0 - margin_scatter_plot.left/4)
     .attr("dy", "1em")
     .style("text-anchor", "middle")
-    .text("Sugar in kcal/capita/day");
+    .text("Sugar (kcal/capita/day)");
 
 //*******************************************************
 // Add dots
@@ -129,14 +125,78 @@ var path =  g_scatter_plot.append('g')
            tooltip.transition()
                 .duration(200)
                 .style("opacity", 0);
-           tooltip.html(d.Entity + "<br/> (" + d.Sugar + ", " + d.Diabetes + ")")
+           tooltip.html(d.Entity + "<br/> (" + d.Sugar + " kcal/day, " + d.Diabetes + "%)")
                 .style("left", (d3.event.pageX + 10) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
       });
 
+// *****************************************************
+// update the chart
+function updateButton(value) {
+// var dataFilter = data.map(d => d.Entity == selectedGroup)
 
+//var inputValue = d3.select(“#selectButton”).property('value');
+//var hallo = data.filter(function(d) {
+//    var newValue = (d.Entity == inputValue)
+//    return newValue } ) // Switzerland Object
+
+//console.log(hallo);
+
+//var selectedCountry = data.filter(function (d) {
+////    return d.Entity === newValue;
+//    var newCountry = d.Entity === newValue
+//    console.log(newCountry);
+//})
+//
+//var selectedpath2 =  g_scatter_plot.append('g')
+//    .selectAll("dot")
+//    .data(selectedCountry)
+//    .enter()
+//    .append("circle")
+//    .attr("cx", d => x(d.Diabetes) )
+//    .attr("cy", d => y(d.Sugar) )
+//    .attr("r", 6)  // Size of dots
+//    .attr("stroke", "#ff0000")
+//    .attr("stroke-width", 1.5)
+//    .attr("fill", "#ffffff")
+}
+
+
+  // A function that update the chart when slider is moved?
+function updateChart(dataFilter) {
+
+// update the chart
+var selectedpath =  g_scatter_plot.append('g')
+    .selectAll("dot")
+    .data(dataFilter)
+    .enter()
+    .append("circle")
+      .attr("cx", d => x(d.Diabetes) )
+      .attr("cy", d => y(d.Sugar) )
+      .attr("r", 6)  // Size of dots
+      .attr("stroke", "#ff0000")
+      .attr("stroke-width", 1.5)
+      .attr("fill", "#ffffff")
+
+}
+
+  // Listen to the slider?
+d3.select("#selectButton").on("change", function(d) {
+    // recover the option that has been chosen
+    var selectedOption = d3.select(this).property("value")
+    console.log(selectedOption)
+
+    let dataFilter = data.filter(function (d) {
+        return d.Entity === selectedOption;
+    })
+    console.log(dataFilter)
+
+    updateChart(dataFilter);
 
 })
+
+})
+
 
 }
 
