@@ -223,7 +223,7 @@ g_food_categories2.append("input")
       .append("input")
       .attr("type", "checkbox")
       .attr("id", d => "checkbox_" + d)
-     // .property("checked", d => currentCountries.includes(d))
+      .property("checked", d => currentCountriesFoodCat.includes(d))
       .on("click", (event, d) => funct(d));
   });
 
