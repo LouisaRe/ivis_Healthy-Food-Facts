@@ -22,7 +22,7 @@ const title_stacked_bar = "Dietary composition"
 
   var y = d3.scaleBand()
     .rangeRound([0, height_food_cat])
-    .paddingInner(0.7)  // Padding between balken
+    .padding(0.2)  // Padding between balken
 //    .align(middle)
 
   var x = d3.scaleLinear()
@@ -36,7 +36,7 @@ const title_stacked_bar = "Dietary composition"
     var keys = data.columns.slice(2);
 
     // chart with default selection
-    var currentCountries = ["Switzerland", "Germany", "Madagascar", "North Korea", "Zimbabwe"]
+    var currentCountries = ["Switzerland", "Germany", "Madagascar", "North Korea", "Zimbabwe", "Italy"]
     var currentYear = 2013
 
     data = data.filter(d => Number(d.Year) === currentYear); // all country in 2013
@@ -81,8 +81,8 @@ const title_stacked_bar = "Dietary composition"
 //title of stacked bar chart
 var main_title = g_food_categories.append("text")
     .attr("id", "chart-title")
-    .attr("x", height_food_cat / 2 + margin_food_cat.top)
-    .attr("y", -20)
+    .attr("x", width_food_cat / 2)
+    .attr("y", 0 - margin_food_cat.top)
     .attr("dy", "1.5em")
     .style("text-anchor", "middle")
     .text(title_stacked_bar);
@@ -106,10 +106,10 @@ var y_title = g_food_categories.append("text")
 
 //*******************************************************************
 // Legend
+
+/*
 var legend_food_categories = g_food_categories.append("g")
-  .attr("font-family", "sans-serif")
-  .attr("font-size", 10)
-  .attr("text-anchor", "end")
+  .attr("text-anchor", "start")
   .selectAll("g")
   .data(keys.slice().reverse())
   .enter().append("g")
@@ -118,18 +118,95 @@ var legend_food_categories = g_food_categories.append("g")
   });
 
 legend_food_categories.append("rect")
-  .attr("x", width_food_cat + 18)
+  .attr("x", width_food_cat + 40)
   .attr("width", 18)
   .attr("height", 18)
   .attr("fill", colorScale);
 
 legend_food_categories.append("text")
-  .attr("x", width_food_cat + 10)
+  .attr("x", width_food_cat + 65)
   .attr("y", 9)
   .attr("dy", "0.35em")
   .text(function (d) {
     return d;
   });
+
+
+  */
+
+
+//*****************************************************************
+// Year-Slider
+
+const minYear = 1961
+const maxYear = 2013
+
+//attach #year-slider
+const g_food_categories2 = d3.select("#stacked_bar_chart_food_categories")
+                     .append("g")
+                     .attr("id", "year-slider");
+
+// Year-Slider fuctions
+let updateCurrentYearFoodCat = () => {
+g_food_categories2.append("text")
+  .attr("id", "year")
+  .text(currentYear)
+}
+
+let updateYearAndDiagramFoodCat = () => {
+  d3.select("#year").remove()
+  updateCurrentYearFoodCat()
+//  updateDiagram()
+}
+
+//Show currentYear
+  let setCurrentYearToNewValueFoodCat = () => {
+    var val = document.getElementById("slider1").value;
+    document.getElementById("year").innerHTML = val;
+    currentYear = Number(val)
+    updateYearAndDiagram()
+    console.log(currentYear)
+  }
+
+//init
+updateCurrentYearFoodCat();
+
+g_food_categories2.append("input")
+.attr("id", "slider1")
+.attr("type", "range")
+.attr("min", minYear)
+.attr("max", maxYear)
+.attr("step", 1)
+.attr("value", currentYear)
+.on("input", d => setCurrentYearToNewValueFoodCat());
+
+//**************************************************************************
+//Entity-Chooser
+
+//attach #entity-chooser
+  const g_food_categories3 = d3.select("#stacked_bar_chart_food_categories").append("g")
+    .attr("id", "entity-chooser");
+
+  d3.csv("./data/lebensmittelkategorieneu.csv").then(function (data) {
+    const countriesDomain = [...new Set(data.map(d => String(d.Entity)))]
+    console.log(countriesDomain)
+
+    //****************************
+    //define checkboxes & labels
+    g_food_categories2.append("div")
+      .attr("class", "selectionDiv").append("ul").selectAll("li")
+      .data(countriesDomain)
+      .enter()
+      .append("li")
+      .append("label")
+      .text(d => d + " ")
+      .append("input")
+      .attr("type", "checkbox")
+      .attr("id", d => "checkbox_" + d)
+      .property("checked", d => currentCountries.includes(d))
+      .on("click", (event, d) => funct(d));
+  });
+
 });
 
 }
