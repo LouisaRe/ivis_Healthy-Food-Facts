@@ -195,7 +195,7 @@ var path =  g_scatter_plot.append('g')
            tooltip.transition()
                 .duration(100)
                 .style("opacity", 1);
-           tooltip.html(d.Entity + "<br/> (" + d.Sugar + " kcal/day, " + d.Diabetes + "%)")
+           tooltip.html("<b>"+d.Entity+"</b>"+"<br/>Sugar: "+d.Sugar+" kcal/capita/day<br/>Diabetes: "+d.Diabetes+"%")
                 .style("left", (d3.event.pageX + 10) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
       })
