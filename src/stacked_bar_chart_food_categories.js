@@ -1,5 +1,5 @@
-
 const stackedBarChartFoodCategories = () => {
+const title_stacked_bar = "Dietary composition"
 
   d3.select("#stacked_bar_chart_food_categories").append("svg")
     .attr("id", "stacked")
@@ -7,50 +7,50 @@ const stackedBarChartFoodCategories = () => {
     .attr("height", 600);
 
   const svg_food_cat = d3.select("#stacked"),
-    margin_food_cat = {top: 20, right: 180, bottom: 30, left: 40},
+    margin_food_cat = {top: 80, right: 240, bottom: 60, left: 240},
     width_food_cat = +svg_food_cat.attr("width") - margin_food_cat.left - margin_food_cat.right,
     height_food_cat = +svg_food_cat.attr("height") - margin_food_cat.top - margin_food_cat.bottom,
 
     g_food_categories = svg_food_cat.append("g").attr("transform", "translate(" + margin_food_cat.left + "," + margin_food_cat.top + ")");
 
   function type(d, i, columns) {
-    for (i = 1, t = 0; i < columns.length; ++i)
-      t += d[columns[i]] = +d[columns[i]];
-    d.total = t;
-    return d;
+  for (i = 1, t = 0; i < columns.length; ++i)
+  t += d[columns[i]] = +d[columns[i]];
+  d.total = t;
+  return d;
   }
 
-  d3.csv("./data/lebensmittelkategorien.csv", type, function (data) {
+  var y = d3.scaleBand()
+    .rangeRound([0, height_food_cat])
+    .paddingInner(0.7)  // Padding between balken
+//    .align(middle)
 
-    var currentCountries = ["Switzerland", "China", "Vietnam", "Italy"]
+  var x = d3.scaleLinear()
+    .rangeRound([0, width_food_cat])
+
+  var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
+        //    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+  d3.csv("./data/lebensmittelkategorieneu.csv", type, function (data) {
+
+    var keys = data.columns.slice(2);
+
+    // chart with default selection
+    var currentCountries = ["Switzerland", "Germany", "Madagascar", "North Korea", "Zimbabwe"]
     var currentYear = 2013
 
-    var keys = data.columns.slice(3);
-    data = data.filter(d => Number(d.Year) === currentYear);
-// data = data.map(d => currentCountries.includes(String(d.Entity)));
-// data = data.filter(function(d,i){ return i<10 })
+    data = data.filter(d => Number(d.Year) === currentYear); // all country in 2013
+    data = data.filter(d => currentCountries.includes(String(d.Entity)));
+    console.log(data);
 
-    data.sort(function (a, b) {
-      return b.total - a.total;
-    });
+    // List of all countries
+    var countriesDomain = data.map(d => String(d.Entity))
 
-    var x = d3.scaleBand()
-      .rangeRound([0, width_food_cat])
-      .paddingInner(0.5)  // Padding between balken
-      .align(0.1)
-      .domain(data.map(function (d) {
-        return d.Entity;
-      }));
+    data.sort(function(a, b) { return b.total - a.total; });
 
-    var y = d3.scaleLinear()
-      .rangeRound([height_food_cat, 0])
-      .domain([0, d3.max(data, function (d) {
-        return d.total;
-      })]).nice();
-
-    var colorScale = d3.scaleOrdinal(d3.schemeCategory20)
-      .domain(keys);
-//    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+    y.domain(countriesDomain);
+    x.domain([0, d3.min(data, function(d) { return d.total; })]).nice();
+    colorScale.domain(keys);
 
     g_food_categories.append("g")
       .selectAll("g")
@@ -62,54 +62,75 @@ const stackedBarChartFoodCategories = () => {
         return d;
       })
       .enter().append("rect")
-      .attr("x", d => x(d.data.Entity))
-      .attr("y", d => y(d[1]))
-      .attr("height", d => y(d[0]) - y(d[1]))
-      .attr("width", x.bandwidth());    // is this the problem?
+      .attr("y", d => y(d.data.Entity))
+      .attr("x", d => x(d[0]))
+      .attr("width", d => x(d[1]) - x(d[0]))
+      .attr("height", y.bandwidth());
 
     g_food_categories.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height_food_cat + ")")
       .call(d3.axisBottom(x));
 
+// y-axis
     g_food_categories.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(y).ticks(null, "s"))
-      .append("text")
-      .attr("x", 2)
-      .attr("y", y(y.ticks().pop()) + 0.5)
-      .attr("dy", "0.32em")
-      .attr("fill", "#000")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .text("Average number of kilocalories per person per day");
+      .call(d3.axisLeft(y))
 
+//***************************************************
+//title of stacked bar chart
+var main_title = g_food_categories.append("text")
+    .attr("id", "chart-title")
+    .attr("x", height_food_cat / 2 + margin_food_cat.top)
+    .attr("y", -20)
+    .attr("dy", "1.5em")
+    .style("text-anchor", "middle")
+    .text(title_stacked_bar);
+
+// text label for x and y axis
+var x_title = g_food_categories.append("text")
+    .attr("class", "label-text")
+    .attr("y", height_food_cat + margin_food_cat.bottom)
+    .attr("x", width_food_cat / 2)
+    .style("text-anchor", "middle")
+    .text("Average number of kcal per person per day");
+
+var y_title = g_food_categories.append("text")
+//    .attr("transform", "rotate(-90)")
+    .attr("class", "label-text")
+    .attr("x", -20)
+    .attr("y", 0-10)
+    .attr("dy", "1em")
+    .style("text-anchor", "end")
+    .text("Country");
+
+//*******************************************************************
 // Legend
-    var legend_food_categories = g_food_categories.append("g")
-      .attr("font-family", "sans-serif")
-      .attr("font-size", 10)
-      .attr("text-anchor", "end")
-      .selectAll("g")
-      .data(keys.slice().reverse())
-      .enter().append("g")
-      .attr("transform", function (d, i) {
-        return "translate(0," + i * 30 + ")";
-      });
-
-    legend_food_categories.append("rect")
-      .attr("x", width_food_cat + 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .attr("fill", colorScale);
-
-    legend_food_categories.append("text")
-      .attr("x", width_food_cat + 10)
-      .attr("y", 9)
-      .attr("dy", "0.35em")
-      .text(function (d) {
-        return d;
-      });
+var legend_food_categories = g_food_categories.append("g")
+  .attr("font-family", "sans-serif")
+  .attr("font-size", 10)
+  .attr("text-anchor", "end")
+  .selectAll("g")
+  .data(keys.slice().reverse())
+  .enter().append("g")
+  .attr("transform", function (d, i) {
+    return "translate(0," + i * 30 + ")";
   });
+
+legend_food_categories.append("rect")
+  .attr("x", width_food_cat + 18)
+  .attr("width", 18)
+  .attr("height", 18)
+  .attr("fill", colorScale);
+
+legend_food_categories.append("text")
+  .attr("x", width_food_cat + 10)
+  .attr("y", 9)
+  .attr("dy", "0.35em")
+  .text(function (d) {
+    return d;
+  });
+});
 
 }
 
