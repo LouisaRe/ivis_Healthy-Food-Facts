@@ -266,6 +266,18 @@ input[type="range"] {
   margin-left: -105px;
 }
 
+#yearFoodCat{
+  position: absolute;
+  margin-bottom: 20px;
+  letter-spacing: 10px;
+  font-size: 24px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  margin-top: 565px;  /* (height + margin.bottom/2) */
+  color: cornflowerblue;
+  margin-left: -105px;
+}
+
 /*********************************************************
 tooltip
 */

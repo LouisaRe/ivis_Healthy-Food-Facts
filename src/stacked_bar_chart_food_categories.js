@@ -1,46 +1,55 @@
 const stackedBarChartFoodCategories = () => {
 const title_stacked_bar = "Dietary composition"
 
-  d3.select("#stacked_bar_chart_food_categories").append("svg")
+//size of svg
+d3.select("#stacked_bar_chart_food_categories").append("svg")
     .attr("id", "stacked")
     .attr("width", 1200)
     .attr("height", 600);
 
-  const svg_food_cat = d3.select("#stacked"),
-    margin_food_cat = {top: 80, right: 240, bottom: 60, left: 240},
+// size of chart area and margin
+    const svg_food_cat = d3.select("#stacked"),
+    margin_food_cat = {top: 80, right: 240, bottom: 60, left: 160},
     width_food_cat = +svg_food_cat.attr("width") - margin_food_cat.left - margin_food_cat.right,
     height_food_cat = +svg_food_cat.attr("height") - margin_food_cat.top - margin_food_cat.bottom,
 
-    g_food_categories = svg_food_cat.append("g").attr("transform", "translate(" + margin_food_cat.left + "," + margin_food_cat.top + ")");
+//attach chart area
+g_food_categories = svg_food_cat.append("g")
+    .attr("transform", "translate(" + margin_food_cat.left + "," + margin_food_cat.top + ")");
 
-  function type(d, i, columns) {
-  for (i = 1, t = 0; i < columns.length; ++i)
-  t += d[columns[i]] = +d[columns[i]];
-  d.total = t;
-  return d;
-  }
-
+//y axis - paddings of balken
   var y = d3.scaleBand()
     .rangeRound([0, height_food_cat])
-    .padding(0.2)  // Padding between balken
-//    .align(middle)
+    .padding(0.2)
 
+//x axis
   var x = d3.scaleLinear()
     .rangeRound([0, width_food_cat])
 
+//color of categories
   var colorScale = d3.scaleOrdinal(d3.schemeCategory20);
         //    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-  d3.csv("./data/lebensmittelkategorieneu.csv", type, function (data) {
+  //stacked bars
+    function type(d, i, columns) {
+    for (i = 1, t = 0; i < columns.length; ++i)
+    t += d[columns[i]] = +d[columns[i]];
+    d.total = t;
+    return d;
+    }
+
+
+    // chart with default selection
+    var currentCountriesFoodCat = ["Switzerland", "Germany", "Madagascar", "North Korea", "Zimbabwe", "Italy"]
+    var currentYearFoodCat = 2010
+
+let updateDiagramFoodCat = () =>  d3.csv("./data/lebensmittelkategorieneu.csv", type, function (error, data) {
+    if (error) throw error;
 
     var keys = data.columns.slice(2);
 
-    // chart with default selection
-    var currentCountries = ["Switzerland", "Germany", "Madagascar", "North Korea", "Zimbabwe", "Italy"]
-    var currentYear = 2013
-
-    data = data.filter(d => Number(d.Year) === currentYear); // all country in 2013
-    data = data.filter(d => currentCountries.includes(String(d.Entity)));
+    data = data.filter(d => Number(d.Year) === currentYearFoodCat); // all country in 2013
+    data = data.filter(d => currentCountriesFoodCat.includes(String(d.Entity)));
     console.log(data);
 
     // List of all countries
@@ -65,7 +74,17 @@ const title_stacked_bar = "Dietary composition"
       .attr("y", d => y(d.data.Entity))
       .attr("x", d => x(d[0]))
       .attr("width", d => x(d[1]) - x(d[0]))
-      .attr("height", y.bandwidth());
+      .attr("height", y.bandwidth())
+      // hover effect
+      .on("mouseover", function() { tooltip.style("display", null); })
+      .on("mouseout", function() { tooltip.style("display", "none"); })
+      .on("mousemove", function(d) {
+          var xPosition = d3.mouse(this)[0] - 5;
+          var yPosition = d3.mouse(this)[1] - 5;
+          tooltip.attr("transform", "translate(" + xPosition + "," + yPosition + ")");
+          tooltip.select("text").text(d[1]-d[0]);
+    });
+
 
     g_food_categories.append("g")
       .attr("class", "axis")
@@ -76,6 +95,7 @@ const title_stacked_bar = "Dietary composition"
     g_food_categories.append("g")
       .attr("class", "axis")
       .call(d3.axisLeft(y))
+
 
 //***************************************************
 //title of stacked bar chart
@@ -107,7 +127,7 @@ var y_title = g_food_categories.append("text")
 //*******************************************************************
 // Legend
 
-/*
+
 var legend_food_categories = g_food_categories.append("g")
   .attr("text-anchor", "start")
   .selectAll("g")
@@ -132,8 +152,7 @@ legend_food_categories.append("text")
   });
 
 
-  */
-
+});
 
 //*****************************************************************
 // Year-Slider
@@ -144,40 +163,41 @@ const maxYear = 2013
 //attach #year-slider
 const g_food_categories2 = d3.select("#stacked_bar_chart_food_categories")
                      .append("g")
-                     .attr("id", "year-slider");
+                     .attr("transform", "translate(" + margin_food_cat.left + "," + margin_food_cat.top + ")");
+//                     .attr("id", "year-slider");
 
 // Year-Slider fuctions
 let updateCurrentYearFoodCat = () => {
-g_food_categories2.append("text")
-  .attr("id", "year")
-  .text(currentYear)
+    g_food_categories2.append("text")
+      .attr("id", "yearFoodCat")
+      .text(currentYearFoodCat)
 }
 
 let updateYearAndDiagramFoodCat = () => {
-  d3.select("#year").remove()
-  updateCurrentYearFoodCat()
-//  updateDiagram()
+      d3.select("#yearFoodCat").remove()
+      updateCurrentYearFoodCat()
+      updateDiagramFoodCat()
 }
 
 //Show currentYear
-  let setCurrentYearToNewValueFoodCat = () => {
-    var val = document.getElementById("slider1").value;
-    document.getElementById("year").innerHTML = val;
-    currentYear = Number(val)
-    updateYearAndDiagram()
-    console.log(currentYear)
-  }
+let setCurrentYearToNewValueFoodCat = () => {
+    var valFoodCat = document.getElementById("sliderFoodCat").value;
+    document.getElementById("year").innerHTML = valFoodCat;
+    currentYearFoodCat = Number(valFoodCat)
+    updateYearAndDiagramFoodCat()
+    console.log(currentYearFoodCat)
+}
 
 //init
-updateCurrentYearFoodCat();
+updateDiagramFoodCat();
 
 g_food_categories2.append("input")
-.attr("id", "slider1")
+.attr("id", "sliderFoodCat")
 .attr("type", "range")
 .attr("min", minYear)
 .attr("max", maxYear)
 .attr("step", 1)
-.attr("value", currentYear)
+.attr("value", currentYearFoodCat)
 .on("input", d => setCurrentYearToNewValueFoodCat());
 
 //**************************************************************************
@@ -187,13 +207,13 @@ g_food_categories2.append("input")
   const g_food_categories3 = d3.select("#stacked_bar_chart_food_categories").append("g")
     .attr("id", "entity-chooser");
 
-  d3.csv("./data/lebensmittelkategorieneu.csv").then(function (data) {
+  d3.csv("./data/lebensmittelkategorieneu.csv", function (data) {
     const countriesDomain = [...new Set(data.map(d => String(d.Entity)))]
     console.log(countriesDomain)
 
     //****************************
     //define checkboxes & labels
-    g_food_categories2.append("div")
+    g_food_categories3.append("div")
       .attr("class", "selectionDiv").append("ul").selectAll("li")
       .data(countriesDomain)
       .enter()
@@ -203,11 +223,26 @@ g_food_categories2.append("input")
       .append("input")
       .attr("type", "checkbox")
       .attr("id", d => "checkbox_" + d)
-      .property("checked", d => currentCountries.includes(d))
+     // .property("checked", d => currentCountries.includes(d))
       .on("click", (event, d) => funct(d));
   });
 
-});
+//******************************************************
+// Prep the tooltip bits, initial display is hidden
+var tooltip = g_food_categories.append("g")
+  .attr("class", "tooltip")
+
+tooltip.append("rect")
+  .attr("width", 30)
+  .attr("height", 20)
+  .attr("fill", "white")
+  .style("opacity", 1);
+
+tooltip.append("text")
+  .attr("x", 15)
+  .attr("dy", "1.2em")
+  .style("text-anchor", "middle")
+  .attr("font-size", "12px")
+  .attr("font-weight", "bold");
 
 }
-
