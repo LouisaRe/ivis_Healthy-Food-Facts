@@ -254,7 +254,7 @@ input[type="range"] {
   margin-top: 295px;  /* (top of histogram + this.width/2) */
 }
 
-#year{
+.year{
   position: absolute;
   margin-bottom: 20px;
   letter-spacing: 10px;
@@ -283,30 +283,31 @@ tooltip
 */
 
 div.tooltip {
-      position: absolute;
-      top: 60%;
-      margin-top: 10px;
-      padding: .55rem 1rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      white-space: nowrap;
-      color: #000;
-      border-radius: 50px;
-      background-color: #fff;
-      box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1),
-        0 5px 15px rgba(0, 0, 0, 0.07);
+  position: absolute;
+  top: 60%;
+  margin-top: 10px;
+  padding: .55rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #000;
+  border-radius: 50px;
+  background-color: #fff;
+  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1),
+    0 5px 15px rgba(0, 0, 0, 0.07);
 
-      pointer-events: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      opacity: 0;
-      transition: all 0.3s ease-in-out;
-    }
-    &:hover {
-      span {
-        top: 100%;
-        opacity: 0.6;
-      }
-    }
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+
+span {
+  top: 100%;
+  opacity: 0.6;
+}
+

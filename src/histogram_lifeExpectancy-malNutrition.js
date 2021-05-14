@@ -87,6 +87,7 @@ const lifeExpectancyMalNutrition = () => {
     //attach Scales
 
     console.log("g", gDiagram)
+
     const xAxis = d3.axisBottom(xScale);
     gDiagram.append("g")
       .attr("id", "x-axis")
@@ -125,7 +126,6 @@ const lifeExpectancyMalNutrition = () => {
   });
 
   var numberOfCountries = currentCountries.length
-
   let attachData = (data, gDiagram, xScale, yScale) => {
     if (numberOfCountries !== currentCountries.length) { // countries changed
 
@@ -234,20 +234,21 @@ const lifeExpectancyMalNutrition = () => {
   const maxYear = 2017
 
 //attach #year-slider
-  const g3 = d3.select("#histogram_lifeExpectancy-malNutrition").append("g")
-    .attr("id", "year-slider");
+  const sliderGroup = d3.select("#histogram_lifeExpectancy-malNutrition").append("g")
+    .attr("class", "year-slider");
 
 //****************************
 //functions
 
   let updateCurrentYear = () => {
-    g3.append("text")
-      .attr("id", "year")
+    sliderGroup.append("text")
+      .attr("id", "year_1")
+      .attr("class", "year")
       .text(currentYear)
   }
 
   let updateYearAndDiagram = () => {
-    d3.select("#year").remove()
+    d3.select("#year_1").remove()
     updateCurrentYear()
     updateDiagram()
   }
@@ -255,7 +256,7 @@ const lifeExpectancyMalNutrition = () => {
 //Show currentYear
   let setCurrentYearToNewValue = () => {
     var val = document.getElementById("slider1").value;
-    document.getElementById("year").innerHTML = val;
+    document.getElementById("year_1").innerHTML = val;
     currentYear = Number(val)
     updateYearAndDiagram()
     console.log(currentYear)
@@ -267,7 +268,7 @@ const lifeExpectancyMalNutrition = () => {
 //init
   updateCurrentYear()
 
-  g3.append("input")
+  sliderGroup.append("input")
     .attr("id", "slider1")
     .attr("type", "range")
     .attr("min", minYear)
@@ -281,7 +282,7 @@ const lifeExpectancyMalNutrition = () => {
 //Entity-Chooser
 
 //attach #entity-chooser
-  const g2 = d3.select("#histogram_lifeExpectancy-malNutrition").append("g")
+  const entityChooserGroup = d3.select("#histogram_lifeExpectancy-malNutrition").append("g")
     .attr("id", "entity-chooser");
 
   d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data) {
@@ -290,7 +291,7 @@ const lifeExpectancyMalNutrition = () => {
 
     //****************************
     //define checkboxes & labels
-    g2.append("div")
+    entityChooserGroup.append("div")
       .attr("class", "selectionDiv").append("ul").selectAll("li")
       .data(countriesDomain)
       .enter()

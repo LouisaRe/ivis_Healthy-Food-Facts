@@ -1,86 +1,244 @@
 import "../lib/d3/d3.js"
 
 const foodCategories = async () => {
+  const title = "Average Dietary Composition per person/day"
 
+  //size and margin of svg
+  const canvHeight = 600;
+  const canvWidth = 1200;
+  const margin = {top: 80, right: 10, bottom: 60, left: 240};
+
+  //size of chart area.
+  const width = canvWidth - margin.left - margin.right;
+  const height = canvHeight - margin.top - margin.bottom;
+  // let height = data.length * 25 + margin.top + margin.bottom
+
+  //attach svg
+  const svg4 = d3.select("#stackedBarChart_foodCategories").append("svg")
+    .attr("width", canvWidth)
+    .attr("height", canvHeight);
+
+  //attach #chart-area
+  const g1 = svg4.append("g")
+    .attr("id", "chart-area_4")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+
+  //**************************************************************************
+  //Title and Labels
+
+  //attach #chart-title
+  svg4.append("text")
+    .attr("id", "chart-title")
+    .attr("x", canvWidth / 2)
+    .attr("y", 0)
+    .attr("dy", "1.5em")  // line height
+    .style("text-anchor", "middle")
+    .text(title);
+
+  //x axis - text label
+  g1.append("text")
+    .attr("class", "label-text")
+    .attr("y", height + margin.bottom / 2)
+    .attr("x", width / 2)
+    .attr("dy", "1em")
+    .attr("font-family", "sans-serif")
+    .style("text-anchor", "middle")
+    .text("KCAL");
+
+  //y axis - text label
+  g1.append("text")
+    .attr("class", "label-text")
+    .attr("x", -20)
+    .attr("y", -10)
+    .attr("dy", "1em")
+    .style("text-anchor", "end")
+    .text("Area");
+
+  //**************************************************************************
+  //Scales
   var currentYear = 2013
   var currentCountries = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
 
-  let data = await d3.csv("./data/FoodCategories.csv", (d, i, columns) =>{
-    // currentCountries.includes(String(d.Entity))
-    // columns = columns.filter(c => c !== "Entity" && c !== "Year")
-    if(Number(d.Year) === currentYear && (d.Entity === "Afghanistan" || d.Entity === "Germany")) {
-      return (d3.autoType(d), d.total = d3.sum(columns, c => d[c]), d)
-    }else{
-      return null
-    }
-  })
-  console.log("Data: " + data)
+  let updateDiagram = async () => {
 
-  let series = d3.stack()
-    .keys(data.columns.slice(3))
-    (data)
-    .map(d => {
-      console.log(d.key)
-      return (d.forEach(v => v.key = d.key), d)
+    d3.select("#gDiagram_4").remove() //if allready a diagram group exists, it will be deleted...
+    const gDiagram_4 = g1.append("g").attr("id", "gDiagram_4") //and then new one cerated
+
+    let data = await d3.csv("./data/FoodCategories.csv", (d, i, columns) => {
+      if (Number(d.Year) === currentYear && currentCountries.includes(String(d.Entity))) {
+        return (d3.autoType(d), d.total = d3.sum(columns, c => d[c]), d)
+      } else {
+        return null
+      }
     })
-  console.log("Series: " + series)
+    console.log("Data: " + data)
 
-  let margin = ({top: 30, right: 10, bottom: 0, left: 30})
-  let height = data.length * 25 + margin.top + margin.bottom
-  let width = 300
+    let series = d3.stack()
+      .keys(data.columns.slice(3))
+      (data)
+      .map(d => {
+        console.log(d.key)
+        return (d.forEach(v => v.key = d.key), d)
+      })
+    console.log("Series: " + series)
 
-  let formatValue = x => isNaN(x) ? "N/A" : x.toLocaleString("de")
+    let formatValue = x => isNaN(x) ? "N/A" : x.toLocaleString("de")
 
-  let yAxis = g => g
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(y).tickSizeOuter(0))
-    .call(g => g.selectAll(".domain").remove())
+    //****************************
+    //define Scales
 
-  let xAxis = g => g
-    .attr("transform", `translate(0,${margin.top})`)
-    .call(d3.axisTop(x).ticks(width / 100, "s"))
-    .call(g => g.selectAll(".domain").remove())
+    const color = d3.scaleOrdinal()
+      .domain(series.map(d => d.key))
+      .range(d3.schemeSpectral[series.length])
+      .unknown("#ccc")
 
-  let color = d3.scaleOrdinal()
-    .domain(series.map(d => d.key))
-    .range(d3.schemeSpectral[series.length])
-    .unknown("#ccc")
+    const xScale = d3.scaleLinear()
+      .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
+      .range([margin.left, width - margin.right])
 
-  let y = d3.scaleBand()
-    .domain(data.map(d => d.Entity))
-    .range([margin.top, height - margin.bottom])
-    .padding(0.08)
+    const yScale = d3.scaleBand()
+      .domain(data.map(d => d.Entity))
+      .range([margin.top, height - margin.bottom])
+      .padding(0.08)
+
+    //****************************
+    //attach Scales
+
+    const xAxis = g => g
+      .attr("transform", `translate(0,${margin.top})`)
+      .call(d3.axisTop(xScale).ticks(width / 100, "s"))
+      .call(g => g.selectAll(".domain").remove())
+
+    gDiagram_4.append("g")
+      .call(xAxis)
+
+    const yAxis = g => g
+      .attr("transform", `translate(${margin.left},0)`)
+      .call(d3.axisLeft(yScale).tickSizeOuter(0))
+      .call(g => g.selectAll(".domain").remove())
+
+    gDiagram_4.append("g")
+      .call(yAxis);
+
+    //****************************
+    //attach data
+    attachDataAndTooltip(data, series, gDiagram_4, xScale, yScale, color, formatValue)
+  }
+
+  //init
+  updateDiagram()
+
+  let attachDataAndTooltip = (data, series, gDiagram_4, xScale, yScale, color, formatValue) => {
+      return gDiagram_4.append("g") //show data without transition
+        .selectAll("g")
+        .data(series)
+        .join("g")
+        .attr("fill", d => color(d.key))
+        .selectAll("rect")
+        .data(d => d)
+        .join("rect")
+        .attr("x", d => xScale(d[0]))
+        .attr("y", (d, i) => yScale(d.data.Entity))
+        .attr("width", d => xScale(d[1]) - xScale(d[0]))
+        .attr("height", yScale.bandwidth())
+        .append("title")
+        .text(d => `${d.key}: ${formatValue(d.data[d.key])} kcal`);
+  }
+
+
+//**************************************************************************
+//Year-Slider
+
+  const minYear = 1961
+  const maxYear = 2013
+
+//attach #year-slider
+  const sliderGroup = d3.select("#stackedBarChart_foodCategories").append("g")
+    .attr("class", "year-slider");
+
+//****************************
+//functions
+
+  let updateCurrentYear = () => {
+    sliderGroup.append("text")
+      .attr("id", "year_4")
+      .attr("class", "year")
+      .text(currentYear)
+  }
+
+  let updateYearAndDiagram = () => {
+    d3.select("#year_4").remove()
+    updateCurrentYear()
+    updateDiagram()
+  }
+
+//Show currentYear
+  let setCurrentYearToNewValue = () => {
+    var val = document.getElementById("slider4").value;
+    document.getElementById("year_4").innerHTML = val;
+    currentYear = Number(val)
+    updateYearAndDiagram()
+    console.log(currentYear)
+  }
+
+//****************************
+//functions
+
+//init
+  updateCurrentYear()
+
+  sliderGroup.append("input")
+    .attr("id", "slider4")
+    .attr("type", "range")
+    .attr("min", minYear)
+    .attr("max", maxYear)
+    .attr("step", 1)
+    .attr("value", currentYear)
+    .on("input", d => setCurrentYearToNewValue());
 
 
 
-  let x = d3.scaleLinear()
-    .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
-    .range([margin.left, width - margin.right])
+//**************************************************************************
+//Entity-Chooser
 
+//attach #entity-chooser
+  const entityChooserGroup = d3.select("#stackedBarChart_foodCategories").append("g")
+    .attr("id", "entity-chooser");
 
-    const svg = d3.select("#stackedBarChart_foodCategories").append("svg").attr("viewBox", [0, 0, width, height]);
+  d3.csv("./data/FoodCategories.csv").then(function (data) {
+    const countriesDomain = [...new Set(data.map(d => String(d.Entity)))]
+    console.log(countriesDomain)
 
-  svg.append("g")
-    .selectAll("g")
-    .data(series)
-    .join("g")
-    .attr("fill", d => color(d.key))
-    .selectAll("rect")
-    .data(d => d)
-    .join("rect")
-    .attr("x", d => x(d[0]))
-    .attr("y", (d, i) => y(d.data.Entity))
-    .attr("width", d => x(d[1]) - x(d[0]))
-    .attr("height", y.bandwidth())
-    .append("title")
-    .text(d => `${d.data.Entity} ${d.key}
-      ${formatValue(d.data[d.key])}`);
+    //****************************
+    //define checkboxes & labels
+    entityChooserGroup.append("div")
+      .attr("class", "selectionDiv").append("ul").selectAll("li")
+      .data(countriesDomain)
+      .enter()
+      .append("li")
+      .append("label")
+      .text(d => d + " ")
+      .append("input")
+      .attr("type", "checkbox")
+      .attr("id", d => "checkbox_" + d)
+      .property("checked", d => currentCountries.includes(d))
+      .on("click", (event, d) => onClick_changeCurrentCountries(d));
+  });
 
-  svg.append("g")
-    .call(xAxis);
+  //**************************************************************************
+  //helper functions
 
-  svg.append("g")
-    .call(yAxis);
+  let onClick_changeCurrentCountries = (entityString) => {
+    if (!currentCountries.includes(entityString)) {
+      currentCountries.push(entityString)
+    } else {
+      currentCountries = currentCountries.filter(d => d !== entityString);
+    }
+    console.log("Test " + currentCountries)
+    d3.select("#gDiagram_4").remove()
+    updateDiagram()
+  }
 }
 
 export default foodCategories
