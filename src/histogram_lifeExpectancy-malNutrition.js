@@ -74,7 +74,6 @@ const lifeExpectancyMalNutrition = () => {
 
     data = data.filter(d => Number(d.Year) === currentYear);
     const countriesDomain = [...new Set(data.map(d => String(d.Entity)))]
-    const lifeExpactencyDomain = d3.extent(data, d => Number(d.LifeExpectancy))
 
     //xScale
     const xScale = d3.scaleLinear().rangeRound([0, width])
@@ -302,13 +301,13 @@ const lifeExpectancyMalNutrition = () => {
       .attr("type", "checkbox")
       .attr("id", d => "checkbox_" + d)
       .property("checked", d => currentCountries.includes(d))
-      .on("click", (event, d) => funct(d));
+      .on("click", (event, d) => onClick_changeCurrentCountries(d));
   });
 
 //**************************************************************************
 //helper functions
 
-  let funct = (entityString) => {
+  let onClick_changeCurrentCountries = (entityString) => {
     if (!currentCountries.includes(entityString)) {
       currentCountries.push(entityString)
     } else {
