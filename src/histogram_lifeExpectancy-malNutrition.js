@@ -18,7 +18,7 @@ const lifeExpectancyMalNutrition = () => {
     .attr("height", canvHeight);
 
 //attach #chart-area
-  const g1 = svg1.append("g")
+  const chartAreaGroup = svg1.append("g")
     .attr("id", "chart-area")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -35,7 +35,7 @@ const lifeExpectancyMalNutrition = () => {
     .text(title);
 
 //x axis - text label
-  g1.append("text")
+  chartAreaGroup.append("text")
     .attr("class", "label-text")
     .attr("y", height + margin.bottom / 2)
     .attr("x", width / 2)
@@ -45,7 +45,7 @@ const lifeExpectancyMalNutrition = () => {
     .text("Age");
 
 //y axis - text label
-  g1.append("text")
+  chartAreaGroup.append("text")
     .attr("class", "label-text")
     .attr("x", -20)
     .attr("y", -10)
@@ -65,7 +65,7 @@ const lifeExpectancyMalNutrition = () => {
   let updateDiagram = () => d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data) { //load data from cleaned csv file asynchronous
 
     d3.select("#gDiagram").remove() //if allready a diagram group exists, it will be deleted...
-    const gDiagram = g1.append("g").attr("id", "gDiagram") //and then new one cerated
+    const gDiagram = chartAreaGroup.append("g").attr("id", "gDiagram") //and then new one cerated
 
     //****************************
     //define Scales
@@ -90,13 +90,13 @@ const lifeExpectancyMalNutrition = () => {
 
     const xAxis = d3.axisBottom(xScale);
     gDiagram.append("g")
-      .attr("id", "x-axis")
+      .attr("class", "x-axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
 
     const yAxis = d3.axisLeft(yScale);
     gDiagram.append("g")  // create a group and add axis
-      .attr("id", "y-axis")
+      .attr("class", "y-axis")
       .call(yAxis);
 
     //****************************

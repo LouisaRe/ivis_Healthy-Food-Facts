@@ -6,7 +6,7 @@ const foodCategories = async () => {
   //size and margin of svg
   const canvHeight = 600;
   const canvWidth = 1200;
-  const margin = {top: 80, right: 10, bottom: 60, left: 240};
+  const margin = {top: 80, right: 240, bottom: 60, left: 240};
 
   //size of chart area.
   const width = canvWidth - margin.left - margin.right;
@@ -19,7 +19,7 @@ const foodCategories = async () => {
     .attr("height", canvHeight);
 
   //attach #chart-area
-  const g1 = svg4.append("g")
+  const chartAreaGroup = svg4.append("g")
     .attr("id", "chart-area_4")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -37,7 +37,7 @@ const foodCategories = async () => {
     .text(title);
 
   //x axis - text label
-  g1.append("text")
+  chartAreaGroup.append("text")
     .attr("class", "label-text")
     .attr("y", height + margin.bottom / 2)
     .attr("x", width / 2)
@@ -47,7 +47,7 @@ const foodCategories = async () => {
     .text("KCAL");
 
   //y axis - text label
-  g1.append("text")
+  chartAreaGroup.append("text")
     .attr("class", "label-text")
     .attr("x", -20)
     .attr("y", -10)
@@ -60,12 +60,17 @@ const foodCategories = async () => {
   var currentYear = 2013
   var currentCountries = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
 
+  var maxKCalOfAllYears = 0 //for a constant x-axis
+
   let updateDiagram = async () => {
 
-    d3.select("#gDiagram_4").remove() //if allready a diagram group exists, it will be deleted...
-    const gDiagram_4 = g1.append("g").attr("id", "gDiagram_4") //and then new one cerated
-
     let data = await d3.csv("./data/FoodCategories.csv", (d, i, columns) => {
+      if(currentCountries.includes(String(d.Entity))){
+        if(maxKCalOfAllYears < Number(d.Total)){
+          maxKCalOfAllYears = Number(d.Total)
+        }
+        console.log("MaxKCalOfAllYears: " + maxKCalOfAllYears)
+      }
       if (Number(d.Year) === currentYear && currentCountries.includes(String(d.Entity))) {
         return (d3.autoType(d), d.total = d3.sum(columns, c => d[c]), d)
       } else {
@@ -93,32 +98,33 @@ const foodCategories = async () => {
       .range(d3.schemeSpectral[series.length])
       .unknown("#ccc")
 
-    const xScale = d3.scaleLinear()
-      .domain([0, d3.max(series, d => d3.max(d, d => d[1]))])
-      .range([margin.left, width - margin.right])
+    //xScale
+    const xScale = d3.scaleLinear().rangeRound([0,width])
+      .domain([0, maxKCalOfAllYears])
 
-    const yScale = d3.scaleBand()
+    //yScale
+    const yScale = d3.scaleBand().rangeRound([0,height]).padding(0.08)
       .domain(data.map(d => d.Entity))
-      .range([margin.top, height - margin.bottom])
-      .padding(0.08)
+
+    //****************************
+    //delete and create new
+
+    d3.select("#gDiagram_4").remove() //if allready a diagram group exists, it will be deleted...
+    const gDiagram_4 = chartAreaGroup.append("g").attr("id", "gDiagram_4") //and then new one cerated
 
     //****************************
     //attach Scales
 
-    const xAxis = g => g
-      .attr("transform", `translate(0,${margin.top})`)
-      .call(d3.axisTop(xScale).ticks(width / 100, "s"))
-      .call(g => g.selectAll(".domain").remove())
-
+    const xAxis = d3.axisBottom(xScale).ticks(width / 100, "s");
     gDiagram_4.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", `translate(-1,${height})`)
       .call(xAxis)
 
-    const yAxis = g => g
-      .attr("transform", `translate(${margin.left},0)`)
-      .call(d3.axisLeft(yScale).tickSizeOuter(0))
-      .call(g => g.selectAll(".domain").remove())
-
+    const yAxis = d3.axisLeft(yScale).tickSizeOuter(0);
     gDiagram_4.append("g")
+      .attr("class", "y-axis")
+      .attr("transform", `translate(-1,0)`)
       .call(yAxis);
 
     //****************************
@@ -143,7 +149,7 @@ const foodCategories = async () => {
         .attr("width", d => xScale(d[1]) - xScale(d[0]))
         .attr("height", yScale.bandwidth())
         .append("title")
-        .text(d => `${d.key}: ${formatValue(d.data[d.key])} kcal`);
+        .text(d => `${d.key}: ${formatValue(d.data[d.key])} kcal (` + d3.format(".0%")(1 / Number(d.data.Total) * (d.data[d.key])) + ")"); //Tooltip text
   }
 
 
