@@ -3,6 +3,68 @@ import "../lib/d3/d3.js"
 //*********************************************************
 //BMI Calculator
 
+//*******************************************************
+//BMI Form
+
+//attach #bmi-field
+const g0_bmi = d3.select("#diagram_bmi").append("g")
+    .attr("id", "bmi-field");
+
+g0_bmi.append("text")
+    .text("Weight in kg: ");
+
+g0_bmi.append('input')
+    .attr('id', 'bmi-weight')
+    .attr('class', 'inputbox')
+    .attr('type','number')
+    .attr('name','textInput')
+    .attr('value','Weight in kg')
+    .attr('min', 1)
+    .attr('max', 300)
+
+g0_bmi.append("text")
+    .text("  Height in cm: ");
+
+g0_bmi.append('input')
+    .attr('id', 'bmi-height')
+    .attr('class', 'inputbox')
+    .attr('type','number')
+    .attr('name','textInput')
+    .attr('value','Height in cm')
+    .attr('min', 20)
+    .attr('max', 300)
+
+g0_bmi.append('input')
+    .attr("class", "inputbox")
+    .attr('type','submit')
+    .attr('name','textInput')
+    .attr('value','Calculate BMI')
+    .on("click", event => calcBMI());
+
+
+//****************************
+//functions
+
+  let updateCurrentBMI = () => {
+    g0_bmi.append("text")
+      .attr("id", "bmi2")
+      .attr("class", "year")
+      .text(bmi)
+  }
+
+  let updateBMI = () => {
+    d3.select("#bmi2").remove()
+    updateCurrentBMI()
+    updateDiagramBMI()
+  }
+
+//Show currentYear
+  let setCurrentYearToNewValueBMI = () => {
+    document.getElementById("bmi2").innerHTML = bmi;
+    updateDiagramBMI()
+  }
+
+
 function calcBMI () {
   let bmi = null,
       weight_calcBMI = parseInt(document.getElementById("bmi-weight").value),
@@ -23,6 +85,7 @@ function calcBMI () {
   else { results_calcBMI.innerHTML = bmi + " - Obesity class III"; }
 
   return false; }
+
 
 const BMIChart = () => {
 
@@ -163,6 +226,7 @@ const title_bmi = "BMI"
         .attr("x", 1)
         .attr("y", d => yScale_bmi(d.Entity))
         .style("fill", d => BMIColor(d.BMI))
+//        .style("fill", d => BMIColor(bmi))
         .attr("height", yScale_bmi.bandwidth())
         .transition()
         .duration(200)
@@ -176,6 +240,7 @@ const title_bmi = "BMI"
         .attr("x", 1)
         .attr("y", d => yScale_bmi(d.Entity))
         .style("fill", d => BMIColor(d.BMI))
+//        .style("fill", d => BMIColor(bmi))
         .attr("height", yScale_bmi.bandwidth())
         .attr("width", d => xScale_bmi(d.BMI)-1);
     }
