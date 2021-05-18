@@ -57,6 +57,9 @@ const foodCategories = async () => {
 
   //**************************************************************************
   //Scales
+  const colorScale = ["#D9783B", "#588548", "#6EA45B", "#7EC066", "#495165",
+                      "#6F7B98", "#613936", "#965B56", "#878846", "#B0B159"]
+
   var currentYear = 2013
   var currentCountries = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
 
@@ -95,7 +98,7 @@ const foodCategories = async () => {
 
     const color = d3.scaleOrdinal()
       .domain(series.map(d => d.key))
-      .range(d3.schemeSpectral[series.length])
+      .range(colorScale, [series.length])
       .unknown("#ccc")
 
     //xScale
