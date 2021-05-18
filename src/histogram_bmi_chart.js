@@ -265,12 +265,13 @@ const title_bmi = "BMI"
 
   let updateCurrentYearBMI = () => {
     g3_bmi.append("text")
-      .attr("id", "year")
+      .attr("id", "year_2")
+      .attr("class", "year")
       .text(currentYear_bmi)
   }
 
   let updateYearAndDiagramBMI = () => {
-    d3.select("#year").remove()
+    d3.select("#year_2").remove()
     updateCurrentYearBMI()
     updateDiagramBMI()
   }
@@ -278,7 +279,7 @@ const title_bmi = "BMI"
 //Show currentYear
   let setCurrentYearToNewValueBMI = () => {
     var val = document.getElementById("slider2").value;
-    document.getElementById("year").innerHTML = val;
+    document.getElementById("year_2").innerHTML = val;
     currentYear_bmi = Number(val)
     updateYearAndDiagramBMI()
   }
