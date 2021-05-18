@@ -48,25 +48,43 @@
 
   <!--************************************************************************************************************** -->
   <!-- 2 -->
-
   <!-- paralax -->
   <div id="parallax-img-3">
       <div class="parallax-text">
           <h2><span>A BMI between .. and .. is best for a long life </span></h2>
       </div>
   </div>
-
   <!-- text -->
   <p>Text zum BMI </p>
   <p>Calculate your BMI... <br/>
-    BMI-Calculator <br/>
-    ...and see how you rank compared to the rest of the world <br/></p>
+      BMI-Calculator <br/>
+      ...and see how you rank compared to the rest of the world <br/></p>
   <img src="img/screenshots/LebenserwartungBmi.png" alt="Diagram Lebenserwartung-BMI">
-
   <!-- diagram -->
   <div id="diagram_bmi">
-<!--      <script src=''></script>-->
+            <script type="module">import BMIChart from "./src/histogram_bmi_chart.js";
+                BMIChart();
+</script>
   </div>
+
+  <!-- 2 -->
+<!--&ndash;&gt;<p>Text zum BMI </p>-->
+<!--<img src="img/screenshots/LebenserwartungBmi.png" alt="Diagram Lebenserwartung-BMI">-->
+<!--<form onsubmit="return calcBMI();">-->
+<!--    Weight in kg:-->
+<!--    <input id="bmi-weight" type="number" min="1" max="300" required/>-->
+<!--    Height in cm:-->
+<!--    <input id="bmi-height" type="number" min="20" max="300" required/>-->
+<!--    <input type="submit" value="Calculate BMI"/>-->
+<!--    <br><br>-->
+<!--    Your BMI:-->
+<!--    <div id="bmi-results"></div>-->
+<!--</form>-->
+<!--<div id="BMIChart">-->
+
+<!--    <script>BMIChart();</script>-->
+<!--</div>-->
+<!--<script src=''></script>-->
 
   <!--************************************************************************************************************** -->
   <!-- 3 -->
