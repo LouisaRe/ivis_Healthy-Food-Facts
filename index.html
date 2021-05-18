@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./css/style.css" type="text/css">
     <script src='src/stacked_bar_chart_food_categories.js'></script>
     <script src='src/scatter_plot_sugar_diabetes.js'></script>
+    <script src='src/histogram_bmi_chart.js'></script>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
 <body>
@@ -39,6 +40,7 @@
     <script type="module">
       import lifeExpectancyMalNutrition from "./src/histogram_lifeExpectancy-malNutrition.js";
       lifeExpectancyMalNutrition();
+
     </script>
 </div>
 <div>
@@ -54,10 +56,20 @@
 </div>
 <p>Text zum BMI </p>
 <img src="img/screenshots/LebenserwartungBmi.png" alt="Diagram Lebenserwartung-BMI">
-<div id="diagram_bmi">
-    <script src=''></script>
+<form onsubmit="return calcBMI();">
+    Weight in kg:
+    <input id="bmi-weight" type="number" min="1" max="300" required/>
+    Height in cm:
+    <input id="bmi-height" type="number" min="20" max="300" required/>
+    <input type="submit" value="Calculate BMI"/>
+    <br><br>
+    Your BMI:
+    <div id="bmi-results"></div>
+</form>
+<div id="BMIChart">
+    <script>BMIChart();</script>
 </div>
-</div>
+<script src=''></script>
 <p>Calculate your BMI... <br/>
     BMI-Calculator <br/>
     ...and see how you rank compared to the rest of the world <br/></p>
@@ -70,13 +82,14 @@
 <p>Text...</p>
 <label for="selectButton">Where do you live?</label>
 <select id="selectButton"></select>
-    <div id="scatter_plot_sugar_diabetes">
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script>scatterPlotSugarDiabetes()</script>
-    </div>
-    <script src=''></script>
+<div id="scatter_plot_sugar_diabetes">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>scatterPlotSugarDiabetes()</script>
+</div>
+<script src=''></script>
 <p>Diagram showing the relationship between too much sugar und diabetes</p>
-<img src="img/screenshots/DiabethesZuckerverbrauch.png"  alt="Diagram Diabethes-Zuckerverbrauch" style="width:auto;height:600px;">
+<img src="img/screenshots/DiabethesZuckerverbrauch.png" alt="Diagram Diabethes-Zuckerverbrauch"
+     style="width:auto;height:600px;">
 
 <!-- 4 -->
 <div id="parallax-img-5">
@@ -103,12 +116,12 @@
     <b>Fat, oil, sugar, sweets</b> are high in fat, sugar and/or salt.
     They typically have very little nutritional value and are often processed and packaged.
 </p>
-    <div id="stacked_bar_chart_food_categories">
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script>stackedBarChartFoodCategories()</script>
-        <p>(in Bearbeitung... Filter mit Ländern folgt)</p>
-    </div>
-    <script src=''></script>
+<div id="stacked_bar_chart_food_categories">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script>stackedBarChartFoodCategories()</script>
+    <p>(in Bearbeitung... Filter mit Ländern folgt)</p>
+</div>
+<script src=''></script>
 
 <!-- Quellen -->
 <div id="parallax-img-6">
