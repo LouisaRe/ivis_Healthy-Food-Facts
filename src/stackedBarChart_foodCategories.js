@@ -133,13 +133,22 @@ const foodCategories = async () => {
     //****************************
     //attach data
     attachDataAndTooltip(data, series, gDiagram_4, xScale, yScale, color, formatValue)
+
+    //Show Text if there is no data for the selected year
+    gDiagram_4.select(".allData")
+      .selectAll("text")
+      .data(data.filter(d => Number(d.Total) === 0))
+      .join("text")
+      .text("No data available for this year.")
+      .attr("x", 4)
+      .attr("y", (d, i) => Number(yScale(d.Entity)) + yScale.bandwidth()/2 +4)
   }
 
   //init
   updateDiagram()
 
   let attachDataAndTooltip = (data, series, gDiagram_4, xScale, yScale, color, formatValue) => {
-      return gDiagram_4.append("g") //show data without transition
+      return gDiagram_4.append("g").attr("class", "allData") //show data without transition
         .selectAll("g")
         .data(series)
         .join("g")
@@ -151,6 +160,7 @@ const foodCategories = async () => {
         .attr("y", (d, i) => yScale(d.data.Entity))
         .attr("width", d => xScale(d[1]) - xScale(d[0]))
         .attr("height", yScale.bandwidth())
+        .text("Hallo")
         .append("title")
         .text(d => `${d.key}: ${formatValue(d.data[d.key])} kcal (` + d3.format(".0%")(1 / Number(d.data.Total) * (d.data[d.key])) + ")"); //Tooltip text
   }
