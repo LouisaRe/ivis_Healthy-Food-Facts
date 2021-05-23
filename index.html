@@ -6,169 +6,149 @@
     <link rel="stylesheet" href="./css/style.css" type="text/css">
 </head>
 <body>
-  <script src='lib/d3/d3.js'></script>
-  <script src='lib/lodash.js'></script>
+<script src='lib/d3/d3.js'></script>
+<script src='lib/lodash.js'></script>
 
-  <!--************************************************************************************************************** -->
-  <!-- Start -->
-  <div id="parallax-img-1">
-      <div class="parallax-text">
-          <h1><span>World Population - Health Facts</span></h1>
-      </div>
-  </div>
-  <p>This page will guide you through information about health facts around the world.
-      A healthy diet helps to protect against malnutrition and prolongs life expectancy.
-      The more healthy foods people add to their diet, the lower their risk of premature death.
-      Compare yourself with the countries you have selected. Perhaps this will convince you to eat healthy in the future.
-  </p>
-  <p>
-      The healthy food journey starts here...
-  </p>
+<!--************************************************************************************************************** -->
+<!-- Start -->
+<div id="parallax-img-1">
+    <div class="parallax-text">
+        <h1><span>World Population - Health Facts</span></h1>
+    </div>
+</div>
+<p>This page will guide you through information about health facts around the world.
+    A healthy diet helps to protect against malnutrition and prolongs life expectancy.
+    The more healthy foods people add to their diet, the lower their risk of premature death.
+    Compare yourself with the countries you have selected. Perhaps this will convince you to eat healthy in the future.
+</p>
+<p>
+    The healthy food journey starts here...
+</p>
 
-  <!--************************************************************************************************************** -->
-  <!-- 1 -->
+<!--************************************************************************************************************** -->
+<!-- 1 -->
 
-  <!-- paralax -->
-  <div id="parallax-img-2">
-      <div class="parallax-text">
-          <h2><span>Malnutrition shortens life</span></h2>
-      </div>
-  </div>
+<!-- paralax -->
+<div id="parallax-img-2">
+    <div class="parallax-text">
+        <h2><span>Malnutrition shortens life</span></h2>
+    </div>
+</div>
 
-  <!-- text -->
-  <p>Text about the importance of nutrition for life expectancy</p>
+<!-- text -->
+<p>Text about the importance of nutrition for life expectancy</p>
 
-  <!-- diagram -->
-  <div id="histogram_lifeExpectancy-malNutrition">
-      <script type="module">
+<!-- diagram -->
+<div id="histogram_lifeExpectancy-malNutrition">
+    <script type="module">
         import lifeExpectancyMalNutrition from "./src/histogram_lifeExpectancy-malNutrition.js";
         lifeExpectancyMalNutrition();
-      </script>
-  </div>
+    </script>
+</div>
 
-  <!--************************************************************************************************************** -->
-  <!-- 2 -->
-  <!-- paralax -->
-  <div id="parallax-img-3">
-      <div class="parallax-text">
-          <h2><span>A BMI between .. and .. is best for a long life </span></h2>
-      </div>
-  </div>
-  <!-- text -->
-  <p>Text zum BMI </p>
-  <p>Calculate your BMI... <br/>
-      BMI-Calculator <br/>
-      ...and see how you rank compared to the rest of the world <br/></p>
-
-  <div id="bmi-results"></div>
+<!--************************************************************************************************************** -->
+<!-- 2 -->
+<!-- paralax -->
+<div id="parallax-img-3">
+    <div class="parallax-text">
+        <h2><span>A BMI between .. and .. is best for a long life </span></h2>
+    </div>
+</div>
+<!-- text -->
+<p>Text zum BMI </p>
+<p>Calculate your BMI... <br/>
+    BMI-Calculator <br/>
+    ...and see how you rank compared to the rest of the world <br/></p>
 
 <!--  <img src="img/screenshots/LebenserwartungBmi.png" alt="Diagram Lebenserwartung-BMI">-->
-  <!-- diagram -->
-  <div id="diagram_bmi">
-            <script type="module">import BMIChart from "./src/histogram_bmi_chart.js";
+<!-- diagram -->
+<div id="diagram_bmi">
+    <script type="module">
+    import BMIChart from "./src/histogram_bmi_chart.js";
                 BMIChart();
-</script>
-  </div>
+    </script>
+</div>
 
-  <!-- 2 -->
-<!--&ndash;&gt;<p>Text zum BMI </p>-->
-<!--<img src="img/screenshots/LebenserwartungBmi.png" alt="Diagram Lebenserwartung-BMI">-->
-<!--<form onsubmit="return calcBMI();">-->
-<!--    Weight in kg:-->
-<!--    <input id="bmi-weight" type="number" min="1" max="300" required/>-->
-<!--    Height in cm:-->
-<!--    <input id="bmi-height" type="number" min="20" max="300" required/>-->
-<!--    <input type="submit" value="Calculate BMI"/>-->
-<!--    <br><br>-->
-<!--    Your BMI:-->
-<!--    <div id="bmi-results"></div>-->
-<!--</form>-->
-<!--<div id="BMIChart">-->
+<!--************************************************************************************************************** -->
+<!-- 3 -->
 
-<!--    <script>BMIChart();</script>-->
-<!--</div>-->
-<!--<script src=''></script>-->
+<!-- paralax -->
+<div id="parallax-img-4">
+    <div class="parallax-text">
+        <h2><span>Too much sugar can bring more consequences than just a high BMI</span></h2>
+    </div>
+</div>
 
-  <!--************************************************************************************************************** -->
-  <!-- 3 -->
+<!-- text -->
+<p>Text...</p>
+<label for="selectButton">Where do you live?</label>
+<select id="selectButton"></select>
 
-  <!-- paralax -->
-  <div id="parallax-img-4">
-      <div class="parallax-text">
-          <h2><span>Too much sugar can bring more consequences than just a high BMI</span></h2>
-      </div>
-  </div>
+<!-- diagram -->
+<div id="scatter_plot_sugar_diabetes">
+    <script type="module">
+        import scatterPlotSugarDiabetes from "./src/scatter_plot_sugar_diabetes.js";
+        scatterPlotSugarDiabetes();
+    </script>
+</div>
 
-  <!-- text -->
-  <p>Text...</p>
-  <label for="selectButton">Where do you live?</label>
-  <select id="selectButton"></select>
+<p>Diagram showing the relationship between too much sugar und diabetes</p>
+<img src="img/screenshots/DiabethesZuckerverbrauch.png" alt="Diagram Diabethes-Zuckerverbrauch"
+     style="width:auto;height:600px;">
 
-  <!-- diagram -->
-<!--  <div id="scatter_plot_sugar_diabetes">-->
-<!--      <script type="module">-->
-<!--        import scatterPlotSugarDiabetes from "./src/scatter_plot_sugar_diabetes.js";-->
-<!--        scatterPlotSugarDiabetes()-->
-<!--      </script>-->
-<!--  </div>-->
+<!--************************************************************************************************************** -->
+<!-- 4 -->
 
-  <p>Diagram showing the relationship between too much sugar und diabetes</p>
-  <img src="img/screenshots/DiabethesZuckerverbrauch.png"  alt="Diagram Diabethes-Zuckerverbrauch" style="width:auto;height:600px;">
+<!-- paralax -->
+<div id="parallax-img-5">
+    <div class="parallax-text">
+        <h2><span>Find a healthy mix</span></h2>
+    </div>
+</div>
 
-  <!--************************************************************************************************************** -->
-  <!-- 4 -->
+<!-- text -->
+<p>
+    It's not a myth! <br/><br/> Eating the right foods can lead to a longer, healthier life.
+    To increase your lifespan, check out the major food groups that help you live longer.
+</p>
+<img src="img/foodpyramid.png" alt="Food Pyramid">
+<p>
+    <b>Breads, cereals, pasta and other grain-based foods</b> provide carbohydrates,
+    which the body uses for energy. The best choices from this group are wholemeal and wholegrain breads, cereals and
+    savoury biscuits.
+    Other good choices include brown rice, couscous, wholegrain pasta and polenta.<br/><br/>
+    <b>Fruit and vegetables</b> provide vitamins, minerals and fibre, and should be included in meals and snacks each
+    day.
+    Choose a variety of fruits, vegetables and legumes (including different colours, textures and flavours) to provide a
+    wide range of vitamins and minerals.<br/><br/>
+    <b>Meat, fish, milk, eggs</b> and its alternatives (nuts, legumes, tofu etc.) are rich in protein, iron and zinc.
+    Milk, cheese and yoghurt are the most common dairy foods, and main dietary sources of calcium.
+    Having enough calcium is important for healthy bones and teeth.<br/><br/>
+    <b>Fat, oil, sugar, sweets</b> are high in fat, sugar and/or salt.
+    They typically have very little nutritional value and are often processed and packaged.
+</p>
 
-  <!-- paralax -->
-  <div id="parallax-img-5">
-      <div class="parallax-text">
-          <h2><span>Find a healthy mix</span></h2>
-      </div>
-  </div>
-
-  <!-- text -->
-  <p>
-      It's not a myth! <br/><br/> Eating the right foods can lead to a longer, healthier life.
-      To increase your lifespan, check out the major food groups that help you live longer.
-  </p>
-  <img src="img/foodpyramid.png" alt="Food Pyramid">
-  <p>
-      <b>Breads, cereals, pasta and other grain-based foods</b> provide carbohydrates,
-      which the body uses for energy. The best choices from this group are wholemeal and wholegrain breads, cereals and
-      savoury biscuits.
-      Other good choices include brown rice, couscous, wholegrain pasta and polenta.<br/><br/>
-      <b>Fruit and vegetables</b> provide vitamins, minerals and fibre, and should be included in meals and snacks each
-      day.
-      Choose a variety of fruits, vegetables and legumes (including different colours, textures and flavours) to provide a
-      wide range of vitamins and minerals.<br/><br/>
-      <b>Meat, fish, milk, eggs</b> and its alternatives (nuts, legumes, tofu etc.) are rich in protein, iron and zinc.
-      Milk, cheese and yoghurt are the most common dairy foods, and main dietary sources of calcium.
-      Having enough calcium is important for healthy bones and teeth.<br/><br/>
-      <b>Fat, oil, sugar, sweets</b> are high in fat, sugar and/or salt.
-      They typically have very little nutritional value and are often processed and packaged.
-  </p>
-
-  <!-- diagram -->
-  <div id="stackedBarChart_foodCategories">
+<!-- diagram -->
+<div id="stackedBarChart_foodCategories">
     <script type="module">
       import foodCategories from "./src/stackedBarChart_foodCategories.js";
       foodCategories();
     </script>
-  </div>
+</div>
 
+<!--************************************************************************************************************** -->
+<!-- Quellen -->
 
-  <!--************************************************************************************************************** -->
-  <!-- Quellen -->
+<!-- paralax -->
+<div id="parallax-img-6">
+    <div class="parallax-text">
+        <h2><span>Sources</span></h2>
+    </div>
+</div>
 
-  <!-- paralax -->
-  <div id="parallax-img-6">
-      <div class="parallax-text">
-          <h2><span>Sources</span></h2>
-      </div>
-  </div>
-
-  <!-- text -->
-  <h3>Data sources</h3>
-  <span>
+<!-- text -->
+<h3>Data sources</h3>
+<span>
       <ul>
           <li><a href='https://ourworldindata.org/diet-compositions'>Diet Compositions</a></li>
           <li><a href='https://ourworldindata.org/grapher/life-expectancy'>Life Expectancy</a></li>
@@ -179,13 +159,12 @@
           <li><a href='http://www.fao.org/faostat/en/#data/FBS'>Sugar Food Supply</a></li>
           <li><a href='https://ourworldindata.org/diet-compositions'>Dietary composition</a></li>
           <li><a href=''>Empty</a></li>
-
       </ul>
     </span>
 
-  <!-- text -->
-  <h3>Image sources</h3>
-  <span>
+<!-- text -->
+<h3>Image sources</h3>
+<span>
       <ul>
         <li><a href='https://pixabay.com/de/illustrations/menschen-menschengruppe-ansammlung-567563/'>World Population</a></li>
         <li><a href='https://de.freepik.com/fotos-kostenlos/draufsicht-der-mannhaende-die-eine-leere-rote-platte-auf-einem-holztisch-halten_12739544.htm#page=1&query=leere%20Sch%C3%BCssel&position=11'>Malutrition</a></li>
@@ -198,4 +177,3 @@
     </span>
 </body>
 </html>
-

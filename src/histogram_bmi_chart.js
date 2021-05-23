@@ -39,8 +39,10 @@ g0_bmi.append('input')
     .attr('type','submit')
     .attr('name','textInput')
     .attr('value','Calculate BMI')
-    .on("click", event => calcBMI());
+    .on("click", event => calcBMI() );
 
+g0_bmi.append("text")
+    .attr('id', 'bmi-results')
 
 //****************************
 //functions
@@ -85,7 +87,6 @@ function calcBMI () {
   else { results_calcBMI.innerHTML = bmi + " - Obesity class III"; }
 
   return false; }
-
 
 const BMIChart = () => {
 
@@ -152,6 +153,8 @@ const title_bmi = "BMI"
   var currentYear_bmi = 2016
   var currentCountries_bmi = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
 
+  var descending = function (a, b) { return b.BMI - a.BMI }
+
   let updateDiagramBMI = () => d3.csv("./data/bmi.csv").then(function (data) { //load data from cleaned csv file asynchronous
 
     d3.select("#gDiagramBMI").remove() //if allready a diagram group exists, it will be deleted...
@@ -159,11 +162,13 @@ const title_bmi = "BMI"
 
     //****************************
     //define Scales
+
     data = data.filter(d => currentCountries_bmi.includes(String(d.Entity)));
     const BMIDomainForAllYears = d3.extent(data, d => Number(d.BMI))
 
     data = data.filter(d => Number(d.Year) === currentYear_bmi);
     const countriesDomainBMI = [...new Set(data.map(d => String(d.Entity)))]
+
 
     //xScale
     const xScale_bmi = d3.scaleLinear().rangeRound([0, width_bmi])
@@ -221,12 +226,12 @@ const title_bmi = "BMI"
       return gDiagramBMI.selectAll("rect") //show data with transition
         .data(data)
         .enter().append("rect")
-        .attr("id", d => "bar_" + d.Entity.toLowerCase())
+//        .attr("id", d => "bar_" + d.Entity.toLowerCase())
+//        .sort(descending)
         .attr("class", "bar")
         .attr("x", 1)
         .attr("y", d => yScale_bmi(d.Entity))
         .style("fill", d => BMIColor(d.BMI))
-//        .style("fill", d => BMIColor(bmi))
         .attr("height", yScale_bmi.bandwidth())
         .transition()
         .duration(200)
@@ -235,12 +240,12 @@ const title_bmi = "BMI"
       return gDiagramBMI.selectAll("rect") //show data without transition
         .data(data)
         .enter().append("rect")
-        .attr("id", d => "bar_" + d.Entity.toLowerCase())
+//        .attr("id", d => "bar_" + d.Entity.toLowerCase())
+//        .sort(descending)
         .attr("class", "bar")
         .attr("x", 1)
         .attr("y", d => yScale_bmi(d.Entity))
         .style("fill", d => BMIColor(d.BMI))
-//        .style("fill", d => BMIColor(bmi))
         .attr("height", yScale_bmi.bandwidth())
         .attr("width", d => xScale_bmi(d.BMI)-1);
     }

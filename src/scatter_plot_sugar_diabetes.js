@@ -5,155 +5,166 @@ import "../lib/d3/d3.js"
 
 const scatterPlotSugarDiabetes = () => {
 
-  const title_scatter_plot = "Is Sugar Consumption linked to Diabetes?"
 
-  // set the dimensions and margins of the graph
-  var margin_scatter_plot = {top: 80, right: 240, bottom: 60, left: 240},
-      width_scatter_plot = 1200 - margin_scatter_plot.left - margin_scatter_plot.right,
-      height_scatter_plot = 600 - margin_scatter_plot.top - margin_scatter_plot.bottom;
+const title_scatter_plot = "Is Sugar Consumption Linked to Diabetes?"
 
-  // append the svg object to the body of the page
-  var g_scatter_plot = d3.select("#scatter_plot_sugar_diabetes")
-      .append("svg")
-      .attr("width", width_scatter_plot + margin_scatter_plot.left + margin_scatter_plot.right)
-      .attr("height", height_scatter_plot + margin_scatter_plot.top + margin_scatter_plot.bottom)
-      .append("g")
-      .attr("transform",
-            "translate(" + margin_scatter_plot.left + "," + margin_scatter_plot.top + ")");
+// create svg canvas
+const canvHeight = 600, canvWidth = 1200;
+const svg = d3.select("#scatter_plot_sugar_diabetes").append("svg")
+    .attr("width", canvWidth)
+    .attr("height", canvHeight);
 
-  // ***************************************************************
-  // load the data from csv
-  d3.csv("./data/DiabetesZuckverbrauch2017.csv", function(data) {
+// calc the width and height depending on margins.
+const margin = {top: 80, right: 240, bottom: 60, left: 240};
+const width = canvWidth - margin.left - margin.right;
+const height = canvHeight - margin.top - margin.bottom;
 
-  //data = data.filter(function(d,i) { return i<10 } )
-  //var hallo = data.filter(function(d) { return d.Entity == "Switzerland" } ) // Switzerland Object
-  //
-  //var hallo3 = data = data.filter(function(d) {
-  //        return d['Entity'] == 'Switzerland' || d['Entity'] == 'China';
-  //});  // Objekt von Schweiz und China
-  //
-  //var inputValue = d3.select(“#selectButton”).property("value");
-  //var filteredCountry = data.filter(function(d) { return  d.Entity.includes("Switzerland")});
+// chart title
+svg.append("text")
+    .attr("y", 0)
+    .attr("x", margin.left)
+    .attr("dy", "1.5em")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "24px")
+    .style("text-anchor", "left")
+    .text(title_scatter_plot);
+
+// create parent group and add left and top margin
+const g = svg.append("g")
+    .attr("id", "chart-area")
+    .attr("transform", "translate(" +margin.left + "," + margin.top + ")");
+
+// text label for the x axis
+g.append("text")
+    .attr("y", height + margin.bottom / 2)
+    .attr("x", width / 2)
+    .attr("dy", "1em")
+    .attr("font-family", "sans-serif")
+    .style("text-anchor", "middle")
+    .text("Diabetes in %");
+
+ // text label for the y axis
+g.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left/4)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .attr("font-family", "sans-serif")
+    .style("text-anchor", "middle")
+    .text("Sugar (kcal/capita/day)");
+
+// load the data from the cleaned csv file.
+// note: the call is done asynchronous.
+// That is why you have to load the data inside of a
+// callback function.
+d3.csv("./data/DiabetesZuckverbrauch2017.csv").then(function(data) {
+    const heightDomain = d3.extent(data, d => Number(d.Diabetes));
+    const weightDomain = d3.extent(data, d => Number(d.Sugar));
 
 var countriesDomain = data.map(d => String(d.Entity))
 
-  //************************************************
-  // Select Button
-  var selectButtonValue = d3.select("#selectButton")
-    .selectAll('myOptions')
-     .data(countriesDomain)
-    .enter()
-     .append('option')
-    .text(function (d) { return d; })
-    .attr("value", function (d) { return d; }) // corresponding value returned by the button
+//************************************************
+// Select Button
+var selectButtonValue = d3.select("#selectButton")
+  .selectAll('myOptions')
+   .data(countriesDomain)
+  .enter()
+   .append('option')
+  .text(function (d) { return d; })
+  .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
-  //**********************************************
-    // Add X axis
-    var x = d3.scaleLinear()
-      .domain([0, 25])
-      .range([0, width_scatter_plot]);
-    g_scatter_plot.append("g")
-      .attr("transform", "translate(0," + height_scatter_plot + ")")
-      .call(d3.axisBottom(x));
+    // 1. create scales for x and y direction and for the color coding
+    const xScale = d3.scaleLinear()
+        .domain([0, 25])
+        .rangeRound([0, width])
+        .nice(5);
 
-    // Add Y axis
-    var y = d3.scaleLinear()
-      .domain([0, 600])
-      .range([height_scatter_plot, 0]);
-    g_scatter_plot.append("g")
-      .call(d3.axisLeft(y));
+    const yScale = d3.scaleLinear()
+        .domain([0, 600])
+        .rangeRound([height, 0])
+        .nice(5);
 
-  // title of scatter plot
-  var main_title = g_scatter_plot.append("text")
-      .attr("id", "chart-title")
-      .attr("x", height_scatter_plot + margin_scatter_plot.top / 2)
-      .attr("y", -20)
-      .attr("dy", "1.5em")  // line height
-      .style("text-anchor", "middle")
-      .text(title_scatter_plot);
+    // 2. create and append
+    //    a. x-axis
+    const xAxis = d3.axisBottom(xScale);
+    g.append("g")
+        .attr("id", "x-axis")
+        .attr("transform", "translate(0, "+ height +")")
+        .call(xAxis);
 
-  // text label for x and y axis
-  var x_title = g_scatter_plot.append("text")
-      .attr("class", "label-text")
-      .attr("y", height_scatter_plot + margin_scatter_plot.bottom)
-      .attr("x", width_scatter_plot / 2)
-      .style("text-anchor", "middle")
-      .text("Diabetes in %");
+    //    b. y-axis
+    const yAxis = d3.axisLeft(yScale);
+    g.append("g")
+        .attr("id", "y-axis")
+        .call(yAxis);
 
-  var y_title = g_scatter_plot.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("class", "label-text")
-      .attr("x", 0 - height_scatter_plot/2)
-      .attr("y", 0 - margin_scatter_plot.left/4)
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text("Sugar (kcal/capita/day)");
+    // 5. Create tooltip
+var tooltip = d3.select('#scatter_plot_sugar_diabetes')
+     .append("div")
+     .attr("class", "tooltip")
+     .style("opacity", 0);
 
-  //*******************************************************
-  // Add dots
-  var tooltip = d3.select('#scatter_plot_sugar_diabetes')
-       .append("div")
-       .attr("class", "tooltip")
-       .style("opacity", 0);
+updateOldChart();
 
-  updateOldChart()
-
-  // *****************************************************
-  // update the chart
-  function updateChart(dataFilter) {
-  // update the oldchart
-  updateOldChart()
-
-  var selectedpath =  g_scatter_plot.append('g')
-      .selectAll("dot")
-      .data(dataFilter)
-      .enter()
-      .append("circle")
-        .attr("cx", d => x(d.Diabetes) )
-        .attr("cy", d => y(d.Sugar) )
+//****************************************
+// update the chart
+function updateChart(dataFilter) {
+//update the oldchart
+updateOldChart()
+// 3. add data-points (circle) // mit Animation
+var data_points = g.selectAll("dot")
+    .data(dataFilter)
+    .enter();
+data_points.append("circle")
+        .attr("class", "person_data_point")
+        .attr("cx", d=> xScale(d.Diabetes))
+        .attr("cy", d=> yScale(d.Sugar))
         .attr("r", 4)  // Size of dots
         .attr("stroke", "#ff0000")
         .attr("stroke-width", 1.5)
         .attr("fill", "#ffffff")
-       //hovering effects
-        .on("mouseover", function (d, i) {
-             d3.select(this).transition()
-                  .duration(100)
-                  .attr("r", 4)
-                  .attr("stroke", "#ff0000")
-                  .attr("stroke-width", 1.5)
-                  .attr("fill", "#ffffff")
-            tooltip.transition()
-                  .duration(100)
-                  .style("opacity", 1);
-        })
-        .on("mousemove", function (d, i) {
-             d3.select(this).transition()
-                  .duration(100)
-                  .attr("r", 6)
-                  .attr("stroke", "#ff0000")
-                  .attr("stroke-width", 1.5)
-                  .attr("fill", "#ff0000")
-             tooltip.transition()
-                  .duration(100)
-                  .style("opacity", 1);
-             tooltip.html("<b>"+d.Entity+"</b>"+"<br/>Sugar: "+d.Sugar+" kcal/capita/day<br/>Diabetes: "+d.Diabetes+"%")
-                  .style("left", (d3.event.pageX + 10) + "px")
-                  .style("top", (d3.event.pageY - 28) + "px");
-        })
-      .on("mouseout", function (d, i) {
-             d3.select(this).transition()
-                  .duration(100)
-                  .attr("r", 4)
-                  .attr("stroke", "#ff0000")
-                  .attr("stroke-width", 1.5)
-                  .attr("fill", "#ffffff")
-           tooltip.transition()
-                .duration(200)
-                .style("opacity", 0);
-      });
-  }
+   //hovering effects
+    .on("mouseover", function (d, i) {
+         d3.select(this).transition()
+              .duration(100)
+              .attr("r", 4)
+              .attr("stroke", "#ff0000")
+              .attr("stroke-width", 1.5)
+              .attr("fill", "#ffffff")
+        tooltip.transition()
+              .duration(100)
+              .style("opacity", 1);
+    })
+    .on("mousemove", function (d, i) {
+     var position = d3.pointer(event, d);
 
+         d3.select(this).transition()
+              .duration(100)
+              .attr("r", 6)
+              .attr("stroke", "#ff0000")
+              .attr("stroke-width", 1.5)
+              .attr("fill", "#ff0000")
+         tooltip.transition()
+              .duration(100)
+              .style("opacity", 1);
+         tooltip.html("<b>"+d.Entity+"</b>"+"<br/>Sugar: "+d.Sugar+" kcal/capita/day<br/>Diabetes: "+d.Diabetes+"%")
+              .style("left", margin.left + position[0] + "px")
+              .style("top", position[1] - 28 + "px");
+    })
+  .on("mouseout", function (d, i) {
+         d3.select(this).transition()
+              .duration(100)
+              .attr("r", 4)
+              .attr("stroke", "#ff0000")
+              .attr("stroke-width", 1.5)
+              .attr("fill", "#ffffff")
+       tooltip.transition()
+            .duration(200)
+            .style("opacity", 0);
+  });
+
+}
+// Select Button
   d3.select("#selectButton").on("change", function(d) {
       // recover the option that has been chosen
       var selectedOption = d3.select(this).property("value")
@@ -166,58 +177,62 @@ var countriesDomain = data.map(d => String(d.Entity))
       updateChart(dataFilter);
   })
 
-    function updateOldChart() {
-    var path =  g_scatter_plot.append('g')
-        .selectAll("dot")
-        .data(data)
-        .enter()
-        .append("circle")
-          .attr("cx", d => x(d.Diabetes) )
-          .attr("cy", d => y(d.Sugar) )
-          .attr("r", 4)  // Size of dots
-          .attr("stroke", "#69b3a2")
-          .attr("stroke-width", 1.5)
-          .attr("fill", "#ffffff")
-          //hovering effects
-          .on("mouseover", function (d, i) {
-               d3.select(this).transition()
-                    .duration(100)
-                    .attr("r", 4)
-                    .attr("stroke", "#69b3a2")
-                    .attr("stroke-width", 1.5)
-                    .attr("fill", "#ffffff")
-              tooltip.transition()
-                    .duration(100)
-                    .style("opacity", 1);
-          })
-          .on("mousemove", function (d, i) {
-               d3.select(this).transition()
-                    .duration(100)
-                    .attr("r", 6)
-                    .attr("stroke", "#69b3a2")
-                    .attr("stroke-width", 1.5)
-                    .attr("fill", "#69b3a2")
-               tooltip.transition()
-                    .duration(100)
-                    .style("opacity", 1);
-               tooltip.html("<b>"+d.Entity+"</b>"+"<br/>Sugar: "+d.Sugar+" kcal/capita/day<br/>Diabetes: "+d.Diabetes+"%")
-                    .style("left", (d3.event.pageX + 10) + "px")
-                    .style("top", (d3.event.pageY - 28) + "px");
-          })
-        .on("mouseout", function (d, i) {
-               d3.select(this).transition()
-                    .duration(100)
-                    .attr("r", 4)
-                    .attr("stroke", "#69b3a2")
-                    .attr("stroke-width", 1.5)
-                    .attr("fill", "#ffffff")
-             tooltip.transition()
-                  .duration(200)
-                  .style("opacity", 0);
-        });
-    }
 
-  })
+function updateOldChart() {
+var path = g.selectAll("dot")
+    .data(data)
+    .enter();
+path.append("circle")
+        .attr("class", "person_data_point")
+        .attr("cx", d=> xScale(d.Diabetes))
+        .attr("cy", d=> yScale(d.Sugar))
+        .attr("r", 4)  // Size of dots
+        .attr("stroke", "#69b3a2")
+        .attr("stroke-width", 1.5)
+        .attr("fill", "#ffffff")
+   //hovering effects
+    .on("mouseover", function (d, i) {
+         d3.select(this).transition()
+              .duration(100)
+              .attr("r", 4)
+              .attr("stroke", "#69b3a2")
+              .attr("stroke-width", 1.5)
+              .attr("fill", "#ffffff")
+        tooltip.transition()
+              .duration(100)
+              .style("opacity", 1);
+    })
+    .on("mousemove", function (d, i) {
+     var position = d3.pointer(event, d);
+
+         d3.select(this).transition()
+              .duration(100)
+              .attr("r", 6)
+              .attr("stroke", "#69b3a2")
+              .attr("stroke-width", 1.5)
+              .attr("fill", "#69b3a2")
+         tooltip.transition()
+              .duration(100)
+              .style("opacity", 1);
+         tooltip.html("<b>"+d.Entity+"</b>"+"<br/>Sugar: "+d.Sugar+" kcal/capita/day<br/>Diabetes: "+d.Diabetes+"%")
+              .style("left", margin.left + position[0] + "px")
+              .style("top", position[1] - 28 + "px");
+    })
+  .on("mouseout", function (d, i) {
+         d3.select(this).transition()
+              .duration(100)
+              .attr("r", 4)
+              .attr("stroke", "#69b3a2")
+              .attr("stroke-width", 1.5)
+              .attr("fill", "#ffffff")
+       tooltip.transition()
+            .duration(200)
+            .style("opacity", 0);
+  });
+}
+
+});
+
 }
 
 export default scatterPlotSugarDiabetes
