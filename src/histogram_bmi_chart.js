@@ -32,7 +32,7 @@ g0_bmi.append('input')
     .attr('name','textInput')
     .attr('value','Height in cm')
     .attr('min', 20)
-    .attr('max', 300)
+    .attr('max', 300);
 
 g0_bmi.append('input')
     .attr("class", "inputbox")
