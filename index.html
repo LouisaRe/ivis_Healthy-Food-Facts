@@ -43,6 +43,7 @@
     <script type="module">
         import lifeExpectancyMalNutrition from "./src/histogram_lifeExpectancy-malNutrition.js";
         lifeExpectancyMalNutrition();
+
     </script>
 </div>
 
@@ -66,6 +67,7 @@
     <script type="module">
     import BMIChart from "./src/histogram_bmi_chart.js";
                 BMIChart();
+
     </script>
 </div>
 
@@ -78,19 +80,18 @@
         <h2><span>Too much sugar can bring more consequences than just a high BMI</span></h2>
     </div>
 </div>
-
 <!-- text -->
-<p>Text...</p>
 
 <!-- diagram -->
 <div id="scatter_plot_sugar_diabetes">
+    <p>Text...</p>
     <script type="module">
         import scatterPlotSugarDiabetes from "./src/scatter_plot_sugar_diabetes.js";
         scatterPlotSugarDiabetes();
+
     </script>
 </div>
-
-<p>Diagram showing the relationship between too much sugar und diabetes</p>
+<!--<p>Diagram showing the relationship between too much sugar und diabetes</p>-->
 <!--<img src="img/screenshots/DiabethesZuckerverbrauch.png" alt="Diagram Diabethes-Zuckerverbrauch"-->
 <!--     style="width:auto;height:600px;">-->
 
@@ -106,31 +107,41 @@
 
 <!-- text -->
 <p>
-    It's not a myth! <br/><br/> Eating the right foods can lead to a longer, healthier life.
-    To increase your lifespan, check out the major food groups that help you live longer.
+    <div class="label-text">It's not a myth! </div><br/><br/> Eating the right foods can lead to a longer, healthier life.
+    To increase your lifespan, check out the major food groups that help you live longer.<br/>
+    With the right contribution of food you can aim for a healthy balanced diet.
 </p>
-<img src="img/foodpyramid.png" alt="Food Pyramid">
-<p>
-    <b>Breads, cereals, pasta and other grain-based foods</b> provide carbohydrates,
-    which the body uses for energy. The best choices from this group are wholemeal and wholegrain breads, cereals and
-    savoury biscuits.
-    Other good choices include brown rice, couscous, wholegrain pasta and polenta.<br/><br/>
-    <b>Fruit and vegetables</b> provide vitamins, minerals and fibre, and should be included in meals and snacks each
-    day.
-    Choose a variety of fruits, vegetables and legumes (including different colours, textures and flavours) to provide a
-    wide range of vitamins and minerals.<br/><br/>
-    <b>Meat, fish, milk, eggs</b> and its alternatives (nuts, legumes, tofu etc.) are rich in protein, iron and zinc.
-    Milk, cheese and yoghurt are the most common dairy foods, and main dietary sources of calcium.
-    Having enough calcium is important for healthy bones and teeth.<br/><br/>
-    <b>Fat, oil, sugar, sweets</b> are high in fat, sugar and/or salt.
-    They typically have very little nutritional value and are often processed and packaged.
-</p>
+<div class="container">
+    <img class="container_food_image" src="img/foodpyramid.png" alt="Food Pyramid">
+    <div class="container_food_text">
+        <p><b>Breads, pasta and cereals</b><br/>
+            Nutrient(s): Carbohydrates<br/>
+            At least 3 servings a day which the body uses for energy. Good choices are wholemeal, wholegrain bread, brown rice, couscous and polenta.
+            <br/><br/>
+            <b>Fruit and vegetables</b><br/>
+            Nutrient(s): Vitamins, minerals and fibre<br/>
+            At least 5 servings a day of different colours to provide a range of vitamins and minerals.
+            It is recommended to divide it to 3 servings of vegetables and 2 servings of fruits.
+            One daily portion can be replaced with 2 dl fruit juice with no additional sugar.
+            <br/><br/>
+            <b>Meat, fish, milk and eggs</b><br/>
+            Nutrient(s): Protein, calcium, iron and zinc<br/>
+            2 to 3 servings a day with 1 serving of meat and at least 1 serving of Milk or alternatives.
+            Having enough calcium is necessary for healthy bones and teeth.
+            <br/><br/>
+            <b>Fat, oil, sugar, sweets</b><br/>
+            Nutrient(s): Fat, sugar and/or salt<br/>
+            In very small amounts because they have only a little nutritional value. They should be consumed in moderation.
+        </p></div>
+</div>
+<p></p>
 
 <!-- diagram -->
 <div id="stackedBarChart_foodCategories">
     <script type="module">
       import foodCategories from "./src/stackedBarChart_foodCategories.js";
       foodCategories();
+
     </script>
 </div>
 

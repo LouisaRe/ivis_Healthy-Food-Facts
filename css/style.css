@@ -342,7 +342,22 @@ span {
 }
 
 .inputbox text.value {
-
   text-anchor: end;
-
 }
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center
+  }
+    img {
+    max-width: 40%
+    }
+    .container_food_text {
+        padding-left: 0px;
+    }
+    .container_food_image {
+    flex-basis: 70%;
+    padding-left: 50px;
+
+    }
