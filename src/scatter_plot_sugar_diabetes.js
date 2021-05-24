@@ -132,7 +132,7 @@ var selectButtonValue = d3.select("#selectButton")
 //     .append("div")
 //     .attr("class", "tooltip")
 //     .style("opacity", 0);
-var tooltipWindow = d3.select("#diagram_bmi").append("div").classed("tooltipWindow", true);
+var tooltipWindowSugarDia = d3.select("#diagram_bmi").append("div").classed("tooltipWindow", true);
 
 updateOldChart();
 
@@ -162,7 +162,7 @@ data_points.append("circle")
               .attr("stroke", "#ff0000")
               .attr("stroke-width", 1.5)
               .attr("fill", "#ff0000")
-         tooltipWindow
+         tooltipWindowSugarDia
            .style("left", margin.left/4 + position[0] + "px")
            .style("top", position[1] - 28 + "px")
            .style("visibility", "visible")
@@ -177,7 +177,7 @@ data_points.append("circle")
              .attr("stroke", "#ff0000")
              .attr("stroke-width", 1.5)
              .attr("fill", "#ffffff")
-         tooltipWindow.style("visibility", "hidden");
+         tooltipWindowSugarDia.style("visibility", "hidden");
        });
 
 //
@@ -257,7 +257,7 @@ path.append("circle")
            .attr("stroke", "#69b3a2")
            .attr("stroke-width", 1.5)
            .attr("fill", "#69b3a2")
-         tooltipWindow
+         tooltipWindowSugarDia
            .style("left", margin.left/4 + position[0] + "px")
            .style("top", position[1] - 28 + "px")
            .style("visibility", "visible")
@@ -272,7 +272,7 @@ path.append("circle")
           .attr("stroke", "#69b3a2")
           .attr("stroke-width", 1.5)
           .attr("fill", "#ffffff")
-         tooltipWindow.style("visibility", "hidden");
+         tooltipWindowSugarDia.style("visibility", "hidden");
        });
 }
 

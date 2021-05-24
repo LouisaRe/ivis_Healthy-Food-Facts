@@ -197,14 +197,14 @@ const title_bmi = "BMI"
 
     //****************************
     //attach tooltip
-    var tooltipWindow = d3.select("#diagram_bmi").append("div").classed("tooltipWindow", true);
+    var tooltipWindowBMI = d3.select("#diagram_bmi").append("div").classed("tooltipWindow", true);
 
     gDiagramBMI.selectAll("rect")
       .on("mousemove", (event, d) => {
         var position = d3.pointer(event, d);
         var roundedLE = roundtoDecimalPlacesBMI(d.BMI, 2);
 
-        tooltipWindow
+        tooltipWindowBMI
           .style("left", margin_bmi.left + position[0] + "px")
           .style("top", position[1] - 28 + "px")
           .style("visibility", "visible")
@@ -212,7 +212,7 @@ const title_bmi = "BMI"
             `BMI: <b>${roundedLE}`);
       })
       .on("mouseout", (event, d) => {
-        tooltipWindow.style("visibility", "hidden");
+        tooltipWindowBMI.style("visibility", "hidden");
       });
   });
 
