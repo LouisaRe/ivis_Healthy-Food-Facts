@@ -113,6 +113,7 @@
         <h2><span>Ideal BMI for Longevity</span></h2>
     </div>
 </div>
+
 <!-- text -->
 <p>Did you know? A research in «The Lancet» has reported being overweight or underweight can reduce 4 years off life
     expectancy. People with a Healthy Body Mass Index had a lower risk of dying from a disease.<br/>
@@ -121,10 +122,12 @@
 <div class="space"></div>
 <!--  <img src="img/screenshots/LebenserwartungBmi.png" alt="Diagram Lebenserwartung-BMI">-->
 <!-- diagram -->
+<img class="bmi_calc_image" src="img/bmi_calculation.svg" alt="bmi calculation">
+<!-- diagram -->
 <div id="diagram_bmi">
     <script type="module">
-    import BMIChart from "./src/histogram_bmi_chart.js";
-                BMIChart();
+      import BMIChartAndForm from "./src/histogram_bmi_chart.js";
+      BMIChartAndForm();
     </script>
 </div>
 
@@ -151,8 +154,7 @@
         scatterPlotSugarDiabetes();
     </script>
 </div>
-<p>Text
-</p>
+<p>Schlusstext</p>
 <!--************************************************************************************************************** -->
 <!-- Quellen -->
 <!-- text -->
