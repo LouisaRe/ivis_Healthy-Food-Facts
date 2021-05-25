@@ -6,19 +6,19 @@ import "../lib/d3/d3.js"
 
 const scatterPlotSugarDiabetes = () => {
 
-const title_scatter_plot = "Sugar vs Diabetes"
+const title_scatter_plot = "Relationship Sugar and Diabetes"
 
 //***********************************************
 // Button with dropdown for selecting country
 
-const g0_sugar_diabetes = d3.select("#scatter_plot_sugar_diabetes").append("g")
+const g0_sugar_diabetes = d3.select("#scatter_plot_sugar_diabetes_select").append("g")
     .attr("id", "sug-dia-field");
 
 g0_sugar_diabetes.append("text")
     .text("Where do you live? ");
 
 g0_sugar_diabetes.append("select")
-    .attr('id', 'selectButton')
+    .attr('class', 'selectButton')
 
 //*********************************************
 // create svg canvas
@@ -35,7 +35,7 @@ const height = canvHeight - margin.top - margin.bottom;
 // chart title
 svg.append("text")
     .attr("id", "chart-title")
-    .attr("y", 0)
+    .attr("y", 30)
     .attr("x", canvWidth/2)
     .attr("dy", "1.5em")
     .style("text-anchor", "middle")
@@ -94,7 +94,7 @@ var countriesDomain = data.map(d => String(d.Entity))
 
 //************************************************
 // Select Button
-var selectButtonValue = d3.select("#selectButton")
+var selectButtonValue = d3.select(".selectButton")
   .selectAll('myOptions')
    .data(countriesDomain)
   .enter()
@@ -221,7 +221,7 @@ data_points.append("circle")
 
 }
 // Select Button
-  d3.select("#selectButton").on("change", function(d) {
+  d3.select(".selectButton").on("change", function(d) {
       // recover the option that has been chosen
       var selectedOption = d3.select(this).property("value")
       console.log(selectedOption)
@@ -245,18 +245,18 @@ path.append("circle")
         .attr("cx", d=> xScale(d.Diabetes))
         .attr("cy", d=> yScale(d.Sugar))
         .attr("r", 4)  // Size of dots
-        .attr("stroke", "#69b3a2")
+        .attr("stroke", "#9ACCD3")
         .attr("stroke-width", 1.5)
-        .attr("fill", "#ffffff")
+        .attr("fill", "#9ACCD3")
    //hovering effects
        .on("mousemove", function (event, d) {
          var position = d3.pointer(event, d);
         d3.select(this).transition()
            .duration(100)
            .attr("r", 6)
-           .attr("stroke", "#69b3a2")
+           .attr("stroke", "#9ACCD3")
            .attr("stroke-width", 1.5)
-           .attr("fill", "#69b3a2")
+           .attr("fill", "#9ACCD3")
          tooltipWindowSugarDia
            .style("left", margin.left/4 + position[0] + "px")
            .style("top", position[1] - 28 + "px")
@@ -269,9 +269,9 @@ path.append("circle")
        d3.select(this).transition()
           .duration(100)
           .attr("r", 4)
-          .attr("stroke", "#69b3a2")
+          .attr("stroke", "#9ACCD3")
           .attr("stroke-width", 1.5)
-          .attr("fill", "#ffffff")
+          .attr("fill", "#9ACCD3")
          tooltipWindowSugarDia.style("visibility", "hidden");
        });
 }

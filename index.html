@@ -1,9 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>World Population - Health Facts</title>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
+    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,500;1,100&display=swap');
+
+
+
+
+
+
+
+    </style>
 </head>
 <body>
 <script src='lib/d3/d3.js'></script>
@@ -12,18 +21,22 @@
 <!--************************************************************************************************************** -->
 <!-- Start -->
 <div id="parallax-img-1">
-    <div class="parallax-text">
+    <div class="parallax-big-text">
         <h1><span>World Population - Health Facts</span></h1>
     </div>
 </div>
-<p>This page will guide you through information about health facts around the world.
+<div><p>This page will guide you through information about health facts around the world.
     A healthy diet helps to protect against malnutrition and prolongs life expectancy.
     The more healthy foods people add to their diet, the lower their risk of premature death.
     Compare yourself with the countries you have selected. Perhaps this will convince you to eat healthy in the future.
 </p>
-<p>
-    The healthy food journey starts here...
-</p>
+</div>
+<div>
+    <p>
+        The healthy food journey starts here...
+    </p>
+</div>
+
 
 <!--************************************************************************************************************** -->
 <!-- 1 -->
@@ -44,6 +57,15 @@
         import lifeExpectancyMalNutrition from "./src/histogram_lifeExpectancy-malNutrition.js";
         lifeExpectancyMalNutrition();
 
+
+
+
+
+
+
+
+
+
     </script>
 </div>
 
@@ -52,7 +74,7 @@
 <!-- paralax -->
 <div id="parallax-img-3">
     <div class="parallax-text">
-        <h2><span>A BMI between .. and .. is best for a long life </span></h2>
+        <h2><span>Ideal BMI for Longevity</span></h2>
     </div>
 </div>
 <!-- text -->
@@ -68,6 +90,15 @@
     import BMIChart from "./src/histogram_bmi_chart.js";
                 BMIChart();
 
+
+
+
+
+
+
+
+
+
     </script>
 </div>
 
@@ -77,32 +108,25 @@
 <!-- paralax -->
 <div id="parallax-img-4">
     <div class="parallax-text">
-        <h2><span>Too much sugar can bring more consequences than just a high BMI</span></h2>
+        <!--        <h2><span>Too much sugar can bring more consequences than just a high BMI</span></h2>-->
+        <h2><span>Is Sugar Consumption Linked to Diabetes?</span></h2>
     </div>
 </div>
 <!-- text -->
-
 <!-- diagram -->
+<div class="space"></div>
+<div id="scatter_plot_sugar_diabetes_select"></div>
 <div id="scatter_plot_sugar_diabetes">
-    <p>
-    <div class="label-text">Is Sugar Consumption Linked to Diabetes?</div><br/><br/>
-    There is no clear cause of diabetes. However, too much sugar can lead to
-    overweight and high blood sugar which are risk factors for developing diabetes.<br/><br/>
-    This is a collection of data of the year 2017 of people between the age 20 to 79.
-    </p>
     <script type="module">
         import scatterPlotSugarDiabetes from "./src/scatter_plot_sugar_diabetes.js";
         scatterPlotSugarDiabetes();
-
     </script>
 </div>
-<!--<p>Diagram showing the relationship between too much sugar und diabetes</p>-->
-<!--<img src="img/screenshots/DiabethesZuckerverbrauch.png" alt="Diagram Diabethes-Zuckerverbrauch"-->
-<!--     style="width:auto;height:600px;">-->
-
+<p>This is a collection of data of the year 2017 of people between the age 20 to 79.</p>
+<p>There is no clear cause of diabetes. However, too much sugar can lead to overweight and high blood sugar which are risk factors for developing diabetes.
+</p>
 <!--************************************************************************************************************** -->
 <!-- 4 -->
-
 <!-- paralax -->
 <div id="parallax-img-5">
     <div class="parallax-text">
@@ -111,41 +135,60 @@
 </div>
 
 <!-- text -->
-<p>
-    <div class="label-text">It's not a myth! </div><br/><br/> Eating the right foods can lead to a longer, healthier life.
-    To increase your lifespan, check out the major food groups that help you live longer.<br/>
+<div class="food_title">It's not a myth!</div>
+<p>Eating the right foods can lead to a longer, healthier life.
+    To increase your lifespan, check out the major food groups that help you live longer.
     With the right contribution of food you can aim for a healthy balanced diet.
 </p>
+<img class="container_food_image" src="img/foodpyramid.svg" alt="Food Pyramid">
 <div class="container">
-    <img class="container_food_image" src="img/foodpyramid.png" alt="Food Pyramid">
+    <!--    <img class="container_food_image" src="img/foodpyramid.png" alt="Food Pyramid">-->
+    <div class="container_food_title">40%</div>
     <div class="container_food_text">
-        <p><b>Breads, pasta and cereals</b><br/>
-            Nutrient(s): Carbohydrates<br/>
-            At least 3 servings a day which the body uses for energy. Good choices are wholemeal, wholegrain bread, brown rice, couscous and polenta.
-            <br/><br/>
-            <b>Fruit and vegetables</b><br/>
-            Nutrient(s): Vitamins, minerals and fibre<br/>
-            At least 5 servings a day of different colours to provide a range of vitamins and minerals.
-            It is recommended to divide it to 3 servings of vegetables and 2 servings of fruits.
-            One daily portion can be replaced with 2 dl fruit juice with no additional sugar.
-            <br/><br/>
-            <b>Meat, fish, milk and eggs</b><br/>
-            Nutrient(s): Protein, calcium, iron and zinc<br/>
-            2 to 3 servings a day with 1 serving of meat and at least 1 serving of Milk or alternatives.
-            Having enough calcium is necessary for healthy bones and teeth.
-            <br/><br/>
-            <b>Fat, oil, sugar, sweets</b><br/>
-            Nutrient(s): Fat, sugar and/or salt<br/>
-            In very small amounts because they have only a little nutritional value. They should be consumed in moderation.
-        </p></div>
+        <h5>Breads, pasta and cereals</h5>
+        Nutrient(s): Carbohydrates<br/>
+        At least 3 servings a day which the body uses for energy. Good choices are wholemeal, wholegrain bread,
+        brown rice, couscous and polenta.
+    </div>
+    <div class="container_food_title">35%</div>
+    <div class="container_food_text">
+        <h5>Fruit and vegetables</h5>
+        Nutrient(s): Vitamins, minerals and fibre<br/>
+        At least 3 servings of vegetables and 2 servings of fruits of different colours to provide a range of vitamins
+        and minerals.
+        One daily portion can be replaced with 2dl fruit juice with no additional sugar.
+    </div>
+    <div class="container_food_title">20%</div>
+    <div class="container_food_text">
+        <h5>Meat, fish, milk and eggs</h5>
+        Nutrient(s): Protein, calcium, iron and zinc<br/>
+        2 to 3 servings a day with 1 serving of meat and at least 1 serving of Milk or alternatives.
+        Having enough calcium is necessary for healthy bones and teeth.
+    </div>
+    <div class="container_food_title">5%</div>
+    <div class="container_food_text">
+        <h5>Fat, oil, sugar, sweets</h5>
+        Nutrient(s): Fat, sugar and/or salt<br/>
+        In very small amounts because they have only a little nutritional value. They should be consumed in
+        moderation.
+        </p>
+    </div>
+    <div class="container_food_title">0%</div>
+    <div class="container_food_text">
+        <h5>Alcohol and other</h5>
+        Nutrient(s): Fat, sugar and/or salt<br/>
+        In very small amounts because they have only a little nutritional value. They should be consumed in
+        moderation.
+        </p>
+    </div>
 </div>
-<p></p>
-
 <!-- diagram -->
 <div id="stackedBarChart_foodCategories">
     <script type="module">
       import foodCategories from "./src/stackedBarChart_foodCategories.js";
       foodCategories();
+
+
 
     </script>
 </div>
@@ -154,40 +197,60 @@
 <!-- Quellen -->
 
 <!-- paralax -->
-<div id="parallax-img-6">
-    <div class="parallax-text">
-        <h2><span>Sources</span></h2>
+<!--<div id="parallax-img-6">-->
+<!--    <div class="parallax-text">-->
+<!--        <h2><span>Sources</span></h2>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!-- text -->
+<div class="container-color-background font_white">
+    <h3>Data sources</h3>
+    <div class="container">
+        <div class="container_credits">
+            <li><a href='https://ourworldindata.org/diet-compositions'>Diet Compositions</a></li>
+            <li><a href='https://ourworldindata.org/grapher/life-expectancy'>Life Expectancy</a></li>
+            <li><a href='https://ourworldindata.org/grapher/malnutrition-death-rates'>Malnuitrition Death Rates</a></li>
+        </div>
+        <div class="container_credits">
+            <li><a href='http://www.fao.org/faostat/en/#data/FBS'>Sugar Food Supply</a></li>
+            <li><a href='https://ourworldindata.org/diet-compositions'>Dietary composition</a></li>
+            <li><a href='https://ourworldindata.org/grapher/diabetes-prevalence'>Diabetes</a></li>
+        </div>
+        <div class="container_credits">
+            <li><a href='https://ourworldindata.org/grapher/mean-body-mass-index-bmi-in-adult-males'>BMI in Men</a></li>
+            <li><a href='https://ourworldindata.org/grapher/mean-body-mass-index-bmi-in-adult-women'>BMI in Women</a>
+            </li>
+        </div>
+    </div>
+    <!-- text -->
+    <h3>Image sources</h3>
+    <div class="container">
+        <div class="container_credits">
+            <li><a href='https://pixabay.com/de/illustrations/menschen-menschengruppe-ansammlung-567563/'>World
+                Population</a></li>
+            <li>
+                <a href='https://de.freepik.com/fotos-kostenlos/draufsicht-der-mannhaende-die-eine-leere-rote-platte-auf-einem-holztisch-halten_12739544.htm#page=1&query=leere%20Sch%C3%BCssel&position=11'>Malutrition</a>
+            </li>
+            <li>
+                <a href='https://www.freepik.com/free-photo/beautiful-stomach-with-metre-underwear_6255015.htm#page=1&query=fat%20thin&position=47'>BMI</a>
+            </li>
+        </div>
+        <div class="container_credits">
+            <li><a href='https://pixabay.com/de/photos/diabetes-zucker-spritzen-insulin-2583569/'>Diabetes</a></li>
+            <li>
+                <a href='https://www.freepik.com/free-photo/healthy-food-medical-equipment_4160904.htm#page=1&query=health%20nutrition&position=0'>Nutrition</a>
+            </li>
+            <li>
+                <a href='https://www.freepik.com/free-photo/book-library-with-open-textbook_3737798.htm#page=1&query=literature&position=4'>Sources</a>
+            </li>
+        </div>
+        <div class="container_credits">
+            <li><a href='https://storyweaver.org.in/illustrations/42577-food-pyramid'>Food Pyramid</a></li>
+            </li>
+        </div>
     </div>
 </div>
-
-<!-- text -->
-<h3>Data sources</h3>
-<span>
-      <ul>
-          <li><a href='https://ourworldindata.org/diet-compositions'>Diet Compositions</a></li>
-          <li><a href='https://ourworldindata.org/grapher/life-expectancy'>Life Expectancy</a></li>
-          <li><a href='https://ourworldindata.org/grapher/malnutrition-death-rates'>Malnuitrition Death Rates</a></li>
-          <li><a href='https://ourworldindata.org/grapher/mean-body-mass-index-bmi-in-adult-males'>BMI in Men</a></li>
-          <li><a href='https://ourworldindata.org/grapher/mean-body-mass-index-bmi-in-adult-women'>BMI in Women</a></li>
-          <li><a href='https://ourworldindata.org/grapher/diabetes-prevalence'>Diabetes</a></li>
-          <li><a href='http://www.fao.org/faostat/en/#data/FBS'>Sugar Food Supply</a></li>
-          <li><a href='https://ourworldindata.org/diet-compositions'>Dietary composition</a></li>
-          <li><a href=''>Empty</a></li>
-      </ul>
-    </span>
-
-<!-- text -->
-<h3>Image sources</h3>
-<span>
-      <ul>
-        <li><a href='https://pixabay.com/de/illustrations/menschen-menschengruppe-ansammlung-567563/'>World Population</a></li>
-        <li><a href='https://de.freepik.com/fotos-kostenlos/draufsicht-der-mannhaende-die-eine-leere-rote-platte-auf-einem-holztisch-halten_12739544.htm#page=1&query=leere%20Sch%C3%BCssel&position=11'>Malutrition</a></li>
-        <li><a href='https://www.freepik.com/free-photo/beautiful-stomach-with-metre-underwear_6255015.htm#page=1&query=fat%20thin&position=47'>BMI</a></li>
-        <li><a href='https://pixabay.com/de/photos/diabetes-zucker-spritzen-insulin-2583569/'>Diabetes</a></li>
-        <li><a href='https://www.freepik.com/free-photo/healthy-food-medical-equipment_4160904.htm#page=1&query=health%20nutrition&position=0'>Nutrition</a></li>
-        <li><a href='https://www.freepik.com/free-photo/book-library-with-open-textbook_3737798.htm#page=1&query=literature&position=4'>Sources</a></li>
-        <li><a href='https://storyweaver.org.in/illustrations/42577-food-pyramid'>Food Pyramid</a></li>
-      </ul>
-    </span>
+<p>Copyright © FHNW IVISPro by Louisa Reinger, Puijan Jenny Tran 2021</p>
 </body>
 </html>

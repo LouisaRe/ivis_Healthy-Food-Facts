@@ -9,11 +9,13 @@
 /*General*/
 
 * {
-  font-family: sans-serif, Lato;
+  font-family: "Roboto";
+  font-weight: 200;
+  line-height: 150%;
 }
 
 body{
-  text-align:  center;
+  text-align: center;
 }
 
 h1{
@@ -22,12 +24,7 @@ h1{
   letter-spacing: 10px;
   text-transform: uppercase;
 }
-h2 {
-  font-size: 32px;
-  line-height: 1.2;
-  letter-spacing: 10px;
-  text-transform: uppercase;
-}
+
 h3, #chart-title {
   font-size: 24px;
   line-height: 1.2;
@@ -36,10 +33,15 @@ h3, #chart-title {
 }
 h4 {
   font-size: 16px;
-  letter-spacing: 10px;
-  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 5px;
+  color: #ffffff;
 }
-
+h5 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #9ACCD3;
+}
 text {
   font-size: 12px;
   line-height: 1.2;
@@ -68,11 +70,6 @@ li {
   line-height: 1.6;
 }
 
-p{
-  padding-bottom: 40px;
-  padding-top: 40px;
-}
-
 .info-text{
   line-height: 1.2;
   padding: 20px 200px;
@@ -83,13 +80,13 @@ p{
 
 /*parallax background image*/
 #parallax-img-1, #parallax-img-2, #parallax-img-3, #parallax-img-4, #parallax-img-5, #parallax-img-6{
-  background-position: bottom;
+  background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  padding: 20%;
-
+  padding: 10%;
   background-attachment: fixed;
+  paddi
 }
 #parallax-img-1{
   height: 500px;
@@ -153,14 +150,22 @@ height: 500px;
 
 /*text*/
 p {
-padding-left: 150px;
-padding-right: 150px;
+padding: 0px 300px 0px 300px;
+text-align: left;
+}
+
+.parallax-big-text {
+  position: absolute;
+  left: 0;
+  top: 40%;
+  width: 100%;
+  text-align: center;
 }
 
 .parallax-text {
   position: absolute;
   left: 0;
-  top: 40%;
+  top: 30%;
   width: 100%;
   text-align: center;
 }
@@ -170,7 +175,9 @@ h1 span, h2 span {
   color: var(--white) ;
   background-color: var(--grey);
   display: inline-block;
+/*
   padding: 28px 20px 20px;
+*/
 }
 
 /*****************************************************
@@ -345,19 +352,74 @@ span {
   text-anchor: end;
 }
 
+/***********************************************/
+/*Containter*/
+
 .container {
   display: flex;
-  align-items: center;
-  justify-content: center
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
   }
-    img {
+/*    img {
     max-width: 40%
-    }
+    }*/
     .container_food_text {
-        padding-left: 0px;
+        padding-right: 40px;
+        max-width: 10%;
+        text-align: left;
     }
-    .container_food_image {
+    .container_food_title {
+        padding-right: 10px;
+        padding-top: 20px;
+        max-width: 5%;
+        text-align: left;
+        font-size: 36px;
+        color: #9ACCD3;
+        font-weight: bold;
+    }
+    .container_credits {
+        min-width: 33%;
+        text-align: left;
+        align-items: center;
+    }
+
+.food_title {
+    font-size: 36px;
+    color: #9ACCD3;
+    font-weight: bold;
+    padding: 30px 300px 0px 300px;
+    text-align: center;
+}
+
+.container_food_image {
+    max-width: 50%;
     flex-basis: 70%;
     padding-left: 50px;
+}
 
-    }
+.container-color-background {
+    background: #9ACCD3;
+    padding: 30px 300px 30px 300px;
+}
+
+.container-color-background-space {
+    padding: 30px 300px 30px 300px;
+}
+
+.space {
+    padding: 30px 0 0 0;
+}
+
+.font_white {
+    color: white;
+}
+a, a:link, a:visited, a:active {
+    color: white;
+    text-decoration: none;
+    font-weight: 400;
+}
+a:hover {
+    color: white;
+    letter-spacing: 1px;
+}
