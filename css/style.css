@@ -269,7 +269,7 @@ label{
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #9ACCD3;
+  background: grey;
 }
 
 /* Handle on hover */
@@ -427,7 +427,7 @@ span {
     font-size: 36px;
     color: #9ACCD3;
     font-weight: bold;
-    padding: 30px 300px 0px 300px;
+    padding: 30px 200px 0px 200px;
     text-align: center;
 }
 

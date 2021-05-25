@@ -55,7 +55,7 @@ g.append("text")
     .attr("font-family", "sans-serif")
     .style("text-anchor", "middle")
 //    .text("Diabetes");
-    .text("Diabetes in %");
+    .text("Diabetes");
 
  // text label for the y axis
 g.append("text")
@@ -66,7 +66,7 @@ g.append("text")
     .style("text-anchor", "end")
     .html("Sugar");
 
-g.append("text")
+/*g.append("text")
     .attr("class", "label-text")
     .attr("y", 20)
     .attr("x", -40)
@@ -80,7 +80,7 @@ g.append("text")
     .attr("x", -40)
     .attr("dy", "1em")
     .style("text-anchor", "end")
-    .html("kcal");
+    .html("kcal");*/
 
 // load the data from the cleaned csv file.
 // note: the call is done asynchronous.
@@ -263,7 +263,7 @@ path.append("circle")
            .style("visibility", "visible")
            .html(`<h4>${d.Entity} </h4>` +
              `Sugar: <b>${d.Sugar} kcal/capita/day </b><br/>` +
-             `Diabetes: <b>${d.Diabetes}% </b>`);
+             `Diabetes: <b>${d.Diabetes} %</b>`);
        })
        .on("mouseout", function (event, d) {
        d3.select(this).transition()

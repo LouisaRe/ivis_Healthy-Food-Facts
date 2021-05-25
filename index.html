@@ -96,7 +96,13 @@
     </div>
 </div>
 <!-- text -->
-<p>Text about the importance of nutrition for life expectancy</p>
+<p>Nutrition is one of the important factors for longevity.
+    Reasons for death and disease can be malnutrition such as overnutrition.
+    Aside from nutrition, other factor determine the lifespan such as genetic, environmental and lifestyle.
+    Life expectancy is held as an indicator for the social development of a country.
+    With a healthy food balance you can increase the potential for a longer lifespan.
+</p>
+
 <!-- diagram -->
 <div id="histogram_lifeExpectancy-malNutrition">
     <script type="module">
@@ -108,6 +114,33 @@
 <!--************************************************************************************************************** -->
 <!-- 3 -->
 <!-- paralax -->
+<div id="parallax-img-4">
+    <div class="parallax-text">
+        <!--        <h2><span>Too much sugar can bring more consequences than just a high BMI</span></h2>-->
+        <h2><span>Is Sugar Consumption Linked to Diabetes?</span></h2>
+    </div>
+</div>
+<!-- text -->
+<p>There is no clear cause of diabetes. However, too much sugar can lead to overweight and high blood sugar which are
+    risk factors for developing diabetes. Possible symptoms can appear if you have been diagones with diabetes:
+</p>
+<div class="space"><img class="container_food_image" src="img/diabetessymptoms.svg" alt="Food Pyramid"></div>
+<!-- diagram -->
+<div class="space"></div>
+<div id="scatter_plot_sugar_diabetes_select"></div>
+<div id="scatter_plot_sugar_diabetes">
+    <script type="module">
+        import scatterPlotSugarDiabetes from "./src/scatter_plot_sugar_diabetes.js";
+        scatterPlotSugarDiabetes();
+    </script>
+</div>
+<p>Note: This is a collection of data of the year 2017 of people between the age 20 to 79.</p>
+
+
+<!--************************************************************************************************************** -->
+<!-- 4 -->
+
+<!-- paralax -->
 <div id="parallax-img-3">
     <div class="parallax-text">
         <h2><span>Ideal BMI for Longevity</span></h2>
@@ -117,8 +150,9 @@
 <!-- text -->
 <p>Did you know? A research in «The Lancet» has reported being overweight or underweight can reduce 4 years off life
     expectancy. People with a Healthy Body Mass Index had a lower risk of dying from a disease.<br/>
-    Calculate your BMI and see how you rank compared to the rest of the world</p>
-    <p>Source: <a href='https://www.thelancet.com/'>The Lancet</a></p>
+</p>
+<p>Source: <a href='https://www.thelancet.com/'>The Lancet</a></p>
+<div class="food_title">See how you rank compared to the rest of the world</div>
 <div class="space"></div>
 <!--  <img src="img/screenshots/LebenserwartungBmi.png" alt="Diagram Lebenserwartung-BMI">-->
 <!-- diagram -->
@@ -130,31 +164,14 @@
       BMIChartAndForm();
     </script>
 </div>
+<!--**************************************************************************-->
+<!--Final Part-->
 
-<!--************************************************************************************************************** -->
-<!-- 4 -->
-<!-- paralax -->
-<div id="parallax-img-4">
-    <div class="parallax-text">
-        <!--        <h2><span>Too much sugar can bring more consequences than just a high BMI</span></h2>-->
-        <h2><span>Is Sugar Consumption Linked to Diabetes?</span></h2>
-    </div>
-</div>
-<!-- text -->
-<p>This is a collection of data of the year 2017 of people between the age 20 to 79.</p>
-<p>There is no clear cause of diabetes. However, too much sugar can lead to overweight and high blood sugar which are
-    risk factors for developing diabetes.
-</p>
-<!-- diagram -->
-<div class="space"></div>
-<div id="scatter_plot_sugar_diabetes_select"></div>
-<div id="scatter_plot_sugar_diabetes">
-    <script type="module">
-        import scatterPlotSugarDiabetes from "./src/scatter_plot_sugar_diabetes.js";
-        scatterPlotSugarDiabetes();
-    </script>
-</div>
-<p>Schlusstext</p>
+<div class="food_title">For a healthy and long life</div>
+<p>Remind yourself of the five health advice listed below for prevention of diseases and early death.</p>
+<div class="space">
+<img class="container_food_image" src="img/prevention.png" alt="Prevention" width="60%">
+</div> <div class="space"></div>
 <!--************************************************************************************************************** -->
 <!-- Quellen -->
 <!-- text -->
@@ -164,7 +181,7 @@
         <div class="container_credits">
             <li><a href='https://ourworldindata.org/diet-compositions'>Diet Compositions</a></li>
             <li><a href='https://ourworldindata.org/grapher/life-expectancy'>Life Expectancy</a></li>
-            <li><a href='https://ourworldindata.org/grapher/malnutrition-death-rates'>Malnuitrition Death Rates</a></li>
+            <li><a href='https://ourworldindata.org/grapher/malnutrition-death-rates'>Malnutrition Death Rates</a></li>
         </div>
         <div class="container_credits">
             <li><a href='http://www.fao.org/faostat/en/#data/FBS'>Sugar Food Supply</a></li>
@@ -200,7 +217,7 @@
             </li>
         </div>
         <div class="container_credits">
-            <li><a href='https://storyweaver.org.in/illustrations/42577-food-pyramid'>Food Pyramid</a></li>
+            <li><a href='https://www.freepik.com/'>Vector Graphic</a></li>
             </li>
         </div>
     </div>
