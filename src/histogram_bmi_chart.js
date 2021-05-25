@@ -1,19 +1,19 @@
 import "../lib/d3/d3.js"
 
-//*********************************************************
-//BMI Calculator
 
-//*******************************************************
-//BMI Form
+const BMIChartAndForm = () => {
 
-//attach #bmi-field
-const g0_bmi = d3.select("#diagram_bmi").append("g")
+  //****************************************************************************
+  //BMI Form - Calculator
+
+  //attach #bmi-field
+  const g0_bmi = d3.select("#diagram_bmi").append("div").append("g")
     .attr("id", "bmi-field");
 
-g0_bmi.append("text")
+  g0_bmi.append("text")
     .text("Weight in kg: ");
 
-g0_bmi.append('input')
+  g0_bmi.append('input')
     .attr('id', 'bmi-weight')
     .attr('class', 'inputbox')
     .attr('type','number')
@@ -22,10 +22,10 @@ g0_bmi.append('input')
     .attr('min', 1)
     .attr('max', 300)
 
-g0_bmi.append("text")
+  g0_bmi.append("text")
     .text("  Height in cm: ");
 
-g0_bmi.append('input')
+  g0_bmi.append('input')
     .attr('id', 'bmi-height')
     .attr('class', 'inputbox')
     .attr('type','number')
@@ -34,82 +34,73 @@ g0_bmi.append('input')
     .attr('min', 20)
     .attr('max', 300);
 
-g0_bmi.append('input')
+  g0_bmi.append('input')
     .attr("class", "inputbox")
     .attr('type','submit')
     .attr('name','textInput')
     .attr('value','Calculate BMI')
     .on("click", event => calcBMI() );
 
-g0_bmi.append("text")
+  g0_bmi.append("text")
     .attr('id', 'bmi-results')
 
-//****************************
-//functions
+  //*********************************************************
+  //BMI Calculator functions()
 
-  let updateCurrentBMI = () => {
-    g0_bmi.append("text")
-      .attr("id", "bmi2")
-      .attr("class", "year")
-      .text(bmi)
-  }
+  let userBMI = null
 
-  let updateBMI = () => {
-    d3.select("#bmi2").remove()
-    updateCurrentBMI()
-    updateDiagramBMI()
-  }
+  function calcBMI () {
+    let bmi = null,
+    weight_calcBMI = parseInt(document.getElementById("bmi-weight").value),
+    height_calcBMI = parseInt(document.getElementById("bmi-height").value),
+    results_calcBMI = document.getElementById("bmi-results");
 
-//Show currentYear
-  let setCurrentYearToNewValueBMI = () => {
-    document.getElementById("bmi2").innerHTML = bmi;
-    updateDiagramBMI()
-  }
-
-
-function calcBMI () {
-  let bmi = null,
-      weight_calcBMI = parseInt(document.getElementById("bmi-weight").value),
-      height_calcBMI = parseInt(document.getElementById("bmi-height").value),
-      results_calcBMI = document.getElementById("bmi-results");
-
-  // calculate BMI
+    // calculate BMI
     height_calcBMI = height_calcBMI / 100;
     bmi = weight_calcBMI / (height_calcBMI * height_calcBMI);
     bmi = Math.round(bmi * 100) / 100; // Round off 2 decimal places
 
-  // show results
-  if (bmi < 18.5) { results_calcBMI.innerHTML = bmi + " - Underweight"; }
-  else if (bmi < 25) { results_calcBMI.innerHTML = bmi + " - Normal weight"; }
-  else if (bmi < 30) { results_calcBMI.innerHTML = bmi + " - Pre-obesity"; }
-  else if (bmi < 35) { results_calcBMI.innerHTML = bmi + " - Obesity class I"; }
-  else if (bmi < 40) { results_calcBMI.innerHTML = bmi + " - Obesity class II"; }
-  else { results_calcBMI.innerHTML = bmi + " - Obesity class III"; }
+    userBMI = bmi
+    if(userBMI != null && !isNaN(userBMI)){
+      updateDiagramBMI()
+    }
 
-  return false; }
+    // show results
+    if (bmi < 18.5) { results_calcBMI.innerHTML = bmi + " - Underweight"; }
+    else if (bmi < 25) { results_calcBMI.innerHTML = bmi + " - Normal weight"; }
+    else if (bmi < 30) { results_calcBMI.innerHTML = bmi + " - Pre-obesity"; }
+    else if (bmi < 35) { results_calcBMI.innerHTML = bmi + " - Obesity class I"; }
+    else if (bmi >= 35) { results_calcBMI.innerHTML = bmi + " - Obesity class II"; }
+    else { results_calcBMI.innerHTML = "Something went wrong. Please check your input. " }
 
-const BMIChart = () => {
+    return false;
+  }
 
-//*************************************************
-//Chart
-const title_bmi = "BMI"
+
+
+
+
+//****************************************************************************
+//Chart (svg)
+
+  const title_bmi = "BMI"
 
 //size and margin of svg
   const canvHeight_bmi = 600;
   const canvWidth_bmi = 1200;
-  const margin_bmi = {top: 80, right: 240, bottom: 60, left: 240};
+  const margin_bmi = {top: 100, right: 240, bottom: 60, left: 240};
 
 //size of chart area.
   const width_bmi = canvWidth_bmi - margin_bmi.left - margin_bmi.right;
   const height_bmi = canvHeight_bmi - margin_bmi.top - margin_bmi.bottom;
 
 //attach svg
-  const svg1_bmi = d3.select("#diagram_bmi").append("svg")
+  const svg2 = d3.select("#diagram_bmi").append("svg").attr("id", "svg_bmi")
     .attr("width", canvWidth_bmi)
     .attr("height", canvHeight_bmi);
 
 //attach #chart-area
-  const g1_bmi = svg1_bmi.append("g")
+  const g1_bmi = svg2.append("g")
     .attr("id", "chart-area")
     .attr("transform", `translate(${margin_bmi.left},${margin_bmi.top})`);
 
@@ -117,13 +108,17 @@ const title_bmi = "BMI"
 //Title and Labels
 
 //attach #chart-title
-  svg1_bmi.append("text")
+  svg2.append("text")
     .attr("id", "chart-title")
     .attr("x", canvWidth_bmi/2)
     .attr("y", 0)
     .attr("dy", "1.5em")  // line height
     .style("text-anchor", "middle")
     .text(title_bmi);
+
+//attach png
+  svg2.append("image").attr("xlink:href", "img/background_pic_bmi.svg").attr("alt", "BMI icons")
+    .attr("x", margin_bmi.left).attr("y", 48).attr("width", width_bmi)
 
 //x axis - text label
   g1_bmi.append("text")
@@ -133,7 +128,7 @@ const title_bmi = "BMI"
     .attr("dy", "1em")
     .attr("font-family", "sans-serif")
     .style("text-anchor", "middle")
-    .text("Age");
+    .text("BMI");
 
 //y axis - text label
   g1_bmi.append("text")
@@ -148,17 +143,49 @@ const title_bmi = "BMI"
 //Scales
 
   const colorDomain_bmi = [18.5, 25, 30, 35, 40]
-  const colorScale_bmi = ["#48AF2F", "#CEDD24", "#DDA924", "#DD6724", "#DD2424"]
+  const colorScale_bmi = ["#F1D09B", "#C6D79E", "#E6BAAE", "#D99D8C", "#CB8F7E"]
 
   var currentYear_bmi = 2016
-  var currentCountries_bmi = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
-
-  var descending = function (a, b) { return b.BMI - a.BMI }
+  var currentCountries_bmi = ["World", "Ethiopia", "Switzerland", "Vietnam", "Saint Lucia", "American Samoa"]
 
   let updateDiagramBMI = () => d3.csv("./data/bmi.csv").then(function (data) { //load data from cleaned csv file asynchronous
 
+    d3.select("#gDiagramBackground").remove() //if allready a diagram group exists, it will be deleted...
+    var gDiagramBackground = g1_bmi.append("g").attr("id", "gDiagramBackground") //and then new one cerated
+
     d3.select("#gDiagramBMI").remove() //if allready a diagram group exists, it will be deleted...
-    const gDiagramBMI = g1_bmi.append("g").attr("id", "gDiagramBMI") //and then new one cerated
+    var gDiagramBMI = g1_bmi.append("g").attr("id", "gDiagramBMI") //and then new one cerated
+
+    //****************************
+    //add user bmi to data
+
+    const objectUserBmi = {};
+    Object.defineProperties(objectUserBmi, {
+      Entity: {
+        value: "Me",
+        writable: true
+      },
+      Year: {
+        value: currentYear_bmi,
+        writable: true
+      },
+      BMI : {
+        value: userBMI,
+        writable: true
+      }
+    });
+
+    if(objectUserBmi.BMI != null && !isNaN(userBMI)){
+      currentCountries_bmi.push(objectUserBmi.Entity)
+    }
+
+    data.push(objectUserBmi)
+
+    //****************************
+    // sort data
+    data.sort(function(b, a) {
+      return b.BMI - a.BMI;
+    });
 
     //****************************
     //define Scales
@@ -169,10 +196,9 @@ const title_bmi = "BMI"
     data = data.filter(d => Number(d.Year) === currentYear_bmi);
     const countriesDomainBMI = [...new Set(data.map(d => String(d.Entity)))]
 
-
     //xScale
     const xScale_bmi = d3.scaleLinear().rangeRound([0, width_bmi])
-      .domain([d3.min(BMIDomainForAllYears) - 5, d3.max(BMIDomainForAllYears) + 2]);
+      .domain([d3.min(BMIDomainForAllYears) - 5, 40]);
 
     //yScale
     const yScale_bmi = d3.scaleBand().rangeRound([0, height_bmi]).padding(0.2)
@@ -192,69 +218,41 @@ const title_bmi = "BMI"
       .call(yAxis_bmi);
 
     //****************************
-    //attach data
-    attachData(data, gDiagramBMI, xScale_bmi, yScale_bmi)
+    //attach background
+    gDiagramBackground.append("rect").attr("x", 1).attr("y", 0).attr("width", xScale_bmi(40)).attr("height", height_bmi-1).style("fill", colorScale_bmi[4])
+    gDiagramBackground.append("rect").attr("x", 1).attr("y", 0).attr("width", xScale_bmi(35)).attr("height", height_bmi-1).style("fill", colorScale_bmi[3])
+    gDiagramBackground.append("rect").attr("x", 1).attr("y", 0).attr("width", xScale_bmi(30)).attr("height", height_bmi-1).style("fill", colorScale_bmi[2])
+    gDiagramBackground.append("rect").attr("x", 1).attr("y", 0).attr("width", xScale_bmi(25)).attr("height", height_bmi-1).style("fill", colorScale_bmi[1])
+    gDiagramBackground.append("rect").attr("x", 1).attr("y", 0).attr("width", xScale_bmi(18.5)).attr("height", height_bmi-1).style("fill", colorScale_bmi[0])
 
     //****************************
-    //attach tooltip
-    var tooltipWindowBMI = d3.select("#diagram_bmi").append("div").classed("tooltipWindow", true);
-
-    gDiagramBMI.selectAll("rect")
-      .on("mousemove", (event, d) => {
-        var position = d3.pointer(event, d);
-        var roundedLE = roundtoDecimalPlacesBMI(d.BMI, 2);
-
-        tooltipWindowBMI
-          .style("left", margin_bmi.left + position[0] + "px")
-          .style("top", position[1] - 28 + "px")
-          .style("visibility", "visible")
-          .html(`<h4>${d.Entity} </h4>` +
-            `BMI: <b>${roundedLE}`);
-      })
-      .on("mouseout", (event, d) => {
-        tooltipWindowBMI.style("visibility", "hidden");
-      });
+    //attach data & tooltip
+    attachDataAndTooltip(data, gDiagramBMI, xScale_bmi, yScale_bmi)
+    d3.select("#bmi_chart_bar_me").style("fill", "#737373")
   });
 
   var numberOfCountries = currentCountries_bmi.length
 
-  let attachData = (data, gDiagramBMI, xScale_bmi, yScale_bmi) => {
-    if (numberOfCountries !== currentCountries_bmi.length) { // countries changed
-
+  let attachDataAndTooltip = (data, gDiagramBMI, xScale_bmi, yScale_bmi) => {
       numberOfCountries = currentCountries_bmi.length
 
       return gDiagramBMI.selectAll("rect") //show data with transition
         .data(data)
         .enter().append("rect")
-//        .attr("id", d => "bar_" + d.Entity.toLowerCase())
-//        .sort(descending)
-        .attr("class", "bar")
+        .attr("id", d => "bmi_chart_bar_" + d.Entity.toLowerCase())
         .attr("x", 1)
         .attr("y", d => yScale_bmi(d.Entity))
-        .style("fill", d => BMIColor(d.BMI))
+        .style("fill", "#FBF8F2")
         .attr("height", yScale_bmi.bandwidth())
-        .transition()
-        .duration(200)
-        .attr("width", d => xScale_bmi(d.BMI)-1);
-    } else { // year changed
-      return gDiagramBMI.selectAll("rect") //show data without transition
-        .data(data)
-        .enter().append("rect")
-//        .attr("id", d => "bar_" + d.Entity.toLowerCase())
-//        .sort(descending)
-        .attr("class", "bar")
-        .attr("x", 1)
-        .attr("y", d => yScale_bmi(d.Entity))
-        .style("fill", d => BMIColor(d.BMI))
-        .attr("height", yScale_bmi.bandwidth())
-        .attr("width", d => xScale_bmi(d.BMI)-1);
-    }
+        .attr("width", d => xScale_bmi(d.BMI)-1)
+        .append("title")
+        .text(d => `BMI: ${roundtoDecimalPlacesBMI(d.BMI, 2)}`);
   }
 
 //init
-  updateDiagramBMI()
+updateDiagramBMI()
 
-//**************************************************************************
+//**************************************************************************`
 //helper functions
 
   let roundtoDecimalPlacesBMI = (number, decPLaces) => {
@@ -267,58 +265,6 @@ const title_bmi = "BMI"
       return ((Math.round(interimNum) + 1) / decimalPlaceShifter); // round up
     }
   }
-
-  let BMIColor = (number) => {
-    if (number < colorDomain_bmi[0]) {
-      return colorScale_bmi[0]
-    } else if (number < colorDomain_bmi[1]) {
-      return colorScale_bmi[1]
-    } else if (number < colorDomain_bmi[2]) {
-      return colorScale_bmi[2]
-    } else if (number < colorDomain_bmi[3]) {
-      return colorScale_bmi[3]
-    } else {
-      return colorScale_bmi[4]
-    }
-  }
-
-//**************************************************************************
-//legend
-
-  let createLegendBMI = (colorDomain_bmi) => {
-    const legend = svg1_bmi.append("g")
-      .attr("id", "legend")
-      .attr("transform", "translate(" + (canvWidth_bmi - margin_bmi.right + 10) + "," + margin_bmi.top + ")")
-
-    const legend_entry = legend.selectAll("rect")
-      .data(colorDomain_bmi)
-      .enter();
-
-    legend_entry.append("rect")
-      .attr("x", 10)
-      .attr("y", (d, i) => 30 * i + 10)
-      .attr("width", 20)
-      .attr("height", 20)
-      .style("fill", d => BMIColor(d - 1))
-
-    legend_entry.append("text")
-      .attr("class", "text")
-      .attr("x", 40)
-      .attr("y", (d, i) => 30 * i + 25)
-      .text(d => "< " + d);
-
-    legend.append("foreignObject")
-      .attr("class", "legend-text-wrapper")
-      .attr("x", 10)
-      .attr("y", 30 * colorDomain_bmi.length + 10)
-      .attr("width", 140)
-      .attr("height", 100)
-      .html("<text class=legend-text>Deaths from protein-energy malnutrition per 100'000 people.</text>")
-  }
-
-//****************************
-//init legend
-  createLegendBMI(colorDomain_bmi);
 
 //**************************************************************************
 //Year-Slider
@@ -411,4 +357,4 @@ const title_bmi = "BMI"
 
 }
 
-export default BMIChart
+export default BMIChartAndForm

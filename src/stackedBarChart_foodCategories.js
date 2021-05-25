@@ -160,7 +160,6 @@ const foodCategories = async () => {
         .attr("y", (d, i) => yScale(d.data.Entity))
         .attr("width", d => xScale(d[1]) - xScale(d[0]))
         .attr("height", yScale.bandwidth())
-        .text("Hallo")
         .append("title")
         .text(d => `${d.key}: ${formatValue(d.data[d.key])} kcal (` + d3.format(".0%")(1 / Number(d.data.Total) * (d.data[d.key])) + ")"); //Tooltip text
   }

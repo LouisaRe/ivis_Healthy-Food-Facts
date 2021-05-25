@@ -55,19 +55,19 @@
         <h2><span>A BMI between .. and .. is best for a long life </span></h2>
     </div>
 </div>
+
 <!-- text -->
 <p>Text zum BMI </p>
+<img class="bmi_calc_image" src="img/bmi_calculation.svg" alt="bmi calculation">
 <p>Calculate your BMI... <br/>
     BMI-Calculator <br/>
     ...and see how you rank compared to the rest of the world <br/></p>
 
-<!--  <img src="img/screenshots/LebenserwartungBmi.png" alt="Diagram Lebenserwartung-BMI">-->
 <!-- diagram -->
 <div id="diagram_bmi">
     <script type="module">
-    import BMIChart from "./src/histogram_bmi_chart.js";
-                BMIChart();
-
+      import BMIChartAndForm from "./src/histogram_bmi_chart.js";
+      BMIChartAndForm();
     </script>
 </div>
 

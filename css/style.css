@@ -184,9 +184,13 @@ span {
 
 #bmi-field{
   padding: 20px;
-  outline-color: cornflowerblue;
+  outline-color: #2E7681;
   outline-width: 1px;
   outline-style: solid;
+}
+
+#svg_bmi{
+  margin-top: 30px;
 }
 /*****************************************************
 /*diagrams*/
