@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,500;1,100&display=swap');
 
 :root {
   --grey: #414141;
@@ -7,11 +8,11 @@
 
 /*****************************************************
 /*General*/
-
 * {
   font-family: "Roboto";
   font-weight: 200;
   line-height: 150%;
+  cursor: crosshair;
 }
 
 body{
@@ -150,7 +151,7 @@ height: 500px;
 
 /*text*/
 p {
-padding: 0px 300px 0px 300px;
+padding: 0px 250px 0px 250px;
 text-align: left;
 }
 
@@ -230,17 +231,42 @@ label{
 }
 
 .selectionDiv {
-  background-color: #F8F8F8 ;
+  background-color: #f1f1f1;
   text-align: left;
   width: 1200px;
   margin: auto;
-  border-style: solid;
-  border-color: #414141;
+  decoration: none;
+  border-style: none;
+  border-color: #9ACCD3;
   border-width: 1px;
   height: 200px;
   margin-bottom: 60px;
   overflow: scroll;
 }
+
+/**************************************************/
+/*Scrollbar */
+
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #9ACCD3;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 
 input {
   margin-left: 0px;
@@ -386,7 +412,7 @@ span {
 
 .container-color-background {
     background: #9ACCD3;
-    padding: 30px 300px 30px 300px;
+    padding: 30px 250px 30px 250px;
 }
 
 .container-color-background-space {
@@ -400,10 +426,12 @@ span {
 .font_white {
     color: white;
 }
+
 a, a:link, a:visited, a:active {
     color: white;
     text-decoration: none;
     font-weight: 400;
+    background-color: #9ACCD3;
 }
 a:hover {
     color: white;

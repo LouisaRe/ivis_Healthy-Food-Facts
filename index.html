@@ -4,28 +4,18 @@
     <meta charset="UTF-8">
     <title>World Population - Health Facts</title>
     <link rel="stylesheet" href="./css/style.css" type="text/css">
-    <style>@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,500;1,100&display=swap');
-
-
-
-
-
-
-
-    </style>
 </head>
 <body>
 <script src='lib/d3/d3.js'></script>
 <script src='lib/lodash.js'></script>
-
 <!--************************************************************************************************************** -->
 <!-- Start -->
 <div id="parallax-img-1">
     <div class="parallax-big-text">
-        <h1><span>World Population - Health Facts</span></h1>
+        <h1><span>World - Healthy Food Facts</span></h1>
     </div>
 </div>
-<div><p>This page will guide you through information about health facts around the world.
+<div><p>This page will guide you through information about healthy food facts around the world.
     A healthy diet helps to protect against malnutrition and prolongs life expectancy.
     The more healthy foods people add to their diet, the lower their risk of premature death.
     Compare yourself with the countries you have selected. Perhaps this will convince you to eat healthy in the future.
@@ -36,41 +26,87 @@
         The healthy food journey starts here...
     </p>
 </div>
-
-
 <!--************************************************************************************************************** -->
 <!-- 1 -->
+<!-- paralax -->
+<!--
+<div id="parallax-img-5">
+    <div class="parallax-text">
+        <h2><span>Find a healthy mix</span></h2>
+    </div>
+</div>
+-->
 
+<!-- text -->
+<div class="food_title">It's not just a myth!</div>
+<p>Eating the right foods can lead to a longer, healthier life.
+    To increase your lifespan, check out the major food groups that help you live longer.
+    With the right contribution of food you can aim for a healthy balanced diet.
+</p>
+<div class="space"><img class="container_food_image" src="img/foodcategory.svg" alt="Food Pyramid"></div>
+<div class="container">
+    <!--    <img class="container_food_image" src="img/foodpyramid.png" alt="Food Pyramid">-->
+    <div class="container_food_title">40%</div>
+    <div class="container_food_text">
+        <h5>Breads, pasta and cereals</h5>
+        At least 3 servings a day which the body uses for energy. Good choices are wholemeal, wholegrain bread,
+        brown rice, couscous and polenta for carbohydrates.
+    </div>
+    <div class="container_food_title">35%</div>
+    <div class="container_food_text">
+        <h5>Fruit and vegetables</h5>
+        At least 3 servings of vegetables and 2 servings of fruits of different colours to provide a range of vitamins,
+        minerals and fibre.
+        One daily portion can be replaced with 2dl fruit juice with no additional sugar.
+    </div>
+    <div class="container_food_title">20%</div>
+    <div class="container_food_text">
+        <h5>Meat, fish, milk and eggs</h5>
+        2 to 3 servings a day with 1 serving of meat and at least 1 serving of milk or alternatives for protein,
+        calcium, iron and zinc.
+        Having enough calcium is necessary for healthy bones and teeth.
+    </div>
+    <div class="container_food_title">5%</div>
+    <div class="container_food_text">
+        <h5>Fat, oil, sugar, sweets</h5>
+        In very small amounts because they have only a little nutritional value. They should be consumed in
+        moderation because they contain fat, sugar and/or salt.
+    </div>
+    <div class="container_food_title">0%</div>
+    <div class="container_food_text">
+        <h5>Alcohol and <br/>other</h5>
+        Drink in moderation alcohol and sweet drinks or avoid it completely. <br/>Instead drink water. It is recommended
+        to drink at least 3 liters water per day.
+    </div>
+</div>
+<!-- diagram -->
+<div id="stackedBarChart_foodCategories">
+    <script type="module">
+      import foodCategories from "./src/stackedBarChart_foodCategories.js";
+      foodCategories();
+    </script>
+</div>
+
+<!--************************************************************************************************************** -->
+<!-- 2 -->
 <!-- paralax -->
 <div id="parallax-img-2">
     <div class="parallax-text">
         <h2><span>Malnutrition shortens life</span></h2>
     </div>
 </div>
-
 <!-- text -->
 <p>Text about the importance of nutrition for life expectancy</p>
-
 <!-- diagram -->
 <div id="histogram_lifeExpectancy-malNutrition">
     <script type="module">
         import lifeExpectancyMalNutrition from "./src/histogram_lifeExpectancy-malNutrition.js";
         lifeExpectancyMalNutrition();
-
-
-
-
-
-
-
-
-
-
     </script>
 </div>
 
 <!--************************************************************************************************************** -->
-<!-- 2 -->
+<!-- 3 -->
 <!-- paralax -->
 <div id="parallax-img-3">
     <div class="parallax-text">
@@ -78,33 +114,22 @@
     </div>
 </div>
 <!-- text -->
-<p>Text zum BMI </p>
-<p>Calculate your BMI... <br/>
-    BMI-Calculator <br/>
-    ...and see how you rank compared to the rest of the world <br/></p>
-
+<p>Did you know? A research in «The Lancet» has reported being overweight or underweight can reduce 4 years off life
+    expectancy. People with a Healthy Body Mass Index had a lower risk of dying from a disease.<br/>
+    Calculate your BMI and see how you rank compared to the rest of the world</p>
+    <p>Source: <a href='https://www.thelancet.com/'>The Lancet</a></p>
+<div class="space"></div>
 <!--  <img src="img/screenshots/LebenserwartungBmi.png" alt="Diagram Lebenserwartung-BMI">-->
 <!-- diagram -->
 <div id="diagram_bmi">
     <script type="module">
     import BMIChart from "./src/histogram_bmi_chart.js";
                 BMIChart();
-
-
-
-
-
-
-
-
-
-
     </script>
 </div>
 
 <!--************************************************************************************************************** -->
-<!-- 3 -->
-
+<!-- 4 -->
 <!-- paralax -->
 <div id="parallax-img-4">
     <div class="parallax-text">
@@ -113,6 +138,10 @@
     </div>
 </div>
 <!-- text -->
+<p>This is a collection of data of the year 2017 of people between the age 20 to 79.</p>
+<p>There is no clear cause of diabetes. However, too much sugar can lead to overweight and high blood sugar which are
+    risk factors for developing diabetes.
+</p>
 <!-- diagram -->
 <div class="space"></div>
 <div id="scatter_plot_sugar_diabetes_select"></div>
@@ -122,87 +151,10 @@
         scatterPlotSugarDiabetes();
     </script>
 </div>
-<p>This is a collection of data of the year 2017 of people between the age 20 to 79.</p>
-<p>There is no clear cause of diabetes. However, too much sugar can lead to overweight and high blood sugar which are risk factors for developing diabetes.
+<p>Text
 </p>
-<!--************************************************************************************************************** -->
-<!-- 4 -->
-<!-- paralax -->
-<div id="parallax-img-5">
-    <div class="parallax-text">
-        <h2><span>Find a healthy mix</span></h2>
-    </div>
-</div>
-
-<!-- text -->
-<div class="food_title">It's not a myth!</div>
-<p>Eating the right foods can lead to a longer, healthier life.
-    To increase your lifespan, check out the major food groups that help you live longer.
-    With the right contribution of food you can aim for a healthy balanced diet.
-</p>
-<img class="container_food_image" src="img/foodcategory.svg" alt="Food Pyramid">
-<div class="container">
-    <!--    <img class="container_food_image" src="img/foodpyramid.png" alt="Food Pyramid">-->
-    <div class="container_food_title">40%</div>
-    <div class="container_food_text">
-        <h5>Breads, pasta and cereals</h5>
-        Nutrient(s): Carbohydrates<br/>
-        At least 3 servings a day which the body uses for energy. Good choices are wholemeal, wholegrain bread,
-        brown rice, couscous and polenta.
-    </div>
-    <div class="container_food_title">35%</div>
-    <div class="container_food_text">
-        <h5>Fruit and vegetables</h5>
-        Nutrient(s): Vitamins, minerals and fibre<br/>
-        At least 3 servings of vegetables and 2 servings of fruits of different colours to provide a range of vitamins
-        and minerals.
-        One daily portion can be replaced with 2dl fruit juice with no additional sugar.
-    </div>
-    <div class="container_food_title">20%</div>
-    <div class="container_food_text">
-        <h5>Meat, fish, milk and eggs</h5>
-        Nutrient(s): Protein, calcium, iron and zinc<br/>
-        2 to 3 servings a day with 1 serving of meat and at least 1 serving of Milk or alternatives.
-        Having enough calcium is necessary for healthy bones and teeth.
-    </div>
-    <div class="container_food_title">5%</div>
-    <div class="container_food_text">
-        <h5>Fat, oil, sugar, sweets</h5>
-        Nutrient(s): Fat, sugar and/or salt<br/>
-        In very small amounts because they have only a little nutritional value. They should be consumed in
-        moderation.
-        </p>
-    </div>
-    <div class="container_food_title">0%</div>
-    <div class="container_food_text">
-        <h5>Alcohol and other</h5>
-        Nutrient(s): Fat, sugar and/or salt<br/>
-        In very small amounts because they have only a little nutritional value. They should be consumed in
-        moderation.
-        </p>
-    </div>
-</div>
-<!-- diagram -->
-<div id="stackedBarChart_foodCategories">
-    <script type="module">
-      import foodCategories from "./src/stackedBarChart_foodCategories.js";
-      foodCategories();
-
-
-
-    </script>
-</div>
-
 <!--************************************************************************************************************** -->
 <!-- Quellen -->
-
-<!-- paralax -->
-<!--<div id="parallax-img-6">-->
-<!--    <div class="parallax-text">-->
-<!--        <h2><span>Sources</span></h2>-->
-<!--    </div>-->
-<!--</div>-->
-
 <!-- text -->
 <div class="container-color-background font_white">
     <h3>Data sources</h3>
@@ -225,7 +177,7 @@
     </div>
     <!-- text -->
     <h3>Image sources</h3>
-    <div class="container">
+    <div class="container font_white">
         <div class="container_credits">
             <li><a href='https://pixabay.com/de/illustrations/menschen-menschengruppe-ansammlung-567563/'>World
                 Population</a></li>
