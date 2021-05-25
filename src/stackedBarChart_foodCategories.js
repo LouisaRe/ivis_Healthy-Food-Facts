@@ -57,8 +57,8 @@ const foodCategories = async () => {
 
   //**************************************************************************
   //Scales
-  const colorScale = ["#D9783B", "#588548", "#6EA45B", "#7EC066", "#495165",
-                      "#6F7B98", "#613936", "#965B56", "#878846", "#B0B159"]
+  const colorScale = ["#FDC68E", "#FFFF99", "#A2DE66", "#83C983", "#B3E5E9",
+                      "#49D0D9", "#B675EE", "#E2C3FC", "#F3A2A2", "#E36A6A"]
 
   var currentYear = 2013
   var currentCountries = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
