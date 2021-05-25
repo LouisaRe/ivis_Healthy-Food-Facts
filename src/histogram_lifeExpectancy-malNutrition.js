@@ -56,13 +56,20 @@ const lifeExpectancyMalNutrition = () => {
 //**************************************************************************
 //Scales
 
-  const colorDomain = [1, 10, 50, 100, 1000]
-  const colorScale = ["#48AF2F", "#CEDD24", "#DDA924", "#DD6724", "#DD2424"]
+  const colorDomain = [1, 10, 100, 1000]
+  const colorScale = ["#CBDDDF", "#96BABF", "#6298A0", "#2E7681"]
+  //colorScale
+  const linearColorScale = d3.scaleLinear().domain(colorDomain).range(colorScale);
 
   var currentYear = 2016
   var currentCountries = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
 
   let updateDiagram = () => d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data) { //load data from cleaned csv file asynchronous
+
+    // sort data
+    data.sort(function(b, a) {
+      return b.DeathsFromMalnutrition - a.DeathsFromMalnutrition;
+    });
 
     d3.select("#gDiagram").remove() //if allready a diagram group exists, it will be deleted...
     const gDiagram = chartAreaGroup.append("g").attr("id", "gDiagram") //and then new one cerated
@@ -100,35 +107,12 @@ const lifeExpectancyMalNutrition = () => {
       .call(yAxis);
 
     //****************************
-    //attach data
-    attachData(data, gDiagram, xScale, yScale)
-
-    //****************************
-    //attach tooltip
-    var tooltipWindow = d3.select("#histogram_lebenserwartung_ernaehrung").append("div").classed("tooltipWindow", true);
-
-    gDiagram.selectAll("rect")
-      .on("mousemove", (event, d) => {
-        var position = d3.pointer(event, d);
-        var roundedLE = roundtoDecimalPlaces(d.LifeExpectancy, 2);
-
-        tooltipWindow
-          .style("left", margin.left + position[0] + "px")
-          .style("top", position[1] - 28 + "px")
-          .style("visibility", "visible")
-          .html(`<h4>${d.Entity} </h4>` +
-            `Life Expectancy: <b>${roundedLE}</b><br/>
-            Deaths from mal-nutrition: <b>${roundtoDecimalPlaces(d.DeathsFromMalnutrition, 2)}</b>`);
-      })
-      .on("mouseout", (event, d) => {
-        tooltipWindow.style("visibility", "hidden");
-      });
+    //attach data & tooltip
+    attachDataAndTooltip(data, gDiagram, xScale, yScale)
   });
 
   var numberOfCountries = currentCountries.length
-  let attachData = (data, gDiagram, xScale, yScale) => {
-    if (numberOfCountries !== currentCountries.length) { // countries changed
-
+  let attachDataAndTooltip = (data, gDiagram, xScale, yScale) => {
       numberOfCountries = currentCountries.length
 
       return gDiagram.selectAll("rect") //show data with transition
@@ -138,23 +122,11 @@ const lifeExpectancyMalNutrition = () => {
         .attr("class", "bar")
         .attr("x", 1)
         .attr("y", d => yScale(d.Entity))
-        .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition))
+        .style("fill", d => linearColorScale(d.DeathsFromMalnutrition))
         .attr("height", yScale.bandwidth())
-        .transition()
-        .duration(200)
-        .attr("width", d => xScale(d.LifeExpectancy)-1);
-    } else { // year changed
-      return gDiagram.selectAll("rect") //show data without transition
-        .data(data)
-        .enter().append("rect")
-        .attr("id", d => "bar_" + d.Entity.toLowerCase())
-        .attr("class", "bar")
-        .attr("x", 1)
-        .attr("y", d => yScale(d.Entity))
-        .style("fill", d => malnutritionColor(d.DeathsFromMalnutrition))
-        .attr("height", yScale.bandwidth())
-        .attr("width", d => xScale(d.LifeExpectancy)-1);
-    }
+        .attr("width", d => xScale(d.LifeExpectancy)-1)
+        .append("title")
+        .text(d => `Deaths from mal-nutrition: ${roundtoDecimalPlaces(d.DeathsFromMalnutrition, 2)}`); //Tooltip text
   }
 
 //init
@@ -171,20 +143,6 @@ const lifeExpectancyMalNutrition = () => {
       return (Math.round(interimNum) / decimalPlaceShifter);       // round off
     } else {
       return ((Math.round(interimNum) + 1) / decimalPlaceShifter); // round up
-    }
-  }
-
-  let malnutritionColor = (number) => {
-    if (number < colorDomain[0]) {
-      return colorScale[0]
-    } else if (number < colorDomain[1]) {
-      return colorScale[1]
-    } else if (number < colorDomain[2]) {
-      return colorScale[2]
-    } else if (number < colorDomain[3]) {
-      return colorScale[3]
-    } else {
-      return colorScale[4]
     }
   }
 
@@ -205,13 +163,13 @@ const lifeExpectancyMalNutrition = () => {
       .attr("y", (d, i) => 30 * i + 10)
       .attr("width", 20)
       .attr("height", 20)
-      .style("fill", d => malnutritionColor(d - 1))
+      .style("fill", d => linearColorScale(d-1));
 
     legend_entry.append("text")
       .attr("class", "text")
       .attr("x", 40)
       .attr("y", (d, i) => 30 * i + 25)
-      .text(d => "< " + d);
+      .text(d => d);
 
     legend.append("foreignObject")
       .attr("class", "legend-text-wrapper")
@@ -233,7 +191,7 @@ const lifeExpectancyMalNutrition = () => {
   const minYear = 1990
   const maxYear = 2017
 
-//attach #year-slider
+//attach .year-slider
   const sliderGroup = d3.select("#histogram_lifeExpectancy-malNutrition").append("g")
     .attr("class", "year-slider");
 
