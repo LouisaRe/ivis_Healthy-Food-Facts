@@ -157,7 +157,7 @@ height: 500px;
 
 /*text*/
 p {
-padding: 0px 250px 0px 250px;
+padding: 0px 20% 0px 20%;
 text-align: left;
 }
 
@@ -324,7 +324,6 @@ input[type="range"] {
   text-transform: uppercase;
   margin-top: 565px;  /* (height + margin.bottom/2) */
   color: #2E7681;
->>>>>>> ba1cc90639e746974c4315a0f6c307973bfb468b
   margin-left: -105px;
 }
 /*********************************************************
