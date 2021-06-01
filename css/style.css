@@ -12,7 +12,7 @@
   font-family: "Roboto";
   font-weight: 200;
   line-height: 150%;
-  cursor: crosshair;
+ /* cursor: crosshair; */
 }
 
 body{
@@ -81,13 +81,12 @@ li {
 
 /*parallax background image*/
 #parallax-img-1, #parallax-img-2, #parallax-img-3, #parallax-img-4, #parallax-img-5, #parallax-img-6{
-  background-position: center;
+  background-position: bottom;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  padding: 10%;
+  padding: 20%;
   background-attachment: fixed;
-  paddi
 }
 #parallax-img-1{
   height: 500px;
@@ -305,10 +304,7 @@ input[type="range"] {
   line-height: 1.2;
   text-transform: uppercase;
   margin-top: 565px;  /* (height + margin.bottom/2) */
-<<<<<<< HEAD
   color: #9ACCD3;
-=======
-  color: #2E7681;
   margin-left: -105px;
 }
 
@@ -441,7 +437,6 @@ span {
     padding: 30px 250px 30px 250px;
 }
 
-<<<<<<< HEAD
 .container-color-background-space {
     padding: 30px 300px 30px 300px;
 }
@@ -464,6 +459,4 @@ a:hover {
     color: white;
     letter-spacing: 1px;
 }
-=======
-    }
->>>>>>> ba1cc90639e746974c4315a0f6c307973bfb468b
+}
