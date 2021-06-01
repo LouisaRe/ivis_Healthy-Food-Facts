@@ -44,6 +44,14 @@ const BMIChartAndForm = () => {
   g0_bmi.append("text")
     .attr('id', 'bmi-results')
 
+
+  //Attach group overview
+  var bmi_group_svg = d3.select("#Bmi_group_image_placeholder").append("svg").attr("width", 500).attr("height", 260)
+  var bmi_res = d3.select("#bmi_result")
+
+  bmi_group_svg.append("image").attr("xlink:href", "img/BMI_groups.svg").attr("alt", "BMI groups")
+    .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
+
   //*********************************************************
   //BMI Calculator functions()
 
@@ -65,12 +73,36 @@ const BMIChartAndForm = () => {
       updateDiagramBMI()
     }
 
-    // show results
-    if (bmi < 18.5) { results_calcBMI.innerHTML = bmi + " - Underweight"; }
-    else if (bmi < 25) { results_calcBMI.innerHTML = bmi + " - Normal weight"; }
-    else if (bmi < 30) { results_calcBMI.innerHTML = bmi + " - Pre-obesity"; }
-    else if (bmi < 35) { results_calcBMI.innerHTML = bmi + " - Obesity class I"; }
-    else if (bmi >= 35) { results_calcBMI.innerHTML = bmi + " - Obesity class II"; }
+    //delete old result
+    d3.select(".bmi_groups").select("image").remove()
+    d3.select("#bmi_result").select("span").remove()
+
+    // show results3
+    if (bmi < 18.5) {
+      bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_1.svg").attr("alt", "BMI group 1")
+        .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
+      bmi_res.append("span").text("Your BMI is " + bmi + " - Underweight").attr("class", "food_title")
+    }
+    else if (bmi < 25) {
+      bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_2.svg").attr("alt", "BMI group 2")
+        .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
+      bmi_res.append("span").text("Your BMI is " + bmi + " - Normal").attr("class", "food_title")
+    }
+    else if (bmi < 30) {
+      bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_3.svg").attr("alt", "BMI group 3")
+        .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
+      bmi_res.append("span").text("Your BMI is " + bmi + " - Overweight").attr("class", "food_title")
+  }
+    else if (bmi < 35) {
+      bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_4.svg").attr("alt", "BMI group 4")
+        .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
+      bmi_res.append("span").text("Your BMI is " + bmi + " - Obese").attr("class", "food_title")
+    }
+    else if (bmi >= 35) {
+      bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_5.svg").attr("alt", "BMI group 5")
+        .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
+      bmi_res.append("span").text("Your BMI is " + bmi + " - Extremly Obese").attr("class", "food_title")
+    }
     else { results_calcBMI.innerHTML = "Something went wrong. Please check your input. " }
 
     return false;
@@ -143,7 +175,7 @@ const BMIChartAndForm = () => {
 //Scales
 
   const colorDomain_bmi = [18.5, 25, 30, 35, 40]
-  const colorScale_bmi = ["#F1D09B", "#C6D79E", "#E6BAAE", "#D99D8C", "#CB8F7E"]
+  const colorScale_bmi = ["#F1D09B", "#C6D79E", "#ECAA7B", "#E58C5F", "#DC7356"]
 
   var currentYear_bmi = 2016
   var currentCountries_bmi = ["World", "Ethiopia", "Switzerland", "Vietnam", "Saint Lucia", "American Samoa"]

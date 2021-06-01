@@ -9,10 +9,9 @@
 /*****************************************************
 /*General*/
 * {
-  font-family: "Roboto";
+  font-family: sans-serif, "Roboto";
   font-weight: 200;
   line-height: 150%;
- /* cursor: crosshair; */
 }
 
 body{
@@ -24,6 +23,7 @@ h1{
   line-height: 1.2;
   letter-spacing: 10px;
   text-transform: uppercase;
+  font-weight: bold;
 }
 
 h3, #chart-title {
@@ -89,7 +89,7 @@ li {
 
 /*parallax background image*/
 #parallax-img-1, #parallax-img-2, #parallax-img-3, #parallax-img-4, #parallax-img-5, #parallax-img-6{
-  background-position: center; /*bottom*/
+  background-position: bottom;
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
@@ -120,7 +120,6 @@ li {
   background-image: url("../img/book-library-with-open-textbook.jpg");
 }
 
-
 /*Shade parallax background image*/
 #parallax-img-1::before, #parallax-img-2::before, #parallax-img-3::before, #parallax-img-4::before, #parallax-img-5::before, #parallax-img-6::before  {
   content: "";
@@ -130,38 +129,11 @@ li {
   bottom: 0px;
   left: 0px;
 }
-#parallax-img-1::before {
-  background-color: rgba(0, 0, 0, 0.25);
-}
-#parallax-img-2::before {
-  background-color: rgba(0, 0, 0, 0.25);
-}
-#parallax-img-3::before {
-  background-color: rgba(0, 0, 0, 0.25);
-}
-#parallax-img-4::before {
-  background-color: rgba(0, 0, 0, 0.25);
-}
-#parallax-img-5::before {
-  background-color: rgba(0, 0, 0, 0.25);
-}
-#parallax-img-6::before {
+#parallax-img-1::before, #parallax-img-2::before, #parallax-img-3::before, #parallax-img-4::before, #parallax-img-5::before, #parallax-img-6::before {
   background-color: rgba(0, 0, 0, 0.25);
 }
 
-/*****************************************************
-/*image*/
-#img-1 {
-height: 500px;
-}
-
-/*text*/
-p {
-padding: 0px 20% 0px 20%;
-text-align: left;
-}
-
-.parallax-big-text {
+.parallax-text, .parallax-big-text {
   position: absolute;
   left: 0;
   top: 40%;
@@ -169,32 +141,30 @@ text-align: left;
   text-align: center;
 }
 
-.parallax-text {
-  position: absolute;
-  left: 0;
-  top: 30%;
-  width: 100%;
-  text-align: center;
-}
-
-/*text-box*/
+/*paralax text-box*/
 h1 span, h2 span {
   color: var(--white) ;
   background-color: var(--grey);
   display: inline-block;
-/*
-  padding: 28px 20px 20px;
-*/
+  font-weight: normal;
+  opacity: 0.7;
+  padding-top: 0.2em;
+  text-align: left;
 }
+
+h1 span{
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+h2 span{
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 
 /*****************************************************
 /**/
-
-span {
-  display: inline-block;
-  text-align: left;
-  padding: 0 100px 0 80px;
-}
 
 #bmi-field{
   padding: 20px;
@@ -208,6 +178,12 @@ span {
 }
 /*****************************************************
 /*diagrams*/
+
+/*text*/
+p {
+  padding: 0px 20% 0px 20%;
+  text-align: left;
+}
 
 .tooltipWindow {
   padding: 8px;
@@ -313,6 +289,7 @@ input[type="range"] {
   margin-top: 565px;  /* (height + margin.bottom/2) */
   color: #9ACCD3;
   margin-left: -105px;
+  font-weight: 500;
 }
 
 #yearFoodCat{
@@ -349,14 +326,12 @@ div.tooltip {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  opacity: 0;
   transition: all 0.3s ease-in-out;
 }
 
 
 span {
   top: 100%;
-  opacity: 0.6;
 }
 
 /*Inputbox*/
@@ -464,4 +439,15 @@ a, a:link, a:visited, a:active {
 a:hover {
     color: white;
     letter-spacing: 1px;
+}
+
+
+/*********************************/
+/*Img*/
+.bmi_calc_image{
+  margin-top: 20px;
+}
+
+.bmi_groups{
+  width: 500px;
 }
