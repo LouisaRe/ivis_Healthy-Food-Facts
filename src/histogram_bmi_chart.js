@@ -175,7 +175,7 @@ const BMIChartAndForm = () => {
 //Scales
 
   const colorDomain_bmi = [18.5, 25, 30, 35, 40]
-  const colorScale_bmi = ["#F1D09B", "#C6D79E", "#ECAA7B", "#E58C5F", "#DC7356"]
+  const colorScale_bmi = ["#F1D09B", "#C6D79E", "#F2C3A3", "#EDAE8F", "#E79D89"]
 
   var currentYear_bmi = 2016
   var currentCountries_bmi = ["World", "Ethiopia", "Switzerland", "Vietnam", "Saint Lucia", "American Samoa"]
