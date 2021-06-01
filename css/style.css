@@ -79,13 +79,20 @@ li {
 /*****************************************************
 /*Parallax-Effect*/
 
+.bigImg{
+  padding: 20%;
+}
+
+.smallImg{
+  padding: 10%;
+}
+
 /*parallax background image*/
 #parallax-img-1, #parallax-img-2, #parallax-img-3, #parallax-img-4, #parallax-img-5, #parallax-img-6{
-  background-position: bottom;
+  background-position: center; /*bottom*/
   background-size: cover;
   background-repeat: no-repeat;
   position: relative;
-  padding: 20%;
   background-attachment: fixed;
 }
 #parallax-img-1{
@@ -458,5 +465,4 @@ a, a:link, a:visited, a:active {
 a:hover {
     color: white;
     letter-spacing: 1px;
-}
 }
