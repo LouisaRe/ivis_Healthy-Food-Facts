@@ -54,38 +54,19 @@ g.append("text")
     .attr("dy", "1em")
     .attr("font-family", "sans-serif")
     .style("text-anchor", "middle")
-//    .text("Diabetes");
-    .text("Diabetes");
+    .text("Diabetes in %");
 
  // text label for the y axis
 g.append("text")
     .attr("class", "label-text")
-    .attr("y", -10)
-    .attr("x", -40)
+    .attr("transform", "rotate(-90)")
+    .attr("x", 10)
+    .attr("y", -margin.bottom)
     .attr("dy", "1em")
     .style("text-anchor", "end")
-    .html("Sugar");
+    .html("Sugar in kcal/capita/day");
 
-/*g.append("text")
-    .attr("class", "label-text")
-    .attr("y", 20)
-    .attr("x", -40)
-    .attr("dy", "1em")
-    .style("text-anchor", "end")
-    .html("in");
 
-g.append("text")
-    .attr("class", "label-text")
-    .attr("y", 50)
-    .attr("x", -40)
-    .attr("dy", "1em")
-    .style("text-anchor", "end")
-    .html("kcal");*/
-
-// load the data from the cleaned csv file.
-// note: the call is done asynchronous.
-// That is why you have to load the data inside of a
-// callback function.
 d3.csv("./data/DiabetesZuckverbrauch2017.csv").then(function(data) {
     const heightDomain = d3.extent(data, d => Number(d.Diabetes));
     const weightDomain = d3.extent(data, d => Number(d.Sugar));
@@ -126,13 +107,6 @@ var selectButtonValue = d3.select(".selectButton")
     g.append("g")
         .attr("id", "y-axis")
         .call(yAxis);
-
-    // 5. Create tooltip
-//var tooltip = d3.select('#scatter_plot_sugar_diabetes')
-//     .append("div")
-//     .attr("class", "tooltip")
-//     .style("opacity", 0);
-var tooltipWindowSugarDia = d3.select("#diagram_bmi").append("div").classed("tooltipWindow", true);
 
 updateOldChart();
 
@@ -180,45 +154,6 @@ data_points.append("circle")
          tooltipWindowSugarDia.style("visibility", "hidden");
        });
 
-//
-//    .on("mouseover", function (d, i) {
-//         d3.select(this).transition()
-//              .duration(100)
-//              .attr("r", 4)
-//              .attr("stroke", "#ff0000")
-//              .attr("stroke-width", 1.5)
-//              .attr("fill", "#ffffff")
-//        tooltip.transition()
-//              .duration(100)
-//              .style("opacity", 1);
-//    })
-//    .on("mousemove", function (d, i) {
-//     var position = d3.pointer(event, d);
-//         d3.select(this).transition()
-//              .duration(100)
-//              .attr("r", 6)
-//              .attr("stroke", "#ff0000")
-//              .attr("stroke-width", 1.5)
-//              .attr("fill", "#ff0000")
-//         tooltip.transition()
-//              .duration(100)
-//              .style("opacity", 1);
-//         tooltip.html("<b>"+d.Entity+"</b>"+"<br/>Sugar: "+d.Sugar+" kcal/capita/day<br/>Diabetes: "+d.Diabetes+"%")
-//              .style("left", margin.left + position[0] + "px")
-//              .style("top", position[1] - 28 + "px");
-//    })
-//  .on("mouseout", function (d, i) {
-//         d3.select(this).transition()
-//              .duration(100)
-//              .attr("r", 4)
-//              .attr("stroke", "#ff0000")
-//              .attr("stroke-width", 1.5)
-//              .attr("fill", "#ffffff")
-//       tooltip.transition()
-//            .duration(200)
-//            .style("opacity", 0);
-//  });
-
 }
 // Select Button
   d3.select(".selectButton").on("change", function(d) {
@@ -248,31 +183,19 @@ path.append("circle")
         .attr("stroke", "#9ACCD3")
         .attr("stroke-width", 1.5)
         .attr("fill", "#9ACCD3")
+        .append("title")
+        .text(d => `Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`)
    //hovering effects
        .on("mousemove", function (event, d) {
          var position = d3.pointer(event, d);
         d3.select(this).transition()
            .duration(100)
            .attr("r", 6)
-           .attr("stroke", "#9ACCD3")
-           .attr("stroke-width", 1.5)
-           .attr("fill", "#9ACCD3")
-         tooltipWindowSugarDia
-           .style("left", margin.left/4 + position[0] + "px")
-           .style("top", position[1] - 28 + "px")
-           .style("visibility", "visible")
-           .html(`<h4>${d.Entity} </h4>` +
-             `Sugar: <b>${d.Sugar} kcal/capita/day </b><br/>` +
-             `Diabetes: <b>${d.Diabetes} %</b>`);
        })
        .on("mouseout", function (event, d) {
        d3.select(this).transition()
           .duration(100)
           .attr("r", 4)
-          .attr("stroke", "#9ACCD3")
-          .attr("stroke-width", 1.5)
-          .attr("fill", "#9ACCD3")
-         tooltipWindowSugarDia.style("visibility", "hidden");
        });
 }
 

@@ -484,7 +484,6 @@ span {
     font-size: 36px;
     color: #9ACCD3;
     font-weight: bold;
-    padding: 30px 200px 0px 200px;
     text-align: center;
 }
 
@@ -532,5 +531,10 @@ a:hover {
   width: 500px;
 }
 
+
+
+.bottom_margin{
+  margin-bottom: 30px;
+}
 
 

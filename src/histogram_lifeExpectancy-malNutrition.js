@@ -1,7 +1,7 @@
 import "../lib/d3/d3.js"
 
 const lifeExpectancyMalNutrition = () => {
-  const title = "Life expectancy vs. Nutrition"
+  const title = "Life expectancy vs. Malnutrition"
 
 //size and margin of svg
   const canvHeight = 600;
