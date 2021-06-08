@@ -255,12 +255,15 @@ const lifeExpectancyMalNutrition = () => {
       .enter()
       .append("li")
       .append("label")
+      .attr("class", "container")
       .text(d => d + " ")
       .append("input")
       .attr("type", "checkbox")
       .attr("id", d => "checkbox_" + d)
       .property("checked", d => currentCountries.includes(d))
       .on("click", (event, d) => onClick_changeCurrentCountries(d));
+
+    d3.selectAll(".container").append("span").attr("class", "checkmark");
   });
 
 //**************************************************************************

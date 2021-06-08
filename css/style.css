@@ -67,10 +67,6 @@ text {
   text-transform: none;
 }
 
-li {
-  line-height: 1.6;
-}
-
 .info-text{
   line-height: 1.2;
   padding: 20px 200px;
@@ -185,23 +181,6 @@ p {
   text-align: left;
 }
 
-.tooltipWindow {
-  padding: 8px;
-  position: absolute;
-  max-width: 300px;
-  display: inline-block;
-  text-align: center;
-  font-size: 16px;
-  line-height: 1.2;
-  background: var(--grey);
-  border: 1px;
-  border-color: white;
-  border-radius: 8px;
-  pointer-events: none;
-  visibility: hidden;
-  color: white;
-}
-
 /*****************************************************
 /*dropdown*/
 
@@ -209,17 +188,16 @@ p {
 ul{
   display: flex;
   flex-wrap: wrap;
-  overflow-wrap: break-word
+  overflow-wrap: break-word;
+  padding-inline-start: 40px;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
 }
 
 li{
   list-style-type: none;
   flex: 1 2 18em;
-  margin-bottom: .3em;
-}
-
-label{
-
+  line-height: 1.6;
 }
 
 .selectionDiv {
@@ -231,53 +209,43 @@ label{
   border-style: none;
   border-color: #9ACCD3;
   border-width: 1px;
-  height: 200px;
+  height: 212px;
   margin-bottom: 60px;
   overflow: scroll;
+  border-radius: 8px;
 }
 
 /**************************************************/
 /*Scrollbar */
 
-/* width */
-::-webkit-scrollbar {
-  width: 20px;
-}
+/*!* width *!*/
+/*::-webkit-scrollbar {*/
+/*  width: 20px;*/
+/*}*/
 
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
+/*!* Track *!*/
+/*::-webkit-scrollbar-track {*/
+/*  background: #f1f1f1;*/
+/*}*/
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: grey;
-}
+/*!* Handle *!*/
+/*::-webkit-scrollbar-thumb {*/
+/*  background: grey;*/
+/*}*/
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+/*!* Handle on hover *!*/
+/*::-webkit-scrollbar-thumb:hover {*/
+/*  background: #555;*/
+/*}*/
 
 
-input {
-  margin-left: 0px;
-}
+/*input {*/
+/*  margin-left: 0px;*/
+/*}*/
 
 
 /*****************************************************
 /*slider*/
-
-/*make slider vertical*/
-input[type="range"] {
-  position: absolute;
-  transform: rotate(270deg);
-  width: 460px; /*is height*/ /* (height of histogram) */
-  margin-left: -290px;
-  margin-right: auto;
-  height: 20px; /*is width*/
-  margin-top: 295px;  /* (top of histogram + this.width/2) */
-}
 
 .year{
   position: absolute;
@@ -287,22 +255,78 @@ input[type="range"] {
   line-height: 1.2;
   text-transform: uppercase;
   margin-top: 565px;  /* (height + margin.bottom/2) */
-  color: #9ACCD3;
+  color: #5c7d8c;
   margin-left: -105px;
   font-weight: 500;
 }
 
-#yearFoodCat{
-  position: absolute;
-  margin-bottom: 20px;
-  letter-spacing: 10px;
-  font-size: 24px;
-  line-height: 1.2;
-  text-transform: uppercase;
-  margin-top: 565px;  /* (height + margin.bottom/2) */
-  color: #2E7681;
-  margin-left: -105px;
+#year_2{
+  margin-top: 592px;  /* (height + margin.bottom/2) */
 }
+
+#slider2{
+  margin-top: 322px;
+}
+
+/*make slider vertical*/
+input[type="range"] {
+  -webkit-appearance: none; /*deactivate default-styling*/
+  position: absolute;
+  transform: rotate(270deg);
+  width: 460px; /*is height*/ /* (height of histogram) */
+  margin-left: -290px;
+  margin-right: auto;
+  height: 20px; /*is width*/
+  margin-top: 295px;  /* (top of histogram + this.width/2) */
+}
+
+/**********************/
+/*Slider-Styling: */
+
+/*Chrome - Background*/
+input[type=range]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 8px;
+  width: 460px;
+  color: #9ACCD3;
+  border-radius: 50px;
+  margin-top: -1px;
+  background-color: #c8e2e7;
+}
+
+/*Chrome - Thumb*/
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #5c7d8c; /* thumb color */
+  border: none;
+  border-radius: 50%;
+  margin-top: -5px;
+}
+
+/*Firefox - Background*/
+input[type=range]::-moz-range-track {
+  -webkit-appearance: none;
+  height: 8px;
+  width: 460px;
+  color: #9ACCD3;
+  border-radius: 50px;
+  margin-top: -1px;
+  background-color: #c8e2e7;
+}
+
+/*Firefox - Thumb*/
+input[type=range]::-moz-range-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #5c7d8c; /* thumb color */
+  border: none;
+  border-radius: 50%;
+  margin-top: -5px;
+}
+
 /*********************************************************
 tooltip
 */
@@ -329,49 +353,105 @@ div.tooltip {
   transition: all 0.3s ease-in-out;
 }
 
+.tooltipWindow {
+  padding: 8px;
+  position: absolute;
+  max-width: 300px;
+  display: inline-block;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.2;
+  background: var(--grey);
+  border: 1px;
+  border-color: white;
+  border-radius: 8px;
+  pointer-events: none;
+  visibility: hidden;
+  color: white;
+}
+
 
 span {
   top: 100%;
 }
 
-/*Inputbox*/
+/***********************************************************/
+/*Checkboxes*/
 
-.inputbox rect {
-
-  fill: #FFFFFF;
-  stroke: #348B6D;
-  stroke-width: 2px;
-
-}
-
-.inputbox rect.active {
-
-  fill: #D9F0E3;
-
-}
-
-.inputbox text {
-
-  font-family: 'Open Sans', sans-serif;
-  font-size: 12px;
-  letter-spacing: 3px;
-  fill: #494949;
-  pointer-events: none;
-  text-anchor: start;
-  -moz-user-select: none;
+/* The container */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
   -webkit-user-select: none;
+  -moz-user-select: none;
   -ms-user-select: none;
-
+  user-select: none;
+  line-height: 130% !important;
 }
 
-.inputbox text.value {
-  text-anchor: end;
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #c8e2e7;
+}
+
+/* On mouse-over, add a background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a background */
+.container input:checked ~ .checkmark {
+  background-color: #5c7d8c;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 6px;
+  top: 3px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
 
 /***********************************************/
 /*Containter*/
 
-.container {
+.flex_container {
   display: flex;
   justify-content: center;
   padding-top: 20px;
@@ -451,3 +531,6 @@ a:hover {
 .bmi_groups{
   width: 500px;
 }
+
+
+
