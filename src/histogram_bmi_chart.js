@@ -7,13 +7,12 @@ const BMIChartAndForm = () => {
   //BMI Form - Calculator
 
   //attach #bmi-field
-  const g0_bmi = d3.select("#diagram_bmi").append("div").append("g")
+  const bmi_div = d3.select("#diagram_bmi").append("div").attr("class","bmi_input_div")
     .attr("id", "bmi-field");
 
-  g0_bmi.append("text")
-    .text("Weight in kg: ");
-
-  g0_bmi.append('input')
+  bmi_div.append("g").attr("class", "bmi-attr").append("text")
+    .text("Weight in kg: ")
+    .append('input')
     .attr('id', 'bmi-weight')
     .attr('class', 'inputbox')
     .attr('type','number')
@@ -22,10 +21,9 @@ const BMIChartAndForm = () => {
     .attr('min', 1)
     .attr('max', 300)
 
-  g0_bmi.append("text")
-    .text("  Height in cm: ");
-
-  g0_bmi.append('input')
+  bmi_div.append("g").attr("class", "bmi-attr").append("text")
+    .text("  Height in cm: ")
+    .append('input')
     .attr('id', 'bmi-height')
     .attr('class', 'inputbox')
     .attr('type','number')
@@ -34,14 +32,15 @@ const BMIChartAndForm = () => {
     .attr('min', 20)
     .attr('max', 300);
 
-  g0_bmi.append('input')
+  bmi_div.append("g").attr("class", "bmi-attr").append('input')
     .attr("class", "inputbox")
+    .attr("id", "button")
     .attr('type','submit')
     .attr('name','textInput')
     .attr('value','Calculate BMI')
     .on("click", event => calcBMI() );
 
-  g0_bmi.append("text")
+  d3.select("#diagram_bmi").append("div").attr("class","something-wrong-div").append("text")
     .attr('id', 'bmi-results')
 
 
@@ -79,31 +78,47 @@ const BMIChartAndForm = () => {
 
     // show results3
     if (bmi < 18.5) {
+      results_calcBMI.innerHTML = ""
+
       bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_1.svg").attr("alt", "BMI group 1")
         .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
       bmi_res.append("span").text("Your BMI is " + bmi + " - Underweight").attr("class", "food_title")
     }
     else if (bmi < 25) {
+      results_calcBMI.innerHTML = ""
+
       bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_2.svg").attr("alt", "BMI group 2")
         .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
       bmi_res.append("span").text("Your BMI is " + bmi + " - Normal").attr("class", "food_title")
     }
     else if (bmi < 30) {
+      results_calcBMI.innerHTML = ""
+
       bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_3.svg").attr("alt", "BMI group 3")
         .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
       bmi_res.append("span").text("Your BMI is " + bmi + " - Overweight").attr("class", "food_title")
   }
     else if (bmi < 35) {
+      results_calcBMI.innerHTML = ""
+
       bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_4.svg").attr("alt", "BMI group 4")
         .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
       bmi_res.append("span").text("Your BMI is " + bmi + " - Obese").attr("class", "food_title")
     }
     else if (bmi >= 35) {
+      results_calcBMI.innerHTML = ""
+
       bmi_group_svg.append("image").attr("xlink:href", "img/BMI_group_5.svg").attr("alt", "BMI group 5")
         .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
       bmi_res.append("span").text("Your BMI is " + bmi + " - Extremly Obese").attr("class", "food_title")
     }
-    else { results_calcBMI.innerHTML = "Something went wrong. Please check your input. " }
+    else {
+      results_calcBMI.innerHTML = "Something went wrong. Please check your input. "
+
+      bmi_group_svg.append("image").attr("xlink:href", "img/BMI_groups.svg").attr("alt", "BMI group 5")
+        .attr("x", 0).attr("y", 0).attr("width", 500).attr("class", "bmi_groups")
+      bmi_res.append("span").text("See how you rank compared to the rest of the world").attr("class", "food_title")
+    }
 
     return false;
   }
