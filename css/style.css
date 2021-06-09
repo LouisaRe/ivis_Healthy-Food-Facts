@@ -42,11 +42,17 @@ h5 {
   font-size: 16px;
   font-weight: bold;
   color: #9ACCD3;
+  text-align: center;
 }
 text {
   font-size: 12px;
   line-height: 1.2;
   text-transform: uppercase;
+}
+/*text*/
+p {
+  /*padding: 0px 20% 0px 20%;*/
+  text-align: left;
 }
 
 .legend-text-wrapper {
@@ -70,6 +76,17 @@ text {
 .info-text{
   line-height: 1.2;
   padding: 20px 200px;
+}
+
+.text-div{
+  background-color: var(--white);
+  text-align: left;
+  width: 1200px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 /*****************************************************
@@ -158,15 +175,9 @@ h2 span{
   padding-right: 50px;
 }
 
-
 /*****************************************************
 /*diagrams*/
 
-/*text*/
-p {
-  padding: 0px 20% 0px 20%;
-  text-align: left;
-}
 
 /*****************************************************
 /*dropdown*/
@@ -194,8 +205,6 @@ li{
   margin: auto;
   decoration: none;
   border-style: none;
-  border-color: #9ACCD3;
-  border-width: 1px;
   height: 212px;
   margin-bottom: 60px;
   overflow: scroll;
@@ -314,54 +323,6 @@ input[type=range]::-moz-range-thumb {
   margin-top: -5px;
 }
 
-/*********************************************************
-tooltip
-*/
-
-div.tooltip {
-  position: absolute;
-  top: 60%;
-  margin-top: 10px;
-  padding: .55rem 1rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  white-space: nowrap;
-  color: #000;
-  border-radius: 50px;
-  background-color: #fff;
-  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.1),
-    0 5px 15px rgba(0, 0, 0, 0.07);
-
-  pointer-events: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  transition: all 0.3s ease-in-out;
-}
-
-.tooltipWindow {
-  padding: 8px;
-  position: absolute;
-  max-width: 300px;
-  display: inline-block;
-  text-align: center;
-  font-size: 16px;
-  line-height: 1.2;
-  background: var(--grey);
-  border: 1px;
-  border-color: white;
-  border-radius: 8px;
-  pointer-events: none;
-  visibility: hidden;
-  color: white;
-}
-
-
-span {
-  top: 100%;
-}
-
 /***********************************************************/
 /*Checkboxes*/
 
@@ -441,31 +402,33 @@ span {
 .flex_container {
   display: flex;
   justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  width: 1200px;
+  margin: auto;
   }
-/*    img {
-    max-width: 40%
-    }*/
-    .container_food_text {
-        padding-right: 40px;
-        max-width: 10%;
-        text-align: left;
-    }
-    .container_food_title {
-        padding-right: 10px;
-        padding-top: 20px;
-        max-width: 5%;
-        text-align: left;
-        font-size: 36px;
-        color: #9ACCD3;
-        font-weight: bold;
-    }
-    .container_credits {
-        min-width: 33%;
-        text-align: left;
-        align-items: center;
-    }
+
+.container_food_text {
+  margin-right: 5px;
+  margin-left: 5px;
+  padding: 10px;
+  width: 220px;
+  text-align: left;
+  background-color: aliceblue;
+  border-radius: 8px;
+}
+.container_food_title {
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 220px;
+  text-align: center;
+  font-size: 36px;
+  color: #9ACCD3;
+  font-weight: bold;
+}
+.container_credits {
+    min-width: 33%;
+    text-align: left;
+    align-items: center;
+}
 
 .food_title {
     font-size: 36px;
@@ -510,18 +473,17 @@ a:hover {
 
 /*********************************/
 /*Img*/
-.bmi_calc_image{
-  margin-top: 20px;
-}
 
 .bmi_groups{
   width: 500px;
 }
 
-
-
 .bottom_margin{
   margin-bottom: 30px;
+}
+
+#Bmi_group_image_placeholder{
+  margin-top: 40px;
 }
 
 /*********************************/
@@ -577,9 +539,26 @@ a:hover {
 }
 
 #svg_bmi{
-  margin-top: 30px;
+  margin-top: 40px;
 }
 
 #sug-dia-field text{
   margin-right: 8px;
 }
+
+.top-bottom-margin{
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.div{
+  width: 1200px;
+  margin: auto;
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: #000;
+  border-style: ridge;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
