@@ -119,49 +119,49 @@ updateOldChart()
 var data_points = g.selectAll("dot")
     .data(dataFilter)
     .enter();
-data_points.append("circle")
+
+var dp = data_points.append("circle")
         .attr("class", "person_data_point")
         .attr("cx", d=> xScale(d.Diabetes))
         .attr("cy", d=> yScale(d.Sugar))
         .attr("r", 4)  // Size of dots
-        .attr("stroke", "#ff0000")
+        .attr("stroke", "darkred")
         .attr("stroke-width", 1.5)
-        .attr("fill", "#ffffff")
-   //hovering effects
-       .on("mousemove", function (event, d) {
-         var position = d3.pointer(event, d);
-         d3.select(this).transition()
-              .duration(100)
-              .attr("r", 6)
-              .attr("stroke", "#ff0000")
-              .attr("stroke-width", 1.5)
-              .attr("fill", "#ff0000")
-         tooltipWindowSugarDia
-           .style("left", margin.left/4 + position[0] + "px")
-           .style("top", position[1] - 28 + "px")
-           .style("visibility", "visible")
-           .html(`<h4>${d.Entity} </h4>` +
-             `Sugar: <b>${d.Sugar} kcal/capita/day </b><br/>` +
-             `Diabetes: <b>${d.Diabetes}% </b>`);
-       })
-       .on("mouseout", function (event, d) {
-        d3.select(this).transition()
-             .duration(100)
-             .attr("r", 4)
-             .attr("stroke", "#ff0000")
-             .attr("stroke-width", 1.5)
-             .attr("fill", "#ffffff")
-         tooltipWindowSugarDia.style("visibility", "hidden");
-       });
+        .attr("fill", "darkred")
+
+  //hovering effects
+  dp.on("mousemove", function (event, d) {
+     var position = d3.pointer(event, d);
+     d3.select(this).transition()
+          .duration(100)
+          .attr("r", 8)
+          .attr("stroke", "darkred")
+          .attr("stroke-width", 1.5)
+          .attr("fill", "darkred")
+   })
+
+  dp.on("mouseout", function (event, d) {
+    d3.select(this).transition()
+      .duration(100)
+      .attr("r", 4)
+      .attr("stroke", "darkred")
+      .attr("stroke-width", 1.5)
+      .attr("fill", "darkred")
+    tooltipWindowSugarDia.style("visibility", "hidden");
+
+  })
+
+  //Tooltip:
+  dp.append("title").text(d => `Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`);
 
 }
+
+
 // Select Button
   d3.select(".selectButton").on("change", function(d) {
       // recover the option that has been chosen
       var selectedOption = d3.select(this).property("value")
       console.log(selectedOption)
-
-//      d3.select("#data_points_red").remove()
 
       let dataFilter = data.filter(function (d) {
           return d.Entity === selectedOption;
@@ -175,7 +175,7 @@ function updateOldChart() {
 var path = g.selectAll("dot")
     .data(data)
     .enter();
-path.append("circle")
+var cir = path.append("circle")
         .attr("class", "person_data_point")
         .attr("cx", d=> xScale(d.Diabetes))
         .attr("cy", d=> yScale(d.Sugar))
@@ -183,20 +183,23 @@ path.append("circle")
         .attr("stroke", "#9ACCD3")
         .attr("stroke-width", 1.5)
         .attr("fill", "#9ACCD3")
-        .append("title")
-        .text(d => `Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`)
-   //hovering effects
-       .on("mousemove", function (event, d) {
+
+        //Tooltip:
+        cir.append("title")
+          .text(d => `Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`);
+
+        //hovering effects
+       cir.on("mousemove", function (event, d) {
          var position = d3.pointer(event, d);
         d3.select(this).transition()
            .duration(100)
            .attr("r", 6)
        })
-       .on("mouseout", function (event, d) {
+       cir.on("mouseout", function (event, d) {
        d3.select(this).transition()
           .duration(100)
           .attr("r", 4)
-       });
+       })
 }
 
 });
