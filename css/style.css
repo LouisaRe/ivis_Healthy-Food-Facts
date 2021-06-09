@@ -558,13 +558,15 @@ a:hover {
   padding: 8px;
 }
 
+.input_b{
+  width: 175px;
+  height: 20px;
+}
+
 #bmi-results{
   color: darkred;
 }
 
-/*#button{*/
-/*  background-color: #c8e2e7;*/
-/*}*/
 
 .something-wrong-div{
   height: 12px;
