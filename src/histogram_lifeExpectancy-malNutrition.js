@@ -109,24 +109,38 @@ const lifeExpectancyMalNutrition = () => {
     //****************************
     //attach data & tooltip
     attachDataAndTooltip(data, gDiagram, xScale, yScale)
+
+
   });
 
   var numberOfCountries = currentCountries.length
+
   let attachDataAndTooltip = (data, gDiagram, xScale, yScale) => {
+
+    var rectangles = gDiagram.selectAll("rect") //show data with transition
+      .data(data)
+      .enter().append("rect")
+      .attr("id", d => "bar_" + d.Entity.toLowerCase())
+      .attr("class", "bar")
+      .attr("x", 1)
+      .attr("y", d => yScale(d.Entity))
+      .style("fill", d => linearColorScale(d.DeathsFromMalnutrition))
+      .attr("height", yScale.bandwidth());
+
+    rectangles.append("title")
+      .text(d => `Deaths from mal-nutrition: ${roundtoDecimalPlaces(d.DeathsFromMalnutrition, 2)}`); //Tooltip text
+
+    if(numberOfCountries !== currentCountries.length) { // countries changed
       numberOfCountries = currentCountries.length
 
-      return gDiagram.selectAll("rect") //show data with transition
-        .data(data)
-        .enter().append("rect")
-        .attr("id", d => "bar_" + d.Entity.toLowerCase())
-        .attr("class", "bar")
-        .attr("x", 1)
-        .attr("y", d => yScale(d.Entity))
-        .style("fill", d => linearColorScale(d.DeathsFromMalnutrition))
-        .attr("height", yScale.bandwidth())
-        .attr("width", d => xScale(d.LifeExpectancy)-1)
-        .append("title")
-        .text(d => `Deaths from mal-nutrition: ${roundtoDecimalPlaces(d.DeathsFromMalnutrition, 2)}`); //Tooltip text
+      rectangles
+        .transition()
+        .duration(200)
+        .attr("width", d => xScale(d.LifeExpectancy)-1);
+    }else { // year changed
+      rectangles
+        .attr("width", d => xScale(d.LifeExpectancy)-1);
+    }
   }
 
 //init

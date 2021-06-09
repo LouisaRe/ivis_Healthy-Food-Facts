@@ -223,7 +223,13 @@ const BMIChartAndForm = () => {
     });
 
     if(objectUserBmi.BMI != null && !isNaN(userBMI)){
-      currentCountries_bmi.push(objectUserBmi.Entity)
+      if(!currentCountries_bmi.includes(objectUserBmi.Entity)){
+        currentCountries_bmi.push(objectUserBmi.Entity)
+      }
+    }else{
+      if(currentCountries_bmi.includes(objectUserBmi.Entity)){
+        currentCountries_bmi.splice(currentCountries_bmi.indexOf(objectUserBmi.Entity),1)
+      }
     }
 
     data.push(objectUserBmi)
@@ -276,24 +282,37 @@ const BMIChartAndForm = () => {
     //attach data & tooltip
     attachDataAndTooltip(data, gDiagramBMI, xScale_bmi, yScale_bmi)
     d3.select("#bmi_chart_bar_me").style("fill", "#737373")
+
+    console.log(currentCountries_bmi)
   });
 
   var numberOfCountries = currentCountries_bmi.length
 
   let attachDataAndTooltip = (data, gDiagramBMI, xScale_bmi, yScale_bmi) => {
-      numberOfCountries = currentCountries_bmi.length
 
-      return gDiagramBMI.selectAll("rect") //show data with transition
+      var rectangles_bmi = gDiagramBMI.selectAll("rect") //show data with transition
         .data(data)
         .enter().append("rect")
         .attr("id", d => "bmi_chart_bar_" + d.Entity.toLowerCase())
         .attr("x", 1)
         .attr("y", d => yScale_bmi(d.Entity))
         .style("fill", "#FBF8F2")
-        .attr("height", yScale_bmi.bandwidth())
-        .attr("width", d => xScale_bmi(d.BMI)-1)
-        .append("title")
-        .text(d => `BMI: ${roundtoDecimalPlacesBMI(d.BMI, 2)}`);
+        .attr("height", yScale_bmi.bandwidth());
+
+      rectangles_bmi.append("title")
+      .text(d => `BMI: ${roundtoDecimalPlacesBMI(d.BMI, 2)}`);
+
+    if(numberOfCountries !== currentCountries_bmi.length) { // countries changed
+      numberOfCountries = currentCountries_bmi.length
+
+      rectangles_bmi
+        .transition()
+        .duration(200)
+        .attr("width", d => xScale_bmi(d.BMI)-1);
+    }else { // year changed
+      rectangles_bmi
+        .attr("width", d => xScale_bmi(d.BMI)-1);
+    }
   }
 
 //init
@@ -387,7 +406,7 @@ updateDiagramBMI()
       .attr("type", "checkbox")
       .attr("id", d => "checkbox_" + d)
       .property("checked", d => currentCountries_bmi.includes(d))
-      .on("click", (event, d) => funct_bmi(d));
+      .on("click", (event, d) => onClick_changeCurrentCountries(d));
 
     d3.selectAll(".container").append("span").attr("class", "checkmark");
   });
@@ -395,7 +414,7 @@ updateDiagramBMI()
 //**************************************************************************
 //helper functions
 
-  let funct_bmi = (entityString) => {
+  let onClick_changeCurrentCountries = (entityString) => {
     if (!currentCountries_bmi.includes(entityString)) {
       currentCountries_bmi.push(entityString)
     } else {

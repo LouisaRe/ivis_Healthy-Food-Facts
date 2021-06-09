@@ -15,10 +15,10 @@ const g0_sugar_diabetes = d3.select("#scatter_plot_sugar_diabetes_select").appen
     .attr("id", "sug-dia-field");
 
 g0_sugar_diabetes.append("text")
-    .text("Where do you live? ");
+    .text("Where do you live?");
 
 g0_sugar_diabetes.append("select")
-    .attr('class', 'selectButton')
+    .attr('class', 'selectButton inputbox')
 
 //*********************************************
 // create svg canvas
@@ -79,7 +79,7 @@ var selectButtonValue = d3.select(".selectButton")
   .selectAll('myOptions')
    .data(countriesDomain)
   .enter()
-   .append('option')
+  .append('option')
   .text(function (d) { return d; })
   .attr("value", function (d) { return d; }) // corresponding value returned by the button
 
@@ -124,35 +124,37 @@ var dp = data_points.append("circle")
         .attr("class", "person_data_point")
         .attr("cx", d=> xScale(d.Diabetes))
         .attr("cy", d=> yScale(d.Sugar))
-        .attr("r", 4)  // Size of dots
+        .attr("r", 8)  // Size of dots
         .attr("stroke", "darkred")
         .attr("stroke-width", 1.5)
         .attr("fill", "darkred")
 
+  dp.transition().duration(1000).attr("r",4)
+
   //hovering effects
   dp.on("mousemove", function (event, d) {
      var position = d3.pointer(event, d);
-     d3.select(this).transition()
-          .duration(100)
-          .attr("r", 8)
-          .attr("stroke", "darkred")
-          .attr("stroke-width", 1.5)
-          .attr("fill", "darkred")
+     d3.select(this)
+       .transition()
+      .duration(100)
+      .attr("r", 8)
+      .attr("stroke", "darkred")
+      .attr("stroke-width", 1.5)
+      .attr("fill", "darkred")
    })
 
   dp.on("mouseout", function (event, d) {
-    d3.select(this).transition()
+    d3.select(this)
+      .transition()
       .duration(100)
       .attr("r", 4)
       .attr("stroke", "darkred")
       .attr("stroke-width", 1.5)
       .attr("fill", "darkred")
-    tooltipWindowSugarDia.style("visibility", "hidden");
-
   })
 
   //Tooltip:
-  dp.append("title").text(d => `Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`);
+  dp.append("title").text(d => `${d.Entity}: Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`);
 
 }
 
@@ -186,7 +188,7 @@ var cir = path.append("circle")
 
         //Tooltip:
         cir.append("title")
-          .text(d => `Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`);
+          .text(d => `${d.Entity}: Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`);
 
         //hovering effects
        cir.on("mousemove", function (event, d) {

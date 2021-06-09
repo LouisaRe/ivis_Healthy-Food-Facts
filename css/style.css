@@ -579,3 +579,7 @@ a:hover {
 #svg_bmi{
   margin-top: 30px;
 }
+
+#sug-dia-field text{
+  margin-right: 8px;
+}
