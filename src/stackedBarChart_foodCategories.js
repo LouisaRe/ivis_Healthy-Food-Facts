@@ -6,7 +6,7 @@ const foodCategories = async () => {
   //size and margin of svg
   const canvHeight = 600;
   const canvWidth = 1200;
-  const margin = {top: 80, right: 240, bottom: 60, left: 240};
+  const margin = {top: 80, right: 280, bottom: 60, left: 200};
 
   //size of chart area.
   const width = canvWidth - margin.left - margin.right;
@@ -57,6 +57,7 @@ const foodCategories = async () => {
 
   //**************************************************************************
   //Scales
+  const colorDomain = ["Cereals & Grains", "Fruit & Vegetables", "Starchy Roots", "Pulses", "Dairy & Eggs", "Meat", "Oils & Fats", "Sigar", "Alcoholic Beverages", "Other"]
   const colorScale = ["#FDC68E", "#FFFF99", "#A2DE66", "#83C983", "#B3E5E9",
                       "#49D0D9", "#B675EE", "#E2C3FC", "#F3A2A2", "#E36A6A"]
 
@@ -147,8 +148,10 @@ const foodCategories = async () => {
   //init
   updateDiagram()
 
+  var numberOfCountries = currentCountries.length
+
   let attachDataAndTooltip = (data, series, gDiagram_4, xScale, yScale, color, formatValue) => {
-      return gDiagram_4.append("g").attr("class", "allData") //show data without transition
+      var rectangles =  gDiagram_4.append("g").attr("class", "allData") //show data without transition
         .selectAll("g")
         .data(series)
         .join("g")
@@ -158,12 +161,65 @@ const foodCategories = async () => {
         .join("rect")
         .attr("x", d => xScale(d[0]))
         .attr("y", (d, i) => yScale(d.data.Entity))
+        .attr("height", yScale.bandwidth());
+
+    rectangles
+      .append("title")
+      .text(d => `${d.key}: ${formatValue(d.data[d.key])} kcal (` + d3.format(".0%")(1 / Number(d.data.Total) * (d.data[d.key])) + ")"); //Tooltip text
+
+    if(numberOfCountries !== currentCountries.length){ // countries changed
+      numberOfCountries = currentCountries.length
+
+      rectangles
+        .transition()
+        .duration(200)
         .attr("width", d => xScale(d[1]) - xScale(d[0]))
-        .attr("height", yScale.bandwidth())
-        .append("title")
-        .text(d => `${d.key}: ${formatValue(d.data[d.key])} kcal (` + d3.format(".0%")(1 / Number(d.data.Total) * (d.data[d.key])) + ")"); //Tooltip text
+    }else{ // year changed
+      rectangles.attr("width", d => xScale(d[1]) - xScale(d[0]))
+    }
   }
 
+
+  //**************************************************************************
+//legend
+
+  let createLegend = (colorDomain) => {
+    const legend = svg4.append("g")
+      .attr("id", "legend")
+      .attr("transform", "translate(" + (canvWidth - margin.right + 10) + "," + margin.top + ")")
+
+    const legend_entry = legend.selectAll("rect")
+      .data(colorDomain.reverse())
+      .enter();
+
+    colorScale.reverse()
+
+    legend_entry.append("rect")
+      .attr("x", 10)
+      .attr("y", (d, i) => 30 * i + 10)
+      .attr("width", 20)
+      .attr("height", 20)
+      .style("fill", d => colorScale[colorDomain.indexOf(d)]);
+
+    colorScale.reverse()
+
+    legend_entry.append("text")
+      .attr("class", "text")
+      .attr("x", 40)
+      .attr("y", (d, i) => 30 * i + 25)
+      .text(d => d);
+
+    legend.append("foreignObject")
+      .attr("class", "legend-text-wrapper")
+      .attr("x", 10)
+      .attr("y", 30 * colorDomain.length + 10)
+      .attr("width", 140)
+      .attr("height", 100)
+  }
+
+//****************************
+//init legend
+  createLegend(colorDomain);
 
 //**************************************************************************
 //Year-Slider
