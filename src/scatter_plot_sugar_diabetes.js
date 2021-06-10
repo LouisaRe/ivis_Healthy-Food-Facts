@@ -67,7 +67,7 @@ g.append("text")
     .html("Sugar in kcal/capita/day");
 
 
-d3.csv("./data/DiabetesZuckverbrauch2017.csv").then(function(data) {
+d3.csv("./data/Diabetes-SugarConsumption.csv").then(function(data) {
     const heightDomain = d3.extent(data, d => Number(d.Diabetes));
     const weightDomain = d3.extent(data, d => Number(d.Sugar));
 
