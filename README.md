@@ -37,4 +37,4 @@ Change to yes when your application is ready. <br>
 |Version|Status| <br>
 |--|--| <br>
 |First prototype ready | yes | <br>
-|Final version ready  | no | <br>
+|Final version ready  | yes | <br>
