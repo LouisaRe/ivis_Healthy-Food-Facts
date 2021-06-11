@@ -532,3 +532,11 @@ a:hover {
   padding-bottom: 20px;
 }
 
+/**********/
+/*Regression*/
+
+.regression{
+  stroke-width: 2px;
+  stroke: #d4dde7;
+  stroke-dasharray: 10,5;
+}

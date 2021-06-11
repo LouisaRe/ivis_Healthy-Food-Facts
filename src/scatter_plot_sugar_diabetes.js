@@ -3,10 +3,9 @@ import "../lib/d3/d3.js"
 // https://www.d3-graph-gallery.com/graph/scatter_basic.html
 // https://www.d3-graph-gallery.com/graph/scatter_tooltip.html
 
-
 const scatterPlotSugarDiabetes = () => {
 
-  const title_scatter_plot = "Relationship Sugar and Diabetes"
+  const title_scatter_plot = "Relationship: Sugar and Diabetes"
 
   //***********************************************
   // Button with dropdown for selecting country
@@ -128,6 +127,30 @@ const scatterPlotSugarDiabetes = () => {
       updateSelectedDotOnChart(dataFilter);
     })
 
+
+    //**************
+    //regression
+
+    var lg = calcLinear(data, "Diabetes", "Sugar", d3.min(data, function(d){ return d.Diabetes}), d3.min(data, function(d){ return d.Sugar}));
+
+    var x1 = Number(lg.ptA.x)
+    var y1 = Number(lg.ptA.y)
+    var x2 = Number(lg.ptB.x)
+    var y2 = Number(lg.ptB.y)
+    var lineAreaWidth = 628.5
+    var lineAreaHeight = 149
+
+    svg.append("line")
+      .attr("class", "regression")
+      .attr("x1", xScale(x1))
+      .attr("y1", yScale(y1))
+      .attr("x2", xScale(x2))
+      .attr("y2", yScale(y2))
+      .attr("transform", "translate(" + Number(margin.left+lineAreaWidth) + "," + Number(margin.top-lineAreaHeight) + ")");
+
+
+
+
     //****************************************
     // update chart functions
 
@@ -207,7 +230,96 @@ const scatterPlotSugarDiabetes = () => {
        });
     }
 
+    //****************************************
+    // function for regression
+
+    /**
+     * @author Harry Stevens (see website https://bl.ocks.org/HarryStevens/be559bed98d662f69e68fc8a7e0ad097)
+     * (has been slightly extended by adding Number() types)
+     *
+     * Calculate a linear regression from the data
+     * Takes 5 parameters:
+     * (1) Your data
+     * (2) The column of data plotted on your x-axis
+     * (3) The column of data plotted on your y-axis
+     * (4) The minimum value of your x-axis
+     * (5) The minimum value of your y-axis
+     * Returns an object with two points, where each point is an object with an x and y coordinate
+     */
+
+    function calcLinear(data, x, y, minX, minY){
+      /////////
+      //SLOPE//
+      /////////
+
+      // Let n = the number of data points
+      var n = Number(data.length);
+
+      var pts = [];
+      data.forEach(function(d,i){
+        var obj = {};
+        obj.x = Number(d[x]);
+        obj.y = Number(d[y]);
+        obj.mult = obj.x*obj.y;
+        pts.push(obj);
+      });
+
+      // Let a equal n times the summation of all x-values multiplied by their corresponding y-values
+      // Let b equal the sum of all x-values times the sum of all y-values
+      // Let c equal n times the sum of all squared x-values
+      // Let d equal the squared sum of all x-values
+      var sum = 0;
+      var xSum = 0;
+      var ySum = 0;
+      var sumSq = 0;
+
+      pts.forEach(function(pt){
+        sum   = Number(sum)   + Number(pt.mult);
+        xSum  = Number(xSum)  + Number(pt.x);
+        ySum  = Number(ySum)  + Number(pt.y);
+        sumSq = Number(sumSq) + (Number(pt.x) * Number(pt.x));
+      });
+
+      var a = Number(sum * n);
+      var b = Number(xSum * ySum);
+      var c = Number(sumSq * n);
+      var d = Number(xSum * xSum);
+
+      // Plug the values that you calculated for a, b, c, and d into the following equation to calculate the slope
+      //  m = (a - b) / (c - d)
+      var m = Number((a - b) / (c - d));
+
+      /////////////
+      //INTERCEPT//
+      /////////////
+
+      // Let e equal the sum of all y-values
+      var e = Number(ySum);
+
+      // Let f equal the slope times the sum of all x-values
+      var f = Number(m * xSum);
+
+      // Plug the values you have calculated for e and f into the following equation for the y-intercept
+      // y-intercept = b = (e - f) / n = (14.5 - 10.5) / 3 = 1.3
+      var b = Number((e - f) / n);
+
+      // return an object of two points
+      // each point is an object with an x and y coordinate
+      return {
+        ptA : {
+          x: Number(minX),
+          y: Number((m * minX) + b)
+        },
+        ptB : {
+          y: Number(minY),
+          x: Number((minY - b) / m)
+        }
+      }
+
+    }
+
   });
+
 }
 
 export default scatterPlotSugarDiabetes
