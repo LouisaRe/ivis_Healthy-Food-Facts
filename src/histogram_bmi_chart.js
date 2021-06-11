@@ -195,7 +195,7 @@ const BMIChartAndForm = () => {
   var currentYear_bmi = 2016
   var currentCountries_bmi = ["World", "Ethiopia", "Switzerland", "Vietnam", "Saint Lucia", "American Samoa"]
 
-  let updateDiagramBMI = () => d3.csv("./data/bmi.csv").then(function (data) { //load data from cleaned csv file asynchronous
+  let updateDiagramBMI = () => d3.csv("./data/Bmi.csv").then(function (data) { //load data from cleaned csv file asynchronous
 
     d3.select("#gDiagramBackground").remove() //if allready a diagram group exists, it will be deleted...
     var gDiagramBackground = g1_bmi.append("g").attr("id", "gDiagramBackground") //and then new one cerated
@@ -389,7 +389,7 @@ updateDiagramBMI()
   const g2_bmi = d3.select("#diagram_bmi").append("g")
     .attr("id", "entity-chooser");
 
-  d3.csv("./data/bmi.csv").then(function (data) {
+  d3.csv("./data/Bmi.csv").then(function (data) {
     const countriesDomainBMI = [...new Set(data.map(d => String(d.Entity)))]
 
     //****************************
