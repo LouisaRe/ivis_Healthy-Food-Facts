@@ -18,7 +18,7 @@ const BMIChartAndForm = () => {
     .attr('type','number')
     .attr('name','textInput')
     .attr('value','Weight in kg')
-    .attr('min', 1)
+    .attr('min', 2)
     .attr('max', 300)
 
   bmi_div.append("g").attr("class", "bmi-attr").append("text")
@@ -29,7 +29,7 @@ const BMIChartAndForm = () => {
     .attr('type','number')
     .attr('name','textInput')
     .attr('value','Height in cm')
-    .attr('min', 20)
+    .attr('min', 30)
     .attr('max', 300);
 
   bmi_div.append("g").attr("class", "bmi-attr").append('input')
@@ -193,7 +193,7 @@ const BMIChartAndForm = () => {
   const colorScale_bmi = ["#F1D09B", "#C6D79E", "#F2C3A3", "#EDAE8F", "#E79D89"]
 
   var currentYear_bmi = 2016
-  var currentCountries_bmi = ["World", "Ethiopia", "Switzerland", "Vietnam", "Saint Lucia", "American Samoa"]
+  var currentCountries_bmi = ["Bangladesh", "Egypt", "Ethiopia", "Samoa", "Switzerland", "United States", "World"]
 
   let updateDiagramBMI = () => d3.csv("./data/Bmi.csv").then(function (data) { //load data from cleaned csv file asynchronous
 

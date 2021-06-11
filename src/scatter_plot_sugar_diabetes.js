@@ -68,8 +68,8 @@ const scatterPlotSugarDiabetes = () => {
 
 
   d3.csv("./data/Diabetes-SugarConsumption.csv").then(function(data) {
-    const heightDomain = d3.extent(data, d => Number(d.Diabetes));
-    const weightDomain = d3.extent(data, d => Number(d.Sugar));
+    const diabetesDomain = d3.extent(data, d => Number(d.Diabetes));
+    const sugarDomain = d3.extent(data, d => Number(d.Sugar));
 
     var countriesDomain = data.map(d => String(d.Entity));
 
@@ -172,7 +172,7 @@ const scatterPlotSugarDiabetes = () => {
       });
 
       //Tooltip:
-      dp.append("title").text(d => `${d.Entity}: Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`);
+      dp.append("title").text(d => `${d.Entity}: Sugar: ${d.Sugar} kcal/capita/day; Diabetes: ${d.Diabetes} %`);
     }
 
     function updateChart() {
@@ -190,7 +190,7 @@ const scatterPlotSugarDiabetes = () => {
 
       //Tooltip:
       cir.append("title")
-        .text(d => `${d.Entity}: Sugar: ${d.Sugar}  kcal/capita/day; Diabetes: ${d.Diabetes} %`);
+        .text(d => `${d.Entity}: Sugar: ${d.Sugar} kcal/capita/day; Diabetes: ${d.Diabetes} %`);
 
       //hovering effects
       cir.on("mousemove", function (event, d) {

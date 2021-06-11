@@ -39,6 +39,7 @@ h4 {
   color: #ffffff;
 }
 h5 {
+  height: 48px;
   font-size: 16px;
   font-weight: bold;
   color: #9ACCD3;
@@ -178,12 +179,7 @@ h2 span{
 }
 
 /*****************************************************
-/*diagrams*/
-
-
-/*****************************************************
-/*dropdown*/
-
+/*Entity-Chooser*/
 
 ul{
   display: flex;
@@ -212,34 +208,6 @@ li{
   overflow: scroll;
   border-radius: 8px;
 }
-
-/**************************************************/
-/*Scrollbar */
-
-/*!* width *!*/
-/*::-webkit-scrollbar {*/
-/*  width: 20px;*/
-/*}*/
-
-/*!* Track *!*/
-/*::-webkit-scrollbar-track {*/
-/*  background: #f1f1f1;*/
-/*}*/
-
-/*!* Handle *!*/
-/*::-webkit-scrollbar-thumb {*/
-/*  background: grey;*/
-/*}*/
-
-/*!* Handle on hover *!*/
-/*::-webkit-scrollbar-thumb:hover {*/
-/*  background: #555;*/
-/*}*/
-
-
-/*input {*/
-/*  margin-left: 0px;*/
-/*}*/
 
 
 /*****************************************************
@@ -404,7 +372,7 @@ input[type=range]::-moz-range-thumb {
 .flex_container {
   display: flex;
   justify-content: center;
-  width: 1200px;
+  width: 1000px;
   margin: auto;
   }
 
@@ -427,9 +395,10 @@ input[type=range]::-moz-range-thumb {
   font-weight: bold;
 }
 .container_credits {
-    min-width: 33%;
-    text-align: left;
-    align-items: center;
+  min-width: 20%;
+  text-align: left;
+  align-items: center;
+  padding-left: 30px;
 }
 
 .food_title {
@@ -530,7 +499,6 @@ a:hover {
 #bmi-results{
   color: darkred;
 }
-
 
 .something-wrong-div{
   height: 12px;

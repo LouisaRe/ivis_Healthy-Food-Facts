@@ -61,8 +61,8 @@ const lifeExpectancyMalNutrition = () => {
   //colorScale
   const linearColorScale = d3.scaleLinear().domain(colorDomain).range(colorScale);
 
-  var currentYear = 2016
-  var currentCountries = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
+  var currentYear = 2017
+  var currentCountries = ["Bangladesh", "Egypt", "Ethiopia", "Samoa", "Switzerland", "United States", "World"]
 
   let updateDiagram = () => d3.csv("./data/LifeExpectancy-Malnutrition.csv").then(function (data) { //load data from cleaned csv file asynchronous
 

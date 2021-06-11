@@ -8,6 +8,8 @@
 <body>
 <script src='lib/d3/d3.js'></script>
 <script src='lib/lodash.js'></script>
+
+
 <!--************************************************************************************************************** -->
 <!-- Start -->
 <div id="parallax-img-1" class ="bigImg">
@@ -25,11 +27,12 @@
       The healthy food journey starts here...
 </p>
 </div>
-<!--************************************************************************************************************** -->
-<!-- 1 -->
-<!-- paralax -->
 
-<!-- text -->
+
+<!--************************************************************************************************************** -->
+<!-- 1: Dietary Composition -->
+
+<!-- paralax -->
 <div class="food_title">It's not just a myth!</div>
 <!-- text -->
 <div class="text-div">
@@ -51,43 +54,39 @@
   </div>
   <div class="flex_container">
       <div class="container_food_text">
-          <h5>Breads, pasta and cereals</h5>
-          At least 3 servings a day which the body uses for energy. Good choices are wholemeal, wholegrain bread,
-          brown rice, couscous and polenta for carbohydrates.
+        <h5>Breads, pasta and cereals</h5>
+        Try to eat at least 3 servings a day. The the body needs them for energy. Good choices are wholemeal, wholegrain bread,
+        brown rice, couscous and polenta for carbohydrates.
       </div>
 
       <div class="container_food_text">
-          <h5>Fruit and vegetables</h5>
-          At least 3 servings of vegetables and 2 servings of fruits of different colours to provide a range of vitamins,
-          minerals and fibre.
-          One daily portion can be replaced with 2dl fruit juice with no additional sugar.
+        <h5>Fruit and vegetables</h5>
+        To be supplied with vitamins, minerals and fiber eat at least 3 servings of vegetables and 2 servings of fruits
+        of different colors per day.
       </div>
 
       <div class="container_food_text">
-          <h5>Meat, fish, milk and eggs</h5>
-          2 to 3 servings a day with 1 serving of meat and at least 1 serving of milk or alternatives for protein,
-          calcium, iron and zinc.
-          Having enough calcium is necessary for healthy bones and teeth.
+        <h5>Meat, fish, milk and eggs</h5>
+        2 to 3 servings a day with 1 serving of meat and at least 1 serving of milk or alternatives
+        provide protein, calcium, iron and zinc.
+        Having enough calcium is necessary for healthy bones and teeth.
       </div>
 
       <div class="container_food_text">
-          <h5>Fat, oil, sugar, sweets</h5>
-          In very small amounts because they have only a little nutritional value. They should be consumed in
-          moderation because they contain fat, sugar and/or salt.
+        <h5>Fat, oil, sugar, sweets</h5>
+        They should be consumed in moderation because they have only little nutritional value.
       </div>
 
       <div class="container_food_text">
-          <h5>Alcohol and other</h5>
-          Drink in moderation alcohol and sweet drinks or avoid it completely. <br/>Instead drink water. It is recommended
-          to drink at least 3 liters water per day.
+        <h5>Alcohol and other</h5>
+        Drink alcohol and sweet drinks in moderation or avoid it completely. <br/>Instead drink water. It is recommended
+        to drink at least 3 liters water per day.
       </div>
   </div>
 </div>
 <!-- text -->
 <div class="text-div">
-  <p>
-    Now, let's see how the world is eating...
-  </p>
+  <p>Now, let's see how the world is eating...</p>
 </div>
 <!-- diagram -->
 <div id="stackedBarChart_foodCategories">
@@ -97,8 +96,12 @@
     </script>
 </div>
 
+
+
+
 <!--************************************************************************************************************** -->
-<!-- 2 -->
+<!-- 2: Life expectancy vs. Malnutrition -->
+
 <!-- paralax -->
 <div id="parallax-img-2" class ="smallImg">
     <div class="parallax-text">
@@ -124,8 +127,10 @@
     </script>
 </div>
 
+
+
 <!--************************************************************************************************************** -->
-<!-- 3 -->
+<!-- 3: Sugar and Diabetes -->
 <!-- paralax -->
 <div id="parallax-img-4" class ="smallImg">
     <div class="parallax-text">
@@ -144,7 +149,7 @@
 <div class="div"><img class="container_food_image" src="img/diabetessymptoms.svg" alt="Food Pyramid"></div>
 <!-- text -->
 <div class="text-div">
-  <p>Let's dive back into the world of data. Sugar alone does not seem to be so decisive for Diabetes. Interesting...</p>
+  <p>Let's dive back into the world of data. Sugar alone does not seem to be so decisive for diabetes. Interesting...</p>
 </div>
 <!-- diagram -->
 <div class="space"></div>
@@ -159,8 +164,10 @@
   <p>Note: This is a collection of data of the year 2017 of people between the age 20 to 79 with type 1 or type 2 diabetes.</p>
 </div>
 
+
+
 <!--************************************************************************************************************** -->
-<!-- 4 -->
+<!-- 4: BMI -->
 
 <!-- paralax -->
 <div id="parallax-img-3" class ="smallImg">
@@ -172,12 +179,10 @@
 <!-- text -->
 <div class="text-div">
   <p>Did you know? A research in «The Lancet» has reported being overweight or underweight can reduce 4 years of life
-      expectancy. People with a Healthy Body Mass Index have a lower risk of dying from a disease.<br/>
+    expectancy. People with a Healthy Body Mass Index (BMI) have a lower risk of dying from a disease.<br/>
+    Source: <a href='https://www.thelancet.com/'>The Lancet</a><br><br>
+    This is how the BMI is calculated:
   </p>
-  <p>Source: <a href='https://www.thelancet.com/'>The Lancet</a></p>
-</div>
-<div class="text-div">
-  <p>This is how the BMI is calculated:</p>
 </div>
 
 <div class="div">
@@ -189,7 +194,7 @@
 </div>
 
 <div id="Bmi_group_image_placeholder"></div>
-<div id="bmi_result"><span class="food_title">See how you rank compared to the rest of the world</span></div>
+<div id="bmi_result"><span class="food_title">Calculate Your BMI</span></div>
 <div class="space"></div>
 
 <!-- diagram -->
@@ -199,6 +204,9 @@
       BMIChartAndForm();
     </script>
 </div>
+
+
+
 <!--**************************************************************************-->
 <!--Final Part-->
 
@@ -208,54 +216,46 @@
   <p>This is the end of the food journey. Remind yourself of the five health advice listed below for prevention of diseases and early death. Your health lies partly in your own hand.</p>
 </div>
 <div class="space">
-  <div class="div"><img class="container_food_image" src="img/prevention.jpg" alt="Prevention"></div>
+  <div class="div"><img class="container_food_image" src="img/prevention.jpg" alt="Prevention" width=" 90%"></div>
 </div> <div class="space"></div>
+
+
+
 <!--************************************************************************************************************** -->
-<!-- Quellen -->
+<!-- Footer (Quellen) -->
 <!-- text -->
 <div class="container-color-background font_white">
     <h3>Data sources</h3>
     <div class="flex_container">
         <div class="container_credits">
-            <li><a href='https://ourworldindata.org/grapher/dietary-composition-by-country?country=~GBR'>Dietary composition</a></li>
-            <li><a href='https://ourworldindata.org/grapher/life-expectancy'>Life Expectancy</a></li>
-            <li><a href='https://ourworldindata.org/grapher/malnutrition-death-rates'>Malnutrition Death Rates</a></li>
+          <li><a href='https://ourworldindata.org/grapher/dietary-composition-by-country?country=~GBR'>Dietary composition</a></li>
+          <li><a href='https://ourworldindata.org/grapher/life-expectancy'>Life Expectancy</a></li>
+          <li><a href='https://ourworldindata.org/grapher/malnutrition-death-rates'>Malnutrition Death Rates</a></li>
         </div>
         <div class="container_credits">
-            <li><a href='http://www.fao.org/faostat/en/#data/FBS'>Sugar Food Supply</a></li>
-            <li><a href='https://ourworldindata.org/grapher/diabetes-prevalence'>Diabetes</a></li>
+          <li><a href='http://www.fao.org/faostat/en/#data/FBS'>Sugar Food Supply</a></li>
+          <li><a href='https://ourworldindata.org/grapher/diabetes-prevalence'>Diabetes</a></li>
         </div>
         <div class="container_credits">
-            <li><a href='https://ourworldindata.org/grapher/mean-body-mass-index-bmi-in-adult-males'>BMI in Men</a></li>
-            <li><a href='https://ourworldindata.org/grapher/mean-body-mass-index-bmi-in-adult-women'>BMI in Women</a>
-            </li>
+          <li><a href='https://ourworldindata.org/grapher/mean-body-mass-index-bmi-in-adult-males'>BMI in Men</a></li>
+          <li><a href='https://ourworldindata.org/grapher/mean-body-mass-index-bmi-in-adult-women'>BMI in Women</a></li>
         </div>
     </div>
     <!-- text -->
     <h3>Image sources</h3>
     <div class="flex_container">
         <div class="container_credits">
-            <li><a href='https://pixabay.com/de/illustrations/menschen-menschengruppe-ansammlung-567563/'>World
-                Population</a></li>
-            <li>
-                <a href='https://de.freepik.com/fotos-kostenlos/draufsicht-der-mannhaende-die-eine-leere-rote-platte-auf-einem-holztisch-halten_12739544.htm#page=1&query=leere%20Sch%C3%BCssel&position=11'>Malutrition</a>
-            </li>
-            <li>
-                <a href='https://www.freepik.com/free-photo/beautiful-stomach-with-metre-underwear_6255015.htm#page=1&query=fat%20thin&position=47'>BMI</a>
-            </li>
+          <li><a href='https://pixabay.com/de/illustrations/menschen-menschengruppe-ansammlung-567563/'>World Population</a></li>
+          <li><a href='https://de.freepik.com/fotos-kostenlos/draufsicht-der-mannhaende-die-eine-leere-rote-platte-auf-einem-holztisch-halten_12739544.htm#page=1&query=leere%20Sch%C3%BCssel&position=11'>Malutrition</a></li>
+          <li><a href='https://www.freepik.com/free-photo/beautiful-stomach-with-metre-underwear_6255015.htm#page=1&query=fat%20thin&position=47'>BMI</a></li>
         </div>
         <div class="container_credits">
-            <li><a href='https://pixabay.com/de/photos/diabetes-zucker-spritzen-insulin-2583569/'>Diabetes</a></li>
-            <li>
-                <a href='https://www.freepik.com/free-photo/healthy-food-medical-equipment_4160904.htm#page=1&query=health%20nutrition&position=0'>Nutrition</a>
-            </li>
-            <li>
-                <a href='https://www.freepik.com/free-photo/book-library-with-open-textbook_3737798.htm#page=1&query=literature&position=4'>Sources</a>
-            </li>
+          <li><a href='https://pixabay.com/de/photos/diabetes-zucker-spritzen-insulin-2583569/'>Diabetes</a></li>
+          <li><a href='https://www.freepik.com/free-photo/healthy-food-medical-equipment_4160904.htm#page=1&query=health%20nutrition&position=0'>Nutrition</a></li>
         </div>
         <div class="container_credits">
-            <li><a href='https://www.freepik.com/'>Vector Graphic</a></li>
-            </li>
+          <li><a href='https://www.freepik.com/free-photo/book-library-with-open-textbook_3737798.htm#page=1&query=literature&position=4'>Sources</a></li>
+          <li><a href='https://www.freepik.com/'>Vector Graphic</a></li>
         </div>
     </div>
 </div>

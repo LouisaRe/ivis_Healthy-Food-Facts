@@ -62,7 +62,7 @@ const foodCategories = async () => {
                       "#49D0D9", "#B675EE", "#E2C3FC", "#F3A2A2", "#E36A6A"]
 
   var currentYear = 2013
-  var currentCountries = ["World", "Germany", "Switzerland", "Madagascar", "North Korea", "Zimbabwe"]
+  var currentCountries = ["Bangladesh", "Egypt", "Ethiopia", "Samoa", "Switzerland", "United States"]
 
   var maxKCalOfAllYears = 0 //for a constant x-axis
 
@@ -165,7 +165,8 @@ const foodCategories = async () => {
 
     rectangles
       .append("title")
-      .text(d => `${d.key}: ${formatValue(d.data[d.key])} kcal (` + d3.format(".0%")(1 / Number(d.data.Total) * (d.data[d.key])) + ")"); //Tooltip text
+      .text(d => `${d.key}: ${formatValue(d.data[d.key])} kcal (` + d3.format(".0%")(1 / Number(d.data.Total) * (d.data[d.key])) + "); " +
+        "Total: " + formatValue(Number(d.data.Total)) + " kcal"); //Tooltip text
 
     if(numberOfCountries !== currentCountries.length){ // countries changed
       numberOfCountries = currentCountries.length
