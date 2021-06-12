@@ -57,7 +57,7 @@ const foodCategories = async () => {
 
   //**************************************************************************
   //Scales
-  const colorDomain = ["Cereals & Grains", "Fruit & Vegetables", "Starchy Roots", "Pulses", "Dairy & Eggs", "Meat", "Oils & Fats", "Sigar", "Alcoholic Beverages", "Other"]
+  const colorDomain = ["Cereals & Grains", "Fruit & Vegetables", "Starchy Roots", "Pulses", "Dairy & Eggs", "Meat", "Oils & Fats", "Sugar", "Alcoholic Beverages", "Other"]
   const colorScale = ["#FDC68E", "#FFFF99", "#A2DE66", "#83C983", "#B3E5E9",
                       "#49D0D9", "#B675EE", "#E2C3FC", "#F3A2A2", "#E36A6A"]
 
