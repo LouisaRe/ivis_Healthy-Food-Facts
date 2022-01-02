@@ -14,16 +14,17 @@
   line-height: 150%;
 }
 
-@media only screen and (min-width: 1000px) {
-  *{ --width : 1000px; }
+@media only screen and (min-width: 1200px) {
+  *{ --width : 1200px; }
 }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1200px) {
   *{ --width : 100%; }
 }
 
 
 body{
   text-align: center;
+  min-width: 860px;
 }
 
 h1{
@@ -37,7 +38,7 @@ h1{
 h3, #chart-title {
   font-size: 24px;
   line-height: 1.2;
-  letter-spacing: 10px;
+  letter-spacing: 6px;
   text-transform: uppercase;
 }
 h4 {
@@ -71,7 +72,7 @@ p {
 .label-text{
   font-size: 16px;
   line-height: 1.2;
-  letter-spacing: 10px;
+  letter-spacing: 6px;
   text-transform: uppercase;
 }
 
@@ -97,6 +98,15 @@ p {
   border-radius: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
+}
+
+.diagram{
+  width: var(--width);
+  text-align: center;
+  margin: auto auto 60px auto;
+  /*background: #f0f8ff;*/
+  padding-bottom: 10px;
+  border-radius: 8px;
 }
 
 /*****************************************************
@@ -206,12 +216,8 @@ li{
 .selectionDiv {
   background-color: #f1f1f1;
   text-align: left;
-  width: 1200px;
-  margin: auto;
-  decoration: none;
-  border-style: none;
+  /*margin: 10px 10px 0 10px;*/
   height: 212px;
-  margin-bottom: 60px;
   overflow: scroll;
   border-radius: 8px;
 }
@@ -222,23 +228,13 @@ li{
 
 .year{
   position: absolute;
-  margin-bottom: 20px;
   letter-spacing: 10px;
   font-size: 24px;
   line-height: 1.2;
   text-transform: uppercase;
-  margin-top: 565px;  /* (height + margin.bottom/2) */
   color: #5c7d8c;
   margin-left: -105px;
   font-weight: 500;
-}
-
-#year_2{
-  margin-top: 592px;  /* (height + margin.bottom/2) */
-}
-
-#slider2{
-  margin-top: 322px;
 }
 
 /*make slider vertical*/
@@ -246,11 +242,7 @@ input[type="range"] {
   -webkit-appearance: none; /*deactivate default-styling*/
   position: absolute;
   transform: rotate(270deg);
-  width: 460px; /*is height*/ /* (height of histogram) */
-  margin-left: -290px;
   margin-right: auto;
-  height: 20px; /*is width*/
-  margin-top: 295px;  /* (top of histogram + this.width/2) */
 }
 
 /**********************/
@@ -260,10 +252,7 @@ input[type="range"] {
 input[type=range]::-webkit-slider-runnable-track {
   -webkit-appearance: none;
   height: 8px;
-  width: 460px;
-  color: #9ACCD3;
   border-radius: 50px;
-  margin-top: -1px;
   background-color: #c8e2e7;
 }
 
@@ -282,10 +271,7 @@ input[type=range]::-webkit-slider-thumb {
 input[type=range]::-moz-range-track {
   -webkit-appearance: none;
   height: 8px;
-  width: 460px;
-  color: #9ACCD3;
   border-radius: 50px;
-  margin-top: -1px;
   background-color: #c8e2e7;
 }
 

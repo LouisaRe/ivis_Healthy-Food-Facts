@@ -1,37 +1,36 @@
 import "../lib/d3/d3.js"
+import {getHeight, getWidth, getSliderWidth} from "./diagramFunctionality.js";
 
 // https://www.d3-graph-gallery.com/graph/scatter_basic.html
 // https://www.d3-graph-gallery.com/graph/scatter_tooltip.html
 
 const scatterPlotSugarDiabetes = () => {
-
   const title_scatter_plot = "Relationship: Sugar and Diabetes"
 
-  //***********************************************
-  // Button with dropdown for selecting country
+//size and margin of svg
+  const canvHeight = getHeight();
+  const canvWidth  = getWidth();
+  const margin     = {top: 80, right: 240, bottom: 60, left: 240};
 
-  const g0_sugar_diabetes = d3.select("#scatter_plot_sugar_diabetes_select").append("g")
-      .attr("id", "sug-dia-field");
-
-  g0_sugar_diabetes.append("text")
-      .text("Where do you live?");
-
-  g0_sugar_diabetes.append("select")
-      .attr('class', 'selectButton inputbox')
-
-  //*********************************************
-  // create svg canvas
-  const canvHeight = 600, canvWidth = 1200;
-  const svg = d3.select("#scatter_plot_sugar_diabetes").append("svg")
-      .attr("width", canvWidth)
-      .attr("height", canvHeight);
-
-  // calc the width and height depending on margins.
-  const margin = {top: 80, right: 240, bottom: 60, left: 240};
-  const width = canvWidth - margin.left - margin.right;
+//size of chart area.
+  const width  = canvWidth - margin.left - margin.right;
   const height = canvHeight - margin.top - margin.bottom;
 
-  // chart title
+//attach svg
+  const svg = d3.select("#scatter_plot_sugar_diabetes").append("svg")
+    .attr("width", canvWidth)
+    .attr("height", canvHeight)
+    .attr("style", "background: transparent; border-radius: 8px; outline: 1px solid transparent;");
+
+//attach #chart-area
+  const chartAreaGroup = svg.append("g")
+    .attr("id", "chart-area")
+    .attr("transform", "translate(" +margin.left + "," + margin.top + ")");
+
+//**************************************************************************
+//Title and Labels
+
+//attach #chart-title
   svg.append("text")
       .attr("id", "chart-title")
       .attr("y", 30)
@@ -40,13 +39,8 @@ const scatterPlotSugarDiabetes = () => {
       .style("text-anchor", "middle")
       .text(title_scatter_plot);
 
-  // create parent group and add left and top margin
-  const g = svg.append("g")
-      .attr("id", "chart-area")
-      .attr("transform", "translate(" +margin.left + "," + margin.top + ")");
-
-  // text label for the x axis
-  g.append("text")
+//x axis - text label
+  chartAreaGroup.append("text")
       .attr("class", "label-text")
       .attr("y", height + margin.bottom / 2)
       .attr("x", width / 2)
@@ -55,8 +49,8 @@ const scatterPlotSugarDiabetes = () => {
       .style("text-anchor", "middle")
       .text("Diabetes in %");
 
-   // text label for the y axis
-  g.append("text")
+//y axis - text label
+  chartAreaGroup.append("text")
       .attr("class", "label-text")
       .attr("transform", "rotate(-90)")
       .attr("x", 0)
@@ -65,6 +59,21 @@ const scatterPlotSugarDiabetes = () => {
       .style("text-anchor", "end")
       .html("Sugar in kcal/capita/day");
 
+
+//**************************************************************************
+// Button with dropdown for selecting country
+
+  const g0_sugar_diabetes = d3.select("#scatter_plot_sugar_diabetes_select").append("g")
+    .attr("id", "sug-dia-field");
+
+  g0_sugar_diabetes.append("text")
+    .text("Where do you live?");
+
+  g0_sugar_diabetes.append("select")
+    .attr('class', 'selectButton inputbox')
+
+//**************************************************************************
+//Scales
 
   d3.csv("./data/Diabetes-SugarConsumption.csv").then(function(data) {
     const diabetesDomain = d3.extent(data, d => Number(d.Diabetes));
@@ -100,14 +109,14 @@ const scatterPlotSugarDiabetes = () => {
     // 2. create and append
     //    a. x-axis
     const xAxis = d3.axisBottom(xScale);
-    g.append("g")
+    chartAreaGroup.append("g")
       .attr("id", "x-axis")
       .attr("transform", "translate(0, "+ height +")")
       .call(xAxis);
 
     //    b. y-axis
     const yAxis = d3.axisLeft(yScale);
-    g.append("g")
+    chartAreaGroup.append("g")
         .attr("id", "y-axis")
         .call(yAxis);
 
@@ -137,18 +146,16 @@ const scatterPlotSugarDiabetes = () => {
     var y1 = Number(lg.ptA.y)
     var x2 = Number(lg.ptB.x)
     var y2 = Number(lg.ptB.y)
-    var lineAreaWidth = 628.5
-    var lineAreaHeight = 149
+    var translateX = -xScale(x2)+xScale(x1);
+    var translateY = -(yScale(y2)-yScale(y1));
 
-    svg.append("line")
+    chartAreaGroup.append("line")
       .attr("class", "regression")
       .attr("x1", xScale(x1))
       .attr("y1", yScale(y1))
       .attr("x2", xScale(x2))
       .attr("y2", yScale(y2))
-      .attr("transform", "translate(" + Number(margin.left+lineAreaWidth) + "," + Number(margin.top-lineAreaHeight) + ")");
-
-
+      .attr("transform", "translate(" + Number(translateX) + "," + Number(translateY) +")");
 
 
     //****************************************
@@ -157,7 +164,7 @@ const scatterPlotSugarDiabetes = () => {
     function updateSelectedDotOnChart(dataFilter) {
 
       // 3. add data-points (circle)
-      var data_points = g.selectAll("dot")
+      var data_points = chartAreaGroup.selectAll("dot")
           .data(dataFilter)
           .enter();
 
@@ -199,7 +206,7 @@ const scatterPlotSugarDiabetes = () => {
     }
 
     function updateChart() {
-      var path = g.selectAll("dot")
+      var path = chartAreaGroup.selectAll("dot")
         .data(data)
         .enter();
       var cir = path.append("circle")

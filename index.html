@@ -89,7 +89,7 @@
   <p>Now, let's see how the world is eating...</p>
 </div>
 <!-- diagram -->
-<div id="stackedBarChart_foodCategories">
+<div id="stackedBarChart_foodCategories" class="diagram">
     <script type="module">
       import foodCategories from "./src/stackedBarChart_foodCategories.js";
       foodCategories();
@@ -120,7 +120,7 @@
 </div>
 
 <!-- diagram -->
-<div id="histogram_lifeExpectancy-malNutrition">
+<div id="histogram_lifeExpectancy-malNutrition" class="diagram">
     <script type="module">
         import lifeExpectancyMalNutrition from "./src/histogram_lifeExpectancy-malNutrition.js";
         lifeExpectancyMalNutrition();
@@ -154,12 +154,12 @@
 </div>
 <!-- diagram -->
 <div class="space"></div>
-<div id="scatter_plot_sugar_diabetes_select"></div>
-<div id="scatter_plot_sugar_diabetes">
-    <script type="module">
-        import scatterPlotSugarDiabetes from "./src/scatter_plot_sugar_diabetes.js";
-        scatterPlotSugarDiabetes();
-    </script>
+<div id="scatter_plot_sugar_diabetes" class="diagram">
+  <div id="scatter_plot_sugar_diabetes_select"></div>
+  <script type="module">
+      import scatterPlotSugarDiabetes from "./src/scatter_plot_sugar_diabetes.js";
+      scatterPlotSugarDiabetes();
+  </script>
 </div>
 <div class="text-div">
   <p>Note: This is a collection of data of the year 2017 of people between the age 20 to 79 with type 1 or type 2 diabetes.</p>
@@ -199,7 +199,7 @@
 <div class="space"></div>
 
 <!-- diagram -->
-<div id="diagram_bmi">
+<div id="diagram_bmi" class="diagram">
     <script type="module">
       import BMIChartAndForm from "./src/histogram_bmi_chart.js";
       BMIChartAndForm();

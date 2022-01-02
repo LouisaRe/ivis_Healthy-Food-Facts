@@ -1,5 +1,5 @@
 import "../lib/d3/d3.js"
-
+import {getHeight, getWidth, getSliderWidth} from "./diagramFunctionality.js";
 
 const BMIChartAndForm = () => {
 
@@ -133,8 +133,8 @@ const BMIChartAndForm = () => {
   const title_bmi = "BMI"
 
 //size and margin of svg
-  const canvHeight_bmi = 600;
-  const canvWidth_bmi = 1200;
+  const canvHeight_bmi = getHeight();
+  const canvWidth_bmi = getWidth();
   const margin_bmi = {top: 100, right: 240, bottom: 60, left: 240};
 
 //size of chart area.
@@ -144,7 +144,8 @@ const BMIChartAndForm = () => {
 //attach svg
   const svg2 = d3.select("#diagram_bmi").append("svg").attr("id", "svg_bmi")
     .attr("width", canvWidth_bmi)
-    .attr("height", canvHeight_bmi);
+    .attr("height", canvHeight_bmi)
+    .attr("style", "background: transparent; border-radius: 8px; outline: 1px solid transparent;");
 
 //attach #chart-area
   const g1_bmi = svg2.append("g")
@@ -349,6 +350,7 @@ updateDiagramBMI()
     g3_bmi.append("text")
       .attr("id", "year_2")
       .attr("class", "year")
+      .attr("style", "margin-top: calc(" + getHeight() +"px - 35px + 40px)")//+40px
       .text(currentYear_bmi)
   }
 
@@ -372,6 +374,8 @@ updateDiagramBMI()
 //init
   updateCurrentYearBMI()
 
+  const sliderWidth = getSliderWidth(getHeight());
+
   g3_bmi.append("input")
     .attr("id", "slider2")
     .attr("type", "range")
@@ -379,6 +383,10 @@ updateDiagramBMI()
     .attr("max", maxYear_bmi)
     .attr("step", 1)
     .attr("value", currentYear_bmi)
+    .attr("style", "background: transparent; " +
+      "width: " + sliderWidth + "px; " +
+      "margin-left: calc(" + -sliderWidth/2 +  "px - 63px);" +
+      "margin-top: calc(" + sliderWidth/2 + "px + 60px + 40px);") //+40px
     .on("input", d => setCurrentYearToNewValueBMI());
 
 

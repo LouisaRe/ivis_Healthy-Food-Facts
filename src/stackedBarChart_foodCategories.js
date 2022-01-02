@@ -1,22 +1,23 @@
 import "../lib/d3/d3.js"
+import {getHeight, getSliderWidth, getWidth} from "./diagramFunctionality.js";
 
 const foodCategories = async () => {
   const title = "Average Dietary Composition per person/day"
 
   //size and margin of svg
-  const canvHeight = 600;
-  const canvWidth = 1200;
-  const margin = {top: 80, right: 280, bottom: 60, left: 200};
+  const canvHeight = getHeight();
+  const canvWidth  = getWidth();
+  const margin     = {top: 80, right: 280, bottom: 60, left: 200};
 
   //size of chart area.
-  const width = canvWidth - margin.left - margin.right;
+  const width  = canvWidth - margin.left - margin.right;
   const height = canvHeight - margin.top - margin.bottom;
-  // let height = data.length * 25 + margin.top + margin.bottom
 
   //attach svg
   const svg4 = d3.select("#stackedBarChart_foodCategories").append("svg")
     .attr("width", canvWidth)
-    .attr("height", canvHeight);
+    .attr("height", canvHeight)
+    .attr("style", "background: transparent; border-radius: 8px; outline: 1px solid transparent;");
 
   //attach #chart-area
   const chartAreaGroup = svg4.append("g")
@@ -239,6 +240,7 @@ const foodCategories = async () => {
     sliderGroup.append("text")
       .attr("id", "year_4")
       .attr("class", "year")
+      .attr("style", "margin-top: calc(" + getHeight() +"px - 35px)")
       .text(currentYear)
   }
 
@@ -263,6 +265,9 @@ const foodCategories = async () => {
 //init
   updateCurrentYear()
 
+
+  const sliderWidth = getSliderWidth(getHeight());
+
   sliderGroup.append("input")
     .attr("id", "slider4")
     .attr("type", "range")
@@ -270,6 +275,10 @@ const foodCategories = async () => {
     .attr("max", maxYear)
     .attr("step", 1)
     .attr("value", currentYear)
+    .attr("style", "background: transparent; " +
+      "width: " + sliderWidth + "px; " +
+      "margin-left: calc(" + -sliderWidth/2 +  "px - 63px);" +
+      "margin-top: calc(" + sliderWidth/2 + "px + 60px);")
     .on("input", d => setCurrentYearToNewValue());
 
 

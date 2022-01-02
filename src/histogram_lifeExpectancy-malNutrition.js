@@ -1,21 +1,23 @@
 import "../lib/d3/d3.js"
+import {getHeight, getWidth, getSliderWidth} from "./diagramFunctionality.js";
 
 const lifeExpectancyMalNutrition = () => {
   const title = "Life expectancy vs. Malnutrition"
 
 //size and margin of svg
-  const canvHeight = 600;
-  const canvWidth = 1200;
-  const margin = {top: 80, right: 240, bottom: 60, left: 240};
+  const canvHeight = getHeight();
+  const canvWidth  = getWidth();
+  const margin     = {top: 80, right: 240, bottom: 60, left: 240};
 
 //size of chart area.
-  const width = canvWidth - margin.left - margin.right;
+  const width  = canvWidth - margin.left - margin.right;
   const height = canvHeight - margin.top - margin.bottom;
 
 //attach svg
   const svg1 = d3.select("#histogram_lifeExpectancy-malNutrition").append("svg")
     .attr("width", canvWidth)
-    .attr("height", canvHeight);
+    .attr("height", canvHeight)
+    .attr("style", "background: transparent; border-radius: 8px; outline: 1px solid transparent;");
 
 //attach #chart-area
   const chartAreaGroup = svg1.append("g")
@@ -216,6 +218,7 @@ const lifeExpectancyMalNutrition = () => {
     sliderGroup.append("text")
       .attr("id", "year_1")
       .attr("class", "year")
+      .attr("style", "margin-top: calc(" + getHeight() +"px - 35px)")
       .text(currentYear)
   }
 
@@ -240,6 +243,8 @@ const lifeExpectancyMalNutrition = () => {
 //init
   updateCurrentYear()
 
+  const sliderWidth = getSliderWidth(getHeight());
+
   sliderGroup.append("input")
     .attr("id", "slider1")
     .attr("type", "range")
@@ -247,6 +252,10 @@ const lifeExpectancyMalNutrition = () => {
     .attr("max", maxYear)
     .attr("step", 1)
     .attr("value", currentYear)
+    .attr("style", "background: transparent; " +
+                   "width: " + sliderWidth + "px; " +
+                   "margin-left: calc(" + -sliderWidth/2 +  "px - 63px);" +
+                   "margin-top: calc(" + sliderWidth/2 + "px + 60px);")
     .on("input", d => setCurrentYearToNewValue());
 
 
