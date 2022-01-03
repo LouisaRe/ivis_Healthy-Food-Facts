@@ -1,5 +1,11 @@
 import "../lib/d3/d3.js"
-import {getHeight, getSliderWidth, getWidth} from "./diagramFunctionality.js";
+import {
+  getHeight,
+  getWidth,
+  createSliderGroup,
+  updateYear,
+  createSlider
+} from "./diagramFunctionality.js";
 
 const foodCategories = async () => {
   const title = "Average Dietary Composition per person/day"
@@ -15,6 +21,9 @@ const foodCategories = async () => {
 
   //attach svg
   const svg4 = d3.select("#stackedBarChart_foodCategories").append("svg")
+    .attr("id", "svg4")
+    //.attr("preserveAspectRatio", "xMinYMin meet")
+    //.attr("viewBox", "0 0 1200 600")
     .attr("width", canvWidth)
     .attr("height", canvHeight)
     .attr("style", "background: transparent; border-radius: 8px; outline: 1px solid transparent;");
@@ -230,19 +239,12 @@ const foodCategories = async () => {
   const maxYear = 2013
 
 //attach #year-slider
-  const sliderGroup = d3.select("#stackedBarChart_foodCategories").append("g")
-    .attr("class", "year-slider");
+  const sliderGroup = createSliderGroup("stackedBarChart_foodCategories");
 
 //****************************
 //functions
 
-  let updateCurrentYear = () => {
-    sliderGroup.append("text")
-      .attr("id", "year_4")
-      .attr("class", "year")
-      .attr("style", "margin-top: calc(" + getHeight() +"px - 35px)")
-      .text(currentYear)
-  }
+  let updateCurrentYear = () => updateYear(currentYear, sliderGroup, "year_4", "stackedBarChart_foodCategories");
 
   let updateYearAndDiagram = () => {
     d3.select("#year_4").remove()
@@ -256,7 +258,6 @@ const foodCategories = async () => {
     document.getElementById("year_4").innerHTML = val;
     currentYear = Number(val)
     updateYearAndDiagram()
-    console.log(currentYear)
   }
 
 //****************************
@@ -264,23 +265,7 @@ const foodCategories = async () => {
 
 //init
   updateCurrentYear()
-
-
-  const sliderWidth = getSliderWidth(getHeight());
-
-  sliderGroup.append("input")
-    .attr("id", "slider4")
-    .attr("type", "range")
-    .attr("min", minYear)
-    .attr("max", maxYear)
-    .attr("step", 1)
-    .attr("value", currentYear)
-    .attr("style", "background: transparent; " +
-      "width: " + sliderWidth + "px; " +
-      "margin-left: calc(" + -sliderWidth/2 +  "px - 63px);" +
-      "margin-top: calc(" + sliderWidth/2 + "px + 60px);")
-    .on("input", d => setCurrentYearToNewValue());
-
+  createSlider(sliderGroup, minYear, maxYear, currentYear, "slider4", "stackedBarChart_foodCategories").on("input", d => setCurrentYearToNewValue());
 
 
 //**************************************************************************

@@ -233,7 +233,7 @@ li{
   line-height: 1.2;
   text-transform: uppercase;
   color: #5c7d8c;
-  margin-left: -105px;
+  margin-left: -42px;
   font-weight: 500;
 }
 
@@ -445,7 +445,7 @@ input[type=range]::-moz-range-thumb {
 }
 
 .container_food_image {
-    max-width: 100%;
+    max-width: 850px;
     flex-basis: 70%;
 }
 

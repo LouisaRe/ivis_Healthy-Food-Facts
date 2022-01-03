@@ -1,5 +1,12 @@
 import "../lib/d3/d3.js"
-import {getHeight, getWidth, getSliderWidth} from "./diagramFunctionality.js";
+import {
+  getHeight,
+  getWidth,
+  createSliderGroup,
+  updateYear,
+  createSlider,
+  getSvgWidth
+} from "./diagramFunctionality.js";
 
 const BMIChartAndForm = () => {
 
@@ -165,8 +172,9 @@ const BMIChartAndForm = () => {
     .text(title_bmi);
 
 //attach png
+  const yValue = 48 + 90 - getSvgWidth('diagram_bmi')/1200 * 90
   svg2.append("image").attr("xlink:href", "img/background_pic_bmi.svg").attr("alt", "BMI icons")
-    .attr("x", margin_bmi.left).attr("y", 48).attr("width", width_bmi)
+    .attr("x", margin_bmi.left).attr("y", yValue).attr("width", width_bmi)
 
 //x axis - text label
   g1_bmi.append("text")
@@ -193,7 +201,7 @@ const BMIChartAndForm = () => {
   const colorDomain_bmi = [18.5, 25, 30, 35, 40]
   const colorScale_bmi = ["#F1D09B", "#C6D79E", "#F2C3A3", "#EDAE8F", "#E79D89"]
 
-  var currentYear_bmi = 2016
+  var currentYear = 2016
   var currentCountries_bmi = ["Bangladesh", "Egypt", "Ethiopia", "Samoa", "Switzerland", "United States", "World"]
 
   let updateDiagramBMI = () => d3.csv("./data/Bmi.csv").then(function (data) { //load data from cleaned csv file asynchronous
@@ -214,7 +222,7 @@ const BMIChartAndForm = () => {
         writable: true
       },
       Year: {
-        value: currentYear_bmi,
+        value: currentYear,
         writable: true
       },
       BMI : {
@@ -247,7 +255,7 @@ const BMIChartAndForm = () => {
     data = data.filter(d => currentCountries_bmi.includes(String(d.Entity)));
     const BMIDomainForAllYears = d3.extent(data, d => Number(d.BMI))
 
-    data = data.filter(d => Number(d.Year) === currentYear_bmi);
+    data = data.filter(d => Number(d.Year) === currentYear);
     const countriesDomainBMI = [...new Set(data.map(d => String(d.Entity)))]
 
     //xScale
@@ -336,35 +344,28 @@ updateDiagramBMI()
 //**************************************************************************
 //Year-Slider
 
-  const minYear_bmi = 1975
-  const maxYear_bmi = 2016
+  const minYear = 1975
+  const maxYear = 2016
 
 //attach #year-slider
-  const g3_bmi = d3.select("#diagram_bmi").append("g")
-    .attr("class", "year-slider");
+  const sliderGroup = createSliderGroup("diagram_bmi");
 
 //****************************
 //functions
 
-  let updateCurrentYearBMI = () => {
-    g3_bmi.append("text")
-      .attr("id", "year_2")
-      .attr("class", "year")
-      .attr("style", "margin-top: calc(" + getHeight() +"px - 35px + 40px)")//+40px
-      .text(currentYear_bmi)
-  }
+  let updateCurrentYear = () => updateYear(currentYear, sliderGroup, "year_2", "diagram_bmi");
 
   let updateYearAndDiagramBMI = () => {
     d3.select("#year_2").remove()
-    updateCurrentYearBMI()
+    updateCurrentYear()
     updateDiagramBMI()
   }
 
 //Show currentYear
-  let setCurrentYearToNewValueBMI = () => {
+  let setCurrentYearToNewValue = () => {
     var val = document.getElementById("slider2").value;
     document.getElementById("year_2").innerHTML = val;
-    currentYear_bmi = Number(val)
+    currentYear = Number(val)
     updateYearAndDiagramBMI()
   }
 
@@ -372,22 +373,8 @@ updateDiagramBMI()
 //functions
 
 //init
-  updateCurrentYearBMI()
-
-  const sliderWidth = getSliderWidth(getHeight());
-
-  g3_bmi.append("input")
-    .attr("id", "slider2")
-    .attr("type", "range")
-    .attr("min", minYear_bmi)
-    .attr("max", maxYear_bmi)
-    .attr("step", 1)
-    .attr("value", currentYear_bmi)
-    .attr("style", "background: transparent; " +
-      "width: " + sliderWidth + "px; " +
-      "margin-left: calc(" + -sliderWidth/2 +  "px - 63px);" +
-      "margin-top: calc(" + sliderWidth/2 + "px + 60px + 40px);") //+40px
-    .on("input", d => setCurrentYearToNewValueBMI());
+  updateCurrentYear()
+  createSlider(sliderGroup, minYear, maxYear, currentYear, "slider2", "diagram_bmi").on("input", d => setCurrentYearToNewValue());
 
 
 //**************************************************************************

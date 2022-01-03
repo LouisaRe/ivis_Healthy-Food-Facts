@@ -1,5 +1,5 @@
 import "../lib/d3/d3.js"
-import {getHeight, getWidth, getSliderWidth} from "./diagramFunctionality.js";
+import {getHeight, getWidth} from "./diagramFunctionality.js";
 
 // https://www.d3-graph-gallery.com/graph/scatter_basic.html
 // https://www.d3-graph-gallery.com/graph/scatter_tooltip.html

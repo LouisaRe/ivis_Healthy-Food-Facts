@@ -1,5 +1,11 @@
 import "../lib/d3/d3.js"
-import {getHeight, getWidth, getSliderWidth} from "./diagramFunctionality.js";
+import {
+  getHeight,
+  getWidth,
+  createSliderGroup,
+  updateYear,
+  createSlider
+} from "./diagramFunctionality.js";
 
 const lifeExpectancyMalNutrition = () => {
   const title = "Life expectancy vs. Malnutrition"
@@ -208,19 +214,12 @@ const lifeExpectancyMalNutrition = () => {
   const maxYear = 2017
 
 //attach .year-slider
-  const sliderGroup = d3.select("#histogram_lifeExpectancy-malNutrition").append("g")
-    .attr("class", "year-slider");
+  const sliderGroup = createSliderGroup("histogram_lifeExpectancy-malNutrition");
 
 //****************************
 //functions
 
-  let updateCurrentYear = () => {
-    sliderGroup.append("text")
-      .attr("id", "year_1")
-      .attr("class", "year")
-      .attr("style", "margin-top: calc(" + getHeight() +"px - 35px)")
-      .text(currentYear)
-  }
+  let updateCurrentYear = () => updateYear(currentYear, sliderGroup, "year_1", "histogram_lifeExpectancy-malNutrition");
 
   let updateYearAndDiagram = () => {
     d3.select("#year_1").remove()
@@ -242,22 +241,7 @@ const lifeExpectancyMalNutrition = () => {
 
 //init
   updateCurrentYear()
-
-  const sliderWidth = getSliderWidth(getHeight());
-
-  sliderGroup.append("input")
-    .attr("id", "slider1")
-    .attr("type", "range")
-    .attr("min", minYear)
-    .attr("max", maxYear)
-    .attr("step", 1)
-    .attr("value", currentYear)
-    .attr("style", "background: transparent; " +
-                   "width: " + sliderWidth + "px; " +
-                   "margin-left: calc(" + -sliderWidth/2 +  "px - 63px);" +
-                   "margin-top: calc(" + sliderWidth/2 + "px + 60px);")
-    .on("input", d => setCurrentYearToNewValue());
-
+  createSlider(sliderGroup, minYear, maxYear, currentYear, "slider1",  "histogram_lifeExpectancy-malNutrition").on("input", d => setCurrentYearToNewValue());
 
 //**************************************************************************
 //Entity-Chooser
